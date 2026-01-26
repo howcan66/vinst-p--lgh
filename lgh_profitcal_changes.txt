@@ -9,19 +9,27 @@ This file tracks planned updates to the LGH Profit Calculator.
 
 
 === New TO BE COMPLETED ===
-LGH.1 All Content to the Left & Top Alignment - Ask question if it is not clear
-LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels - Ask Question if it is not clear
-LGH.8 Lägg Vinstkalkylator vid försäljning av LGH i en top label ram tillsammans SV & EN Buttons
+
+LGH.12 Make textform height smaller - as suitable for mobile application
+LGH.14 Take away  Beräkningsdata
+LGH.13 Make space between  Vinstkalkylator vid försäljning av LGH & Försäljning smal shorter
+LGH.15 Change "Vinstkalkylator vid försäljning av LGH" to "Vinstkalkylator vid försäljning av LGH in SWE"
+LGH.17 Change "FÖRSÄLJNING" to "Försäljning"
+LGH.17 Change "ANSKAFFNINGSKOSTNADER" to "Anskaffningskostnader"
+LGH.18 Change Hur kan vi få översättnings knappen EN att fungera. Nu ändrar den bara på titeln...
+
 
 ========== Redo Above ==========
 
 ========== No action Below on speciic rows =====
+LGH.1 All Content to the Left & Top Alignment - Ask question if it is not clear
+LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels - Ask Question if it is not clear
+LGH.8 Lägg Vinstkalkylator vid försäljning av LGH i en top label ram tillsammans SV & EN Buttons
 LGH.2 Vinstbereknare för LGH change it to "Vinstkalkylator vi färsäljning av LGH"
 LGH.3 Flytt SV och EN knapp top Left
 LGH.4 Change  "Anskaffningskostnader" till att vara på två rader:
 "Anskaffnings
 kostnader"
-
 LGH.6 Lägg till en datum YY.MM.DD och timestamp i botten till vänster
 LGH.7 Ändra så att alla Beräknings och resultat data blir bold och samma storlek som textform datat
 LGH.11 Tabort Beräkna din vinst vid försäljning

@@ -29,7 +29,7 @@
             justify-content: space-between;
             align-items: center;
             color: white;
-            margin-bottom: 16px;
+            margin-bottom: 6px;
             padding: 12px 16px;
             background: #000;
             border-radius: 8px;
@@ -53,12 +53,7 @@
         }
 
         .card-header {
-            background: #000;
-            color: white;
-            padding: 12px 16px;
-            font-weight: 700;
-            font-size: 14px;
-            text-align: left;
+            display: none;
         }
 
         .card-body {
@@ -85,13 +80,14 @@
         }
 
         .input-field {
-            padding: 8px;
+            padding: 4px 6px;
             border: 1px solid #fff;
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
             background: #fff;
             color: #000;
+            height: 32px;
         }
 
         .input-field:focus {
@@ -106,7 +102,6 @@
             color: #fff;
             margin-top: 12px;
             margin-bottom: 8px;
-            text-transform: uppercase;
             letter-spacing: 0.5px;
             text-align: left;
         }
@@ -198,9 +193,7 @@
 
 <div class="container">
     <div class="header">
-        <h1 id="title">Vinstkalkylator vid försäljning av LGH</h1>
-        <div class="language-toggle">
-            <button class="lang-btn active" data-lang="sv">SV</button>
+        <h1 id="title">Vinstkalkylator vid försäljning av LGH in SWE</h1>
             <button class="lang-btn" data-lang="en">EN</button>
         </div>
     </div>
@@ -297,7 +290,7 @@
     // Language strings
     const translations = {
         sv: {
-            title: 'Vinstkalkylator vid försäljning av LGH',
+            title: 'Vinstkalkylator vid försäljning av LGH in SWE',
             subtitle: '',
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
@@ -322,7 +315,7 @@
             footer: '© 2026 LGH Vinstbereknare | Beräknad lokalt'
         },
         en: {
-            title: 'Apartment Sale Profit Calculator',
+            title: 'Apartment Sale Profit Calculator in SWE',
             subtitle: '',
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
