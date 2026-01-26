@@ -13,10 +13,10 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000;
             padding: 8px;
             min-height: 100vh;
-            color: #333;
+            color: #fff;
         }
 
         .container {
@@ -25,7 +25,7 @@
         }
 
         .header {
-            text-align: center;
+            text-align: left;
             color: white;
             margin-bottom: 16px;
             padding: 12px 0;
@@ -37,24 +37,24 @@
         }
 
         .header .subtitle {
-            font-size: 12px;
-            opacity: 0.9;
+            display: none;
         }
 
         .card {
-            background: white;
+            background: #000;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
             margin-bottom: 16px;
             overflow: hidden;
         }
 
         .card-header {
-            background: #667eea;
+            background: #000;
             color: white;
             padding: 12px 16px;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 14px;
+            text-align: left;
         }
 
         .card-body {
@@ -65,7 +65,7 @@
             margin-bottom: 10px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 4px;
             align-items: center;
         }
 
@@ -74,33 +74,37 @@
         }
 
         .input-label {
-            font-size: 12px;
-            color: #555;
-            font-weight: 500;
+            font-size: 14px;
+            color: #fff;
+            font-weight: 700;
+            text-align: left;
         }
 
         .input-field {
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #fff;
             border-radius: 6px;
             font-size: 14px;
             font-family: inherit;
+            background: #fff;
+            color: #000;
         }
 
         .input-field:focus {
             outline: none;
-            border-color: #667eea;
-            background: #f8f9ff;
+            border-color: #fff;
+            background: #fff;
         }
 
         .section-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: #667eea;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
             margin-top: 12px;
             margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            text-align: left;
         }
 
         .output-row {
@@ -109,7 +113,7 @@
             gap: 8px;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #333;
         }
 
         .output-row:last-child {
@@ -117,32 +121,33 @@
         }
 
         .output-label {
-            font-size: 12px;
-            color: #555;
-            font-weight: 500;
+            font-size: 14px;
+            color: #fff;
+            font-weight: 700;
+            text-align: left;
         }
 
         .output-value {
             text-align: right;
             font-size: 14px;
-            font-weight: 600;
-            color: #667eea;
+            font-weight: 700;
+            color: #fff;
             font-family: 'Courier New', monospace;
         }
 
         .language-toggle {
             position: fixed;
             top: 10px;
-            right: 10px;
+            left: 10px;
             z-index: 10;
         }
 
         .lang-btn {
             padding: 6px 12px;
             margin: 0 2px;
-            border: none;
-            background: white;
-            color: #667eea;
+            border: 1px solid #fff;
+            background: #000;
+            color: #fff;
             border-radius: 6px;
             font-size: 12px;
             font-weight: 600;
@@ -151,8 +156,8 @@
         }
 
         .lang-btn.active {
-            background: #667eea;
-            color: white;
+            background: #fff;
+            color: #000;
         }
 
         .lang-btn:hover {
@@ -196,8 +201,8 @@
 
 <div class="container">
     <div class="header">
-        <h1 id="title">Vinstbereknare för LGH</h1>
-        <div class="subtitle" id="subtitle">Beräkna din vinst vid försäljning</div>
+        <h1 id="title">Vinstkalkylator vid försäljning av LGH</h1>
+        <div class="subtitle" id="subtitle"></div>
     </div>
 
     <!-- Input Card -->
@@ -216,7 +221,7 @@
             </div>
 
             <!-- Acquisition Costs Section -->
-            <div class="section-title" id="sec-costs">Anskaffningskostnader</div>
+            <div class="section-title" id="sec-costs">Anskaffnings<br>kostnader</div>
             <div class="input-group">
                 <label class="input-label" id="label-purchase">Inköpspris (kr)</label>
                 <input type="number" id="inkopspris" class="input-field" value="380000" min="0">
@@ -282,7 +287,8 @@
         </div>
     </div>
 
-    <div style="text-align: center; color: white; font-size: 11px; margin-top: 16px; opacity: 0.8;">
+    <div style="text-align: left; color: white; font-size: 11px; margin-top: 16px; opacity: 0.8; display: flex; justify-content: space-between;">
+        <p id="footer-left"></p>
         <p id="footer">© 2026 LGH Vinstbereknare | Beräknad lokalt</p>
     </div>
 </div>
@@ -291,12 +297,12 @@
     // Language strings
     const translations = {
         sv: {
-            title: 'Vinstbereknare för LGH',
-            subtitle: 'Beräkna din vinst vid försäljning',
+            title: 'Vinstkalkylator vid försäljning av LGH',
+            subtitle: '',
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
             secSale: 'Försäljning',
-            secCosts: 'Anskaffningskostnader',
+            secCosts: 'Anskaffnings<br>kostnader',
             secTax: 'Skatt',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
@@ -316,12 +322,12 @@
             footer: '© 2026 LGH Vinstbereknare | Beräknad lokalt'
         },
         en: {
-            title: 'Apartment Profit Calculator',
-            subtitle: 'Calculate your profit on sale',
+            title: 'Apartment Sale Profit Calculator',
+            subtitle: '',
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
             secSale: 'Sale',
-            secCosts: 'Acquisition Costs',
+            secCosts: 'Acquisition<br>Costs',
             secTax: 'Tax',
             labelPrice: 'Sale Price (SEK)',
             labelLoan: 'Loan (SEK)',
@@ -408,7 +414,7 @@
         document.getElementById('input-header').textContent = t.inputHeader;
         document.getElementById('result-header').textContent = t.resultHeader;
         document.getElementById('sec-sale').textContent = t.secSale;
-        document.getElementById('sec-costs').textContent = t.secCosts;
+        document.getElementById('sec-costs').innerHTML = t.secCosts;
         document.getElementById('sec-tax').textContent = t.secTax;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-loan').textContent = t.labelLoan;
@@ -448,7 +454,20 @@
         });
     });
 
-    // Initial calculation
+    // Set timestamp
+    function updateTimestamp() {
+        const now = new Date();
+        const yy = String(now.getFullYear()).slice(-2);
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        const timestamp = `${yy}.${mm}.${dd} ${hh}:${min}`;
+        document.getElementById('footer-left').textContent = timestamp;
+    }
+
+    // Initial calculation and timestamp
+    updateTimestamp();
     calculate();
 </script>
 

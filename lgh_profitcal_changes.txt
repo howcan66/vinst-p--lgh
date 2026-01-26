@@ -1,0 +1,60 @@
+lgh_profitcal_changes.txt - Upcoming Changes & Improvements
+
+This file tracks planned updates to the LGH Profit Calculator.
+
+=== New TO BE COMPLETED ===
+Review Text And Style
+LGH.1 All Content to the Left & Top Alignment
+LGH.2 Vinstbereknare för LGH change it to "Vinstkalkylator vi färsäljning av LGH"
+LGH.3 Flytt SV och EN knapp top Left
+LGH.4 Change  "Anskaffningskostnader" till att vara på två rader:
+"Anskaffnings
+kostnader"
+LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels
+
+LGH.6 Lägg till en datum YY.MM.DD och timestamp i botten till vänster
+LGH.7 Ändra så att alla Beräknings och resultat data blir bold och samma storlek som textform datat
+LGH.11 Tabort Beräkna din vinst vid försäljning
+LGH.9 Ändra färg till svart. ALl text vitt. text form vit bakgrund svart text
+
+
+
+
+
+=== TO BE COMPLETED === As suggested by AI ===
+
+1. Design/UI Tweaks
+   - Color adjustments?
+   - Layout refinements?
+   - Typography/spacing?
+
+2. Feature Additions
+   - Additional calculations?
+   - Export/print functionality?
+   - Save/load calculations?
+
+3. Content Changes
+   - Label or placeholder updates?
+   - Help text or tooltips?
+   - New sections?
+
+4. Performance/Optimization
+   - Any speed/performance concerns?
+   - Mobile testing feedback?
+
+5. Bug Fixes
+   - Any issues found during testing?
+
+=== NOTES ===
+- Keep all changes backward-compatible with current formulas
+- Maintain bilingual (SV/EN) support
+- Preserve mobile-first responsive design
+- Test on GitHub Pages before merging to main
+
+---
+Next Steps:
+1. List specific changes needed (from user input)
+2. Prioritize by impact
+3. Update this file with details
+4. Implement and test
+5. Commit and push to main
