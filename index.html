@@ -118,6 +118,12 @@
             background: #fff;
         }
 
+        .status-text {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 4px;
+        }
+
         .section-title {
             font-size: 14px;
             font-weight: 700;
@@ -344,49 +350,57 @@
     <div class="card">
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
+            <div class="input-group full" style="margin-bottom: 8px;">
+                <label class="input-label" id="label-obj1">Obj1 länk</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <input type="text" id="obj1-url" class="input-field" placeholder="https://..." inputmode="url" aria-label="Objektlänk">
+                    <button type="button" class="lang-btn" id="fetch-obj1-btn" data-tooltip="Hämta pris">⇩</button>
+                </div>
+                <div class="status-text" id="obj1-status"></div>
+            </div>
             <!-- Sale Price Section -->
             <div class="input-group">
                 <label class="input-label" id="label-price">Försäljningspris (kr)</label>
-                <input type="text" id="forsaljningspris" class="input-field" value="4350000" inputmode="numeric">
+                <input type="text" id="forsaljningspris" class="input-field number-field" value="4350000" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label class="input-label" id="label-loan">Lån (kr)</label>
-                <input type="text" id="lan" class="input-field" value="1950000" inputmode="numeric">
+                <input type="text" id="lan" class="input-field number-field" value="1950000" inputmode="numeric">
             </div>
 
             <!-- Acquisition Costs Section -->
             <div class="input-group">
                 <label class="input-label" id="label-purchase">Inköpspris (kr)</label>
-                <input type="text" id="inkopspris" class="input-field" value="380000" inputmode="numeric">
+                <input type="text" id="inkopspris" class="input-field number-field" value="380000" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label class="input-label" id="label-broker">Mäklararvode (kr)</label>
-                <input type="text" id="maklararvode" class="input-field" value="65000" inputmode="numeric">
+                <input type="text" id="maklararvode" class="input-field number-field" value="65000" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label class="input-label" id="label-styling">Styling (kr)</label>
-                <input type="text" id="styling" class="input-field" value="0" inputmode="numeric">
+                <input type="text" id="styling" class="input-field number-field" value="0" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label class="input-label" id="label-photo">Fotografering (kr)</label>
-                <input type="text" id="fotografering" class="input-field" value="0" inputmode="numeric">
+                <input type="text" id="fotografering" class="input-field number-field" value="0" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label class="input-label" id="label-reno">Renoveringskostnader (kr)</label>
-                <input type="text" id="renoveringskostnader" class="input-field" value="200000" inputmode="numeric">
+                <input type="text" id="renoveringskostnader" class="input-field number-field" value="200000" inputmode="numeric">
             </div>
             <div class="input-group">
                 <label class="input-label" id="label-other">Övriga avdragsgilla (kr)</label>
-                <input type="text" id="ovriga" class="input-field" value="0" inputmode="numeric">
+                <input type="text" id="ovriga" class="input-field number-field" value="0" inputmode="numeric">
             </div>
             <div class="input-group" style="margin-bottom: 2px;">
                 <label class="input-label" id="label-capital">Kapitaltillskott, from BRF (kr)</label>
-                <input type="text" id="kapitaltillskott" class="input-field" value="10000" inputmode="numeric">
+                <input type="text" id="kapitaltillskott" class="input-field number-field" value="10000" inputmode="numeric">
             </div>
 
             <div class="input-group" style="display: none;">
                 <label class="input-label" id="label-taxrate">Skattesats (%)</label>
-                <input type="text" id="skattesats" class="input-field" value="22" inputmode="numeric">
+                <input type="text" id="skattesats" class="input-field number-field" value="22" inputmode="numeric">
             </div>
         </div>
     </div>
@@ -445,7 +459,9 @@
             labelCalc2: 'Vinst före skatt (kr)',
             labelCalc3: 'Skatt (kr & 22%)',
             labelCalc4: 'Nettoresultat efter skatt (kr)',
-            labelCalc5: 'Vinst efter avdrag för lån (kr)'
+            labelCalc5: 'Vinst efter avdrag för lån (kr)',
+            obj1Label: 'Obj1 länk',
+            obj1Fetch: 'Hämta pris'
         },
         en: {
             title: 'Apartment Sales Profit Calculator',
@@ -466,7 +482,9 @@
             labelCalc2: 'Profit Before Tax (SEK)',
             labelCalc3: 'Tax (SEK & 22%)',
             labelCalc4: 'Net Result After Tax (SEK)',
-            labelCalc5: 'Profit After Loan Deduction (SEK)'
+            labelCalc5: 'Profit After Loan Deduction (SEK)',
+            obj1Label: 'Obj1 link',
+            obj1Fetch: 'Fetch price'
         }
     };
 
@@ -489,6 +507,57 @@
             maximumFractionDigits: 0
         }).format(value);
     }
+
+    // URL normalizer
+    function normalizeUrl(url) {
+        if (!url) return '';
+        return /^https?:\/\//i.test(url) ? url : 'https://' + url;
+    }
+
+    // Extract price from HTML string
+    function extractPriceFromHtml(html) {
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const metaSelectors = [
+            'meta[property="product:price:amount"]',
+            'meta[property="og:price:amount"]',
+            'meta[name="price"]',
+            'meta[itemprop="price"]'
+        ];
+        for (const sel of metaSelectors) {
+            const m = doc.querySelector(sel);
+            if (m && m.content) {
+                const val = parseNumber(m.content);
+                if (val > 0) return val;
+            }
+        }
+        const dataPriceEl = doc.querySelector('[data-price]');
+        if (dataPriceEl) {
+            const val = parseNumber(dataPriceEl.getAttribute('data-price') || dataPriceEl.textContent);
+            if (val > 0) return val;
+        }
+        const text = html.replace(/\n/g, ' ');
+        const match = text.match(/([0-9][0-9\s]{4,})\s?(kr|sek)/i);
+        if (match) {
+            const val = parseNumber(match[1]);
+            if (val > 0) return val;
+        }
+        return null;
+    }
+
+    const objStatus = {
+        sv: {
+            fetching: 'Hämtar pris...',
+            notFound: 'Hittade inget pris. Ange manuellt.',
+            error: 'Kunde inte hämta. Ange manuellt.',
+            set: (v) => `Pris hämtat: ${formatNumber(v)} kr`
+        },
+        en: {
+            fetching: 'Fetching price...',
+            notFound: 'No price found. Enter manually.',
+            error: 'Could not fetch. Enter manually.',
+            set: (v) => `Price fetched: ${formatNumber(v)} SEK`
+        }
+    };
 
     // Get input values
     function getInputs() {
@@ -543,16 +612,15 @@
         document.getElementById('title').textContent = t.title;
         document.getElementById('input-header').textContent = t.inputHeader;
         document.getElementById('result-header').textContent = t.resultHeader;
+        document.getElementById('label-obj1').textContent = t.obj1Label;
 
         const refreshBtn = document.getElementById('refresh-btn');
-        if (lang === 'en') {
-            refreshBtn.textContent = t.refreshLink;
-            refreshBtn.classList.add('refresh-link');
-            refreshBtn.setAttribute('data-tooltip', t.refreshLink);
-        } else {
-            refreshBtn.textContent = '🔄';
-            refreshBtn.classList.remove('refresh-link');
-            refreshBtn.setAttribute('data-tooltip', 'Uppdatera');
+        if (refreshBtn) {
+            refreshBtn.setAttribute('data-tooltip', lang === 'sv' ? 'Uppdatera' : 'Refresh');
+        }
+        const fetchObjBtn = document.getElementById('fetch-obj1-btn');
+        if (fetchObjBtn) {
+            fetchObjBtn.setAttribute('data-tooltip', t.obj1Fetch);
         }
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-loan').textContent = t.labelLoan;
@@ -596,6 +664,63 @@
             setLanguage(btn.getAttribute('data-lang'));
         });
     });
+
+    // Obj1 fetch button
+    const objUrlInput = document.getElementById('obj1-url');
+    const objFetchBtn = document.getElementById('fetch-obj1-btn');
+    const objStatusEl = document.getElementById('obj1-status');
+
+    function setObjStatus(key, value) {
+        if (!objStatusEl) return;
+        const messages = objStatus[currentLang] || objStatus.sv;
+        if (key === 'set' && typeof messages.set === 'function') {
+            objStatusEl.textContent = messages.set(value);
+        } else {
+            objStatusEl.textContent = messages[key] || '';
+        }
+    }
+
+    async function fetchObjPrice() {
+        if (!objUrlInput) return;
+        const rawUrl = objUrlInput.value.trim();
+        if (!rawUrl) {
+            setObjStatus('notFound');
+            return;
+        }
+        const url = normalizeUrl(rawUrl);
+        objUrlInput.value = url;
+        setObjStatus('fetching');
+        try {
+            const res = await fetch(url, { mode: 'cors' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const html = await res.text();
+            const price = extractPriceFromHtml(html);
+            if (price && price > 0) {
+                const priceInput = document.getElementById('forsaljningspris');
+                if (priceInput) {
+                    priceInput.value = formatNumber(price);
+                    calculate();
+                    saveData();
+                }
+                setObjStatus('set', price);
+            } else {
+                setObjStatus('notFound');
+            }
+        } catch (e) {
+            console.error('Obj1 fetch failed', e);
+            setObjStatus('error');
+        }
+    }
+
+    if (objFetchBtn) {
+        objFetchBtn.addEventListener('click', fetchObjPrice);
+    }
+    if (objUrlInput) {
+        objUrlInput.addEventListener('blur', () => {
+            objUrlInput.value = normalizeUrl(objUrlInput.value.trim());
+            saveData();
+        });
+    }
 
     // Print button
     const printBtn = document.getElementById('print-btn');
@@ -672,6 +797,7 @@
             renoveringskostnader: document.getElementById('renoveringskostnader').value,
             kapitaltillskott: document.getElementById('kapitaltillskott').value,
             skattesats: document.getElementById('skattesats').value,
+            obj1Url: document.getElementById('obj1-url') ? document.getElementById('obj1-url').value : '',
             language: currentLang,
             timestamp: new Date().toISOString()
         };
@@ -695,6 +821,9 @@
                 document.getElementById('renoveringskostnader').value = data.renoveringskostnader || 200000;
                 document.getElementById('kapitaltillskott').value = data.kapitaltillskott || 10000;
                 document.getElementById('skattesats').value = data.skattesats || 22;
+                if (document.getElementById('obj1-url')) {
+                    document.getElementById('obj1-url').value = data.obj1Url || '';
+                }
                 if (data.language && data.language !== currentLang) {
                     setLanguage(data.language);
                 }
@@ -714,8 +843,8 @@
     updateTimestamp();
     calculate();
 
-    // Input validation - prevent negative values
-    document.querySelectorAll('.input-field').forEach(input => {
+    // Input validation - prevent negative values (numeric fields only)
+    document.querySelectorAll('.number-field').forEach(input => {
         input.addEventListener('input', function(e) {
             // Remove negative sign if typed
             if (this.value.startsWith('-')) {
