@@ -513,6 +513,52 @@
     }
 
     // Initial calculation and timestamp
+    // localStorage - Save data
+    function saveData() {
+        const data = {
+            forsaljningspris: document.getElementById('forsaljningspris').value,
+            lan: document.getElementById('lan').value,
+            inkopspris: document.getElementById('inkopspris').value,
+            maklararvode: document.getElementById('maklararvode').value,
+            renoveringskostnader: document.getElementById('renoveringskostnader').value,
+            kapitaltillskott: document.getElementById('kapitaltillskott').value,
+            skattesats: document.getElementById('skattesats').value,
+            language: currentLang,
+            timestamp: new Date().toISOString()
+        };
+        try {
+            localStorage.setItem('lghCalculatorData', JSON.stringify(data));
+        } catch (e) {
+            console.error('Could not save data:', e);
+        }
+    }
+
+    // localStorage - Load data
+    function loadData() {
+        try {
+            const saved = localStorage.getItem('lghCalculatorData');
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('forsaljningspris').value = data.forsaljningspris || 4350000;
+                document.getElementById('lan').value = data.lan || 1950000;
+                document.getElementById('inkopspris').value = data.inkopspris || 380000;
+                document.getElementById('maklararvode').value = data.maklararvode || 65000;
+                document.getElementById('renoveringskostnader').value = data.renoveringskostnader || 200000;
+                document.getElementById('kapitaltillskott').value = data.kapitaltillskott || 10000;
+                document.getElementById('skattesats').value = data.skattesats || 22;
+                if (data.language && data.language !== currentLang) {
+                    setLanguage(data.language);
+                }
+            }
+        } catch (e) {
+            console.error('Could not load data:', e);
+        }
+    }
+
+    // Load saved data on page load
+    loadData();
+
+    // Initial calculation and timestamp
     updateTimestamp();
     calculate();
 
@@ -534,7 +580,12 @@
                 this.value = 0;
                 calculate();
             }
+            // Save data after validation
+            saveData();
         });
+        
+        // Auto-save on change
+        input.addEventListener('change', saveData);
     });
 </script>
 
