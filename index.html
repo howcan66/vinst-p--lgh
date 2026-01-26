@@ -294,11 +294,6 @@
             color: #000;
         }
 
-        .secret-btn:hover {
-            color: #fff;
-            box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-        }
-
         @media (max-width: 480px) {
             .input-group {
                 grid-template-columns: 1fr;
@@ -336,7 +331,7 @@
             <h1 id="title">Kalkylator Försäljning LGH</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 4px;">
-            <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access" data-tooltip="Secret">S13</a>
+            <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access">S13</a>
             <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page" data-tooltip="Refresh">🔄</button>
             <button class="lang-btn active" data-lang="sv" aria-label="Swedish language" data-tooltip="Swedish">SV</button>
             <button class="lang-btn" data-lang="en" aria-label="English language" data-tooltip="English">EN</button>
@@ -351,7 +346,7 @@
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
             <div class="input-group full" style="margin-bottom: 8px;">
-                <label class="input-label" id="label-obj1">Köp Obj</label>
+                <label class="input-label" id="label-obj1">Köp Objekt</label>
                 <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
                     <input type="text" id="obj1-url" class="input-field" placeholder="https://..." inputmode="url" aria-label="Objektlänk" style="flex: 1 1 200px; max-width: 260px;">
                     <button type="button" class="lang-btn" id="obj1-fetch-btn" data-tooltip="Hämta pris">GURL</button>
@@ -473,8 +468,8 @@
             labelCalc3: 'Skatt (kr & 22%)',
             labelCalc4: 'Nettoresultat efter skatt (kr)',
             labelCalc5: 'Vinst efter avdrag för lån (kr)',
-            obj1Label: 'Köp Obj',
-            obj1Fetch: 'Hämta pris',
+            obj1Label: 'Köp Objekt',
+            obj1Fetch: 'Ladda URL',
             obj1Prev: 'Föregående',
             obj1Open: 'Öppna',
             obj1Next: 'Nästa',
@@ -504,7 +499,7 @@
             labelCalc4: 'Net Result After Tax (SEK)',
             labelCalc5: 'Profit After Loan Deduction (SEK)',
             obj1Label: 'Sales Objects',
-            obj1Fetch: 'Fetch price',
+            obj1Fetch: 'Load URL',
             obj1Prev: 'Previous',
             obj1Open: 'Open',
             obj1Next: 'Next',
@@ -523,6 +518,15 @@
 
     function formatNumber(value) {
         return Number(value || 0).toLocaleString('sv-SE');
+    }
+
+    function isValidHttpUrl(value) {
+        try {
+            const u = new URL(value);
+            return u.protocol === 'http:' || u.protocol === 'https:';
+        } catch (e) {
+            return false;
+        }
     }
 
     // Format currency (whole kronor)
@@ -766,7 +770,17 @@
     function addOrUpdateObject(url) {
         if (!url) return;
         const normalizedUrl = normalizeUrl(url.trim());
-        
+
+        // If the URL already exists, just jump to it
+        const existingIndex = objectsMemory.findIndex(o => o.url === normalizedUrl);
+        if (existingIndex !== -1) {
+            currentObjectIndex = existingIndex;
+            saveObjectsMemory();
+            updateObjectsUI();
+            setObjStatus('');
+            return;
+        }
+
         // If empty, create first object
         if (objectsMemory.length === 0) {
             objectsMemory.push({ url: normalizedUrl, savedPrice: 0 });
@@ -783,10 +797,10 @@
                 currentObjectIndex = objectsMemory.length - 1; // Move to new object
             }
         }
-        
+
         saveObjectsMemory();
         updateObjectsUI();
-        setObjStatus('notFound'); // Clear status
+        setObjStatus(''); // Clear status
     }
 
     // Navigate to previous object
@@ -807,7 +821,11 @@
 
     // Open current URL in new window
     function openCurrentObject() {
-        const url = objUrlInput.value.trim();
+        let url = objUrlInput.value.trim();
+        if (!url && objectsMemory.length > 0) {
+            const current = objectsMemory[currentObjectIndex];
+            url = current?.url || '';
+        }
         if (!url) {
             setObjStatus('notFound');
             return;
@@ -818,7 +836,7 @@
     // GURL button: Save URL to memory without fetching
     function saveUrlToMemory() {
         const rawUrl = objUrlInput.value.trim();
-        if (!rawUrl) {
+        if (!rawUrl || !isValidHttpUrl(rawUrl)) {
             setObjStatus('notFound');
             return;
         }
@@ -829,7 +847,10 @@
 
     // Scrape/fetch price from current URL
     async function scrapeCurrentObject() {
-        const rawUrl = objUrlInput.value.trim();
+        let rawUrl = objUrlInput.value.trim();
+        if (!rawUrl && objectsMemory.length > 0) {
+            rawUrl = objectsMemory[currentObjectIndex]?.url || '';
+        }
         if (!rawUrl) {
             setObjStatus('notFound');
             return;
