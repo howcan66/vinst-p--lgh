@@ -2,15 +2,25 @@ lgh_profitcal_changes.txt - Upcoming Changes & Improvements
 
 This file tracks planned updates to the LGH Profit Calculator.
 
+
+
+
+
+
+
 === New TO BE COMPLETED ===
-Review Text And Style
-LGH.1 All Content to the Left & Top Alignment
+LGH.1 All Content to the Left & Top Alignment - Ask question if it is not clear
+LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels - Ask Question if it is not clear
+LGH.8 Lägg Vinstkalkylator vid försäljning av LGH i en top label ram tillsammans SV & EN Buttons
+
+========== Redo Above ==========
+
+========== No action Below on speciic rows =====
 LGH.2 Vinstbereknare för LGH change it to "Vinstkalkylator vi färsäljning av LGH"
 LGH.3 Flytt SV och EN knapp top Left
 LGH.4 Change  "Anskaffningskostnader" till att vara på två rader:
 "Anskaffnings
 kostnader"
-LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels
 
 LGH.6 Lägg till en datum YY.MM.DD och timestamp i botten till vänster
 LGH.7 Ändra så att alla Beräknings och resultat data blir bold och samma storlek som textform datat
@@ -18,7 +28,7 @@ LGH.11 Tabort Beräkna din vinst vid försäljning
 LGH.9 Ändra färg till svart. ALl text vitt. text form vit bakgrund svart text
 
 
-
+========== No action Above on speciic rows =====
 
 
 === TO BE COMPLETED === As suggested by AI ===
