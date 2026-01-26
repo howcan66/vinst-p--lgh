@@ -217,7 +217,16 @@
             color: #4da3ff;
             text-decoration: underline;
             padding: 0;
+            margin: 0 2px;
             box-shadow: none;
+            border-radius: 0;
+            font-weight: 600;
+            min-width: 0;
+            height: auto;
+            line-height: 1.2;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
         }
 
         .refresh-link:hover {
@@ -582,7 +591,7 @@
         input.addEventListener('input', calculate);
     });
 
-    document.querySelectorAll('.lang-btn').forEach(btn => {
+    document.querySelectorAll('.lang-btn[data-lang]').forEach(btn => {
         btn.addEventListener('click', () => {
             setLanguage(btn.getAttribute('data-lang'));
         });
@@ -697,6 +706,9 @@
 
     // Load saved data on page load
     loadData();
+
+    // Ensure UI reflects current language on initial load
+    setLanguage(currentLang);
 
     // Initial calculation and timestamp
     updateTimestamp();
