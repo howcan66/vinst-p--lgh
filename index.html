@@ -200,6 +200,31 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* Print-friendly styling */
+        @media print {
+            body {
+                background: #fff;
+                color: #000;
+            }
+            .header,
+            .lang-btn,
+            .icon-btn,
+            .secret-btn,
+            button {
+                display: none !important;
+            }
+            .card {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            .input-field {
+                border: none;
+                border-bottom: 1px solid #000;
+                background: transparent;
+                color: #000;
+            }
+        }
+
         .icon-btn img {
             height: 20px;
             width: 20px;
@@ -258,6 +283,9 @@
             <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page">Refresh</button>
             <button class="lang-btn active" data-lang="sv" aria-label="Swedish language">SV</button>
             <button class="lang-btn" data-lang="en" aria-label="English language">EN</button>
+            <button class="lang-btn" id="print-btn" aria-label="Print calculations">🖨️</button>
+            <button class="lang-btn" id="email-btn" aria-label="Email results">✉️</button>
+            <button class="lang-btn" id="clear-btn" aria-label="Clear saved data">🗑️</button>
             <a href="mailto:coolportals@hotmail.com" class="icon-btn" aria-label="Email CoolPortals">
                 <img src="CoolPortals.PNG" alt="CoolPortals logo">
             </a>
@@ -396,6 +424,15 @@
 
     let currentLang = 'sv';
 
+    // Helpers
+    function parseNumber(value) {
+        return parseFloat(String(value || '').replace(/\s/g, '')) || 0;
+    }
+
+    function formatNumber(value) {
+        return Number(value || 0).toLocaleString('sv-SE');
+    }
+
     // Format currency (whole kronor)
     function formatSEK(value) {
         return new Intl.NumberFormat('sv-SE', {
@@ -408,16 +445,16 @@
     // Get input values
     function getInputs() {
         return {
-            forsaljningspris: parseFloat(document.getElementById('forsaljningspris').value) || 0,
-            lan: parseFloat(document.getElementById('lan').value) || 0,
-            inkopspris: parseFloat(document.getElementById('inkopspris').value) || 0,
-            maklararvode: parseFloat(document.getElementById('maklararvode').value) || 0,
-            styling: parseFloat(document.getElementById('styling').value) || 0,
-            fotografering: parseFloat(document.getElementById('fotografering').value) || 0,
-            renoveringskostnader: parseFloat(document.getElementById('renoveringskostnader').value) || 0,
-            ovriga: parseFloat(document.getElementById('ovriga').value) || 0,
-            kapitaltillskott: parseFloat(document.getElementById('kapitaltillskott').value) || 0,
-            skattesats: Math.max(0, Math.min(100, parseFloat(document.getElementById('skattesats').value) || 0)) / 100
+            forsaljningspris: parseNumber(document.getElementById('forsaljningspris').value),
+            lan: parseNumber(document.getElementById('lan').value),
+            inkopspris: parseNumber(document.getElementById('inkopspris').value),
+            maklararvode: parseNumber(document.getElementById('maklararvode').value),
+            styling: parseNumber(document.getElementById('styling').value),
+            fotografering: parseNumber(document.getElementById('fotografering').value),
+            renoveringskostnader: parseNumber(document.getElementById('renoveringskostnader').value),
+            ovriga: parseNumber(document.getElementById('ovriga').value),
+            kapitaltillskott: parseNumber(document.getElementById('kapitaltillskott').value),
+            skattesats: Math.max(0, Math.min(100, parseNumber(document.getElementById('skattesats').value))) / 100
         };
     }
 
@@ -502,6 +539,57 @@
         });
     });
 
+    // Print button
+    const printBtn = document.getElementById('print-btn');
+    if (printBtn) {
+        printBtn.addEventListener('click', () => window.print());
+    }
+
+    // Email results button
+    const emailBtn = document.getElementById('email-btn');
+    if (emailBtn) {
+        emailBtn.addEventListener('click', () => {
+            const inputs = getInputs();
+            const body = [
+                'LGH Vinstkalkylator',
+                '',
+                `Försäljningspris: ${formatSEK(inputs.forsaljningspris)}`,
+                `Lån: ${formatSEK(inputs.lan)}`,
+                `Inköpspris: ${formatSEK(inputs.inkopspris)}`,
+                `Mäklararvode: ${formatSEK(inputs.maklararvode)}`,
+                `Styling: ${formatSEK(inputs.styling)}`,
+                `Fotografering: ${formatSEK(inputs.fotografering)}`,
+                `Renoveringskostnader: ${formatSEK(inputs.renoveringskostnader)}`,
+                `Övriga avdragsgilla: ${formatSEK(inputs.ovriga)}`,
+                `Kapitaltillskott: ${formatSEK(inputs.kapitaltillskott)}`,
+                '',
+                `Totalt avdrag: ${document.getElementById('result-calc1').textContent}`,
+                `Vinst före skatt: ${document.getElementById('result-calc2').textContent}`,
+                `Skatt: ${document.getElementById('result-calc3').textContent}`,
+                `Nettoresultat: ${document.getElementById('result-calc4').textContent}`,
+                `Vinst efter lån: ${document.getElementById('result-calc5').textContent}`,
+                '',
+                'Beräknat med LGH Vinstkalkylator',
+                'https://howcan66.github.io/vinst-p--lgh/'
+            ].join('\n');
+
+            const subject = 'LGH Vinstkalkylator Resultat';
+            window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+    }
+
+    // Clear saved data button
+    const clearBtn = document.getElementById('clear-btn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            const ok = confirm(currentLang === 'sv' ? 'Radera sparade data?' : 'Clear saved data?');
+            if (ok) {
+                localStorage.removeItem('lghCalculatorData');
+                location.reload();
+            }
+        });
+    }
+
     // Set timestamp
     function updateTimestamp() {
         const now = new Date();
@@ -576,13 +664,20 @@
             this.value = this.value.replace(/[^0-9.]/g, '');
         });
         
+        input.addEventListener('focus', function() {
+            // Remove formatting for editing
+            this.value = String(this.value || '').replace(/\s/g, '');
+        });
+
         input.addEventListener('blur', function() {
             // Ensure value is valid number on blur
-            const value = parseFloat(this.value);
+            const value = parseNumber(this.value);
             if (isNaN(value) || value < 0) {
                 this.value = 0;
                 calculate();
             }
+            // Format with spaces for readability
+            this.value = formatNumber(this.value);
             // Save data after validation
             saveData();
         });
