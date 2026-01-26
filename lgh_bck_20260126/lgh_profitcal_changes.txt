@@ -6,52 +6,16 @@ This file tracks planned updates to the LGH Profit Calculator.
 
 === New TO BE COMPLETED =================================
 
-====================== ONGOING Below ==========================================
-
-
-LGH.94 Investigate carefully LGH.94. Analysis result should match development and prepere a stepwise developlment to be included in improvement.txt files
-LGH.95 Change name Obj1 to Sales Objects.
-1) The text form accepts url and by a push button object button ">" adds the value to a memory_url1 memory for every object that the person loads
-a) If succesful a memory_url1 can be shown by pressing the ">" button opening a new winddow with the sales url = memory_url1.
-b) There are five buttos are added, same standard as before,  
-d) "<<" button (go back)
-e) ">" button in the middle to load the brooker url in a new webb page or tab...
-f) ">>" button will move to the next url in memory_urln
-g) ":)" scrape button will try to get the salesPrice - If it does not work - and a msgs add sales price manually
-h) "D1" Delete current objectn with memory_data.n, return the object.n-1
-i) "DD" Delete all object in object.n and memory_data.n
-LGH.96 - No develoment only analysis
-
-ONGOING Above 
-=========================================================================
-
-
-========== Only Activities Above ==========
-LGH.93 The Button EN change the refresh BUtton to a rerfresh or reloaad http link. This is not correct,
-Secure that Reresh button is aleasy used and not dependent on what language
-
-LGH.92 Added Obj1 link field with best-effort price fetch into Sale Price (falls back to manual entry if blocked or missing).
-LGH.91 change "Kalkylator försäljning LGH" to "Kalkylator Försäljning LGH" (completed)
-LGH.89  Change vertical height for space between "Kalkylator försäljning LGH", and the buttons row between the,
- "Försäljningspris (kr)" reduce rows with -2
-
- LGH.90 Change the panel name "Kalkylator försäljning LGH" to be the same font and size as the "Försäljningspris (kr)"
-
-
-LGH.88 All buttons shall have a mouse over effect use web standard, STD bUTTON MOUSE over names, but as short as reasonable possible
-
-LGH.87 Change Refresh button to be the same style as the other buttons but with a reload sign
-LGH.86 Change Remove the favicon button Colportals.png
-
-========== No action Below on speciic rows =====
-LGH.86 The S13_INDEX.html file shall have a button same style as in the index.html file. It should link to the index.HTML
-
-LGH.84 Change "Kalkylator försäljning LGH" and INCREASE +2 fontsize
-
-LGH.85  change vertical height for space between "Capital Contribution, from BRF (SEK)" and "Total Deductions (SEK)" reduce with -2
 
 LGH.86 The S13_code.html file with a text "S13 Passcode", the passcode is S13_index.html and then the S13_index.html is provided
 LGH.87 If the passcode is incorrect than S13_passcode.html re-direct to the index.HTML
+
+
+
+
+========== Only Activities Above ==========
+
+========== No action Below on speciic rows =====
 
 LGH.85  change vertical height for space between "Capital Contribution, from BRF (SEK)" and "Total Deductions (SEK)" reduce with -4
 
