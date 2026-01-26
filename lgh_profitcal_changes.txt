@@ -7,16 +7,16 @@ This file tracks planned updates to the LGH Profit Calculator.
 === New TO BE COMPLETED =================================
 
 ====================== ONGOING Below ==========================================
+None
 
+====================== ONGOING Above ===========================================
+
+========== COMPLETED BELOW ==========
 
 LGH.94 Investigate carefully LGH.94. Analysis result should match development and prepere a stepwise developlment to be included in improvement.txt files
 LGH.96 - No develoment only analysis
-
-ONGOING Above 
-=========================================================================
-
-
-========== COMPLETED BELOW ==========
+LGH.100 Align all navigation buttons on the same row as the textform for loading up sales brooker URL "hämta pris". (COMPLETED)
+- All navigation buttons (<<, >, >>, :), D1, DD) and counter are placed on the same row as the URL field with responsive flex wrapping.
 LGH.95 Change name Obj1 to Sales Objects. (COMPLETED)
 - Renamed label from "Obj1 länk" to "Försäljningsobjekt" / "Sales Objects"
 - Implemented multi-object URL memory system with localStorage persistence

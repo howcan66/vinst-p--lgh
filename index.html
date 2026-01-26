@@ -352,17 +352,15 @@
         <div class="card-body">
             <div class="input-group full" style="margin-bottom: 8px;">
                 <label class="input-label" id="label-obj1">Försäljningsobjekt</label>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <input type="text" id="obj1-url" class="input-field" placeholder="https://..." inputmode="url" aria-label="Objektlänk">
+                <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                    <input type="text" id="obj1-url" class="input-field" placeholder="https://..." inputmode="url" aria-label="Objektlänk" style="flex: 1; min-width: 200px;">
                     <button type="button" class="lang-btn" id="obj1-prev-btn" data-tooltip="Föregående">&lt;&lt;</button>
                     <button type="button" class="lang-btn" id="obj1-open-btn" data-tooltip="Öppna">&gt;</button>
                     <button type="button" class="lang-btn" id="obj1-next-btn" data-tooltip="Nästa">&gt;&gt;</button>
-                </div>
-                <div style="display: flex; gap: 8px; align-items: center; margin-top: 6px;">
                     <button type="button" class="lang-btn" id="obj1-scrape-btn" data-tooltip="Skrapa pris">:)</button>
                     <button type="button" class="lang-btn" id="obj1-delete-btn" data-tooltip="Radera aktuell">D1</button>
                     <button type="button" class="lang-btn" id="obj1-delete-all-btn" data-tooltip="Radera alla">DD</button>
-                    <span id="obj1-counter" style="color: #fff; font-size: 12px; margin-left: 8px;">1/1</span>
+                    <span id="obj1-counter" style="color: #fff; font-size: 12px; margin-left: 4px;">1/1</span>
                 </div>
                 <div class="status-text" id="obj1-status"></div>
             </div>
