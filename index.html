@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinstberäkning vid lägenhetsförsäljning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .result {
+            background-color: #e7f3ff;
+            font-weight: bold;
+        }
+        .label-cell {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vinstberäkning vid lägenhetsförsäljning:</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Resultat vid försäljning av LGH</th>
+                    <th>Beräkningsdata:</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label-cell">Försäljningspris</td>
+                    <td><input type="number" id="salesprice" value="0" min="0" aria-label="Försäljningspris" oninput="calculate()"> kr</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Inköpspris</td>
+                    <td><input type="number" id="purchaseprice" value="0" min="0" aria-label="Inköpspris" oninput="calculate()"> kr</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Renovering/Förbättringar</td>
+                    <td><input type="number" id="renovation" value="0" min="0" aria-label="Renovering och förbättringar" oninput="calculate()"> kr</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Mäklararvode</td>
+                    <td><input type="number" id="brokerfee" value="0" min="0" aria-label="Mäklararvode" oninput="calculate()"> kr</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Årsavgifter (totalt betalda)</td>
+                    <td><input type="number" id="annualfees" value="0" min="0" aria-label="Årsavgifter totalt betalda" oninput="calculate()"> kr</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">Övriga kostnader</td>
+                    <td><input type="number" id="othercosts" value="0" min="0" aria-label="Övriga kostnader" oninput="calculate()"> kr</td>
+                </tr>
+                <tr class="result">
+                    <td class="label-cell">Total kostnad</td>
+                    <td id="totalcost">0 kr</td>
+                </tr>
+                <tr class="result">
+                    <td class="label-cell">Vinst/Förlust</td>
+                    <td id="profit">0 kr</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculate() {
+            // Get input values
+            const salesPrice = parseFloat(document.getElementById('salesprice').value) || 0;
+            const purchasePrice = parseFloat(document.getElementById('purchaseprice').value) || 0;
+            const renovation = parseFloat(document.getElementById('renovation').value) || 0;
+            const brokerFee = parseFloat(document.getElementById('brokerfee').value) || 0;
+            const annualFees = parseFloat(document.getElementById('annualfees').value) || 0;
+            const otherCosts = parseFloat(document.getElementById('othercosts').value) || 0;
+            
+            // Calculate total costs
+            const totalCost = purchasePrice + renovation + brokerFee + annualFees + otherCosts;
+            
+            // Calculate profit/loss
+            const profit = salesPrice - totalCost;
+            
+            // Update display
+            document.getElementById('totalcost').textContent = totalCost.toLocaleString('sv-SE') + ' kr';
+            
+            const profitElement = document.getElementById('profit');
+            profitElement.textContent = profit.toLocaleString('sv-SE') + ' kr';
+            
+            // Color coding for profit/loss
+            if (profit > 0) {
+                profitElement.style.color = 'green';
+            } else if (profit < 0) {
+                profitElement.style.color = 'red';
+            } else {
+                profitElement.style.color = 'black';
+            }
+        }
+        
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
