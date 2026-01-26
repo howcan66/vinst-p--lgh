@@ -36,7 +36,8 @@
         }
 
         .header h1 {
-            font-size: 15px;
+            font-size: 14px;
+            font-weight: normal;
             margin: 0;
         }
 
@@ -184,6 +185,17 @@
             border-radius: 4px;
         }
 
+        .secret-btn {
+            background: #000;
+            border: 1px solid #000;
+            color: #000;
+        }
+
+        .secret-btn:hover {
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+        }
+
         @media (max-width: 480px) {
             .input-group {
                 grid-template-columns: 1fr;
@@ -220,6 +232,7 @@
             <h1 id="title">Kalkylator försäljning LGH</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 4px;">
+            <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access">S13</a>
             <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page">Refresh</button>
             <button class="lang-btn active" data-lang="sv" aria-label="Swedish language">SV</button>
             <button class="lang-btn" data-lang="en" aria-label="English language">EN</button>
