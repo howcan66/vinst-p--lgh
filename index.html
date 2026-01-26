@@ -197,13 +197,15 @@
             <button class="lang-btn" data-lang="en">EN</button>
         </div>
     </div>
+    <div style="text-align: center; margin-bottom: 8px;">
+        <a href="javascript:location.reload()" style="color: white; font-size: 12px; text-decoration: underline;" id="refresh-link">Refresh page</a>
+    </div>
 
     <!-- Input Card -->
     <div class="card">
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
             <!-- Sale Price Section -->
-            <div class="section-title" id="sec-sale">Försäljning</div>
             <div class="input-group">
                 <label class="input-label" id="label-price">Försäljningspris (kr)</label>
                 <input type="number" id="forsaljningspris" class="input-field" value="4350000" min="0">
@@ -214,7 +216,6 @@
             </div>
 
             <!-- Acquisition Costs Section -->
-            <div class="section-title" id="sec-costs">Anskaffningskostnader</div>
             <div class="input-group">
                 <label class="input-label" id="label-purchase">Inköpspris (kr)</label>
                 <input type="number" id="inkopspris" class="input-field" value="380000" min="0">
@@ -278,9 +279,8 @@
         </div>
     </div>
 
-    <div style="color: white; font-size: 11px; margin-top: 16px; opacity: 0.8; display: flex; justify-content: space-between; align-items: center;">
-        <p><a href="mailto:coolportals@hotmail.com" style="color: white; text-decoration: none;">coolportals@hotmail.com</a> | © 2026 LGH Vinstberäknare | Beräknad lokalt</p>
-        <p id="footer-left"></p>
+    <div style="color: white; font-size: 11px; margin-top: 16px; opacity: 0.8; text-align: center;">
+        <p><a href="mailto:coolportals@hotmail.com" style="color: white; text-decoration: none;">coolportals@hotmail.com</a> | © 2026 LGH Vinstberäknare | Local Time <span id="footer-left"></span></p>
     </div>
 </div>
 
@@ -291,8 +291,7 @@
             title: 'Vinstkalkylator vid försäljning av LGH in SWE',
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
-            secSale: 'Försäljning',
-            secCosts: 'Anskaffningskostnader',
+            refreshLink: 'Uppdatera sidan',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
             labelPurchase: 'Inköpspris (kr)',
@@ -313,8 +312,7 @@
             title: 'Apartment Sale Profit Calculator in SWE',
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
-            secSale: 'Sale',
-            secCosts: 'Acquisition Costs',
+            refreshLink: 'Refresh page',
             labelPrice: 'Sale Price (SEK)',
             labelLoan: 'Loan (SEK)',
             labelPurchase: 'Purchase Price (SEK)',
@@ -397,8 +395,7 @@
         document.getElementById('title').textContent = t.title;
         document.getElementById('input-header').textContent = t.inputHeader;
         document.getElementById('result-header').textContent = t.resultHeader;
-        document.getElementById('sec-sale').textContent = t.secSale;
-        document.getElementById('sec-costs').textContent = t.secCosts;
+        document.getElementById('refresh-link').textContent = t.refreshLink;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-loan').textContent = t.labelLoan;
         document.getElementById('label-purchase').textContent = t.labelPurchase;
