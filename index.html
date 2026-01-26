@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LGH Profit Calculator / LGH Vinstbereknare</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="CoolPortals.PNG">
+    <link rel="apple-touch-icon" href="CoolPortals.PNG">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Beräkna vinst vid försäljning av lägenhet i Sverige. Gratis vinstkalkylator med skatt, lån och alla avdrag.">
+    <meta name="keywords" content="lägenhet, vinst, kalkylator, försäljning, skatt, Sverige, BRF">
+    <meta name="author" content="CoolPortals">
+    
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Kalkylator försäljning LGH">
+    <meta property="og:description" content="Gratis vinstkalkylator för bostadsförsäljning i Sverige">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://howcan66.github.io/vinst-p--lgh/">
+    <meta property="og:image" content="https://howcan66.github.io/vinst-p--lgh/CoolPortals.PNG">
+    
+    <!-- Mobile optimization -->
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style>
         * {
             margin: 0;
@@ -494,6 +515,27 @@
     // Initial calculation and timestamp
     updateTimestamp();
     calculate();
+
+    // Input validation - prevent negative values
+    document.querySelectorAll('.input-field').forEach(input => {
+        input.addEventListener('input', function(e) {
+            // Remove negative sign if typed
+            if (this.value < 0) {
+                this.value = 0;
+            }
+            // Ensure only numbers and decimal point
+            this.value = this.value.replace(/[^0-9.]/g, '');
+        });
+        
+        input.addEventListener('blur', function() {
+            // Ensure value is valid number on blur
+            const value = parseFloat(this.value);
+            if (isNaN(value) || value < 0) {
+                this.value = 0;
+                calculate();
+            }
+        });
+    });
 </script>
 
 </body>
