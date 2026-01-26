@@ -286,9 +286,6 @@
             <button class="lang-btn" id="print-btn" aria-label="Print calculations">🖨️</button>
             <button class="lang-btn" id="email-btn" aria-label="Email results">✉️</button>
             <button class="lang-btn" id="clear-btn" aria-label="Clear saved data">🗑️</button>
-            <a href="mailto:coolportals@hotmail.com" class="icon-btn" aria-label="Email CoolPortals">
-                <img src="CoolPortals.PNG" alt="CoolPortals logo">
-            </a>
         </div>
     </div>
 
@@ -675,9 +672,10 @@
             if (isNaN(value) || value < 0) {
                 this.value = 0;
                 calculate();
+            } else {
+                // Format with spaces for readability
+                this.value = formatNumber(value);
             }
-            // Format with spaces for readability
-            this.value = formatNumber(this.value);
             // Save data after validation
             saveData();
         });
