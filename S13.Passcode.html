@@ -101,7 +101,10 @@
         } else {
             errorMsg.style.display = 'block';
             passcodeInput.value = '';
-            passcodeInput.focus();
+            // Redirect to main calculator after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
         }
     });
 </script>
