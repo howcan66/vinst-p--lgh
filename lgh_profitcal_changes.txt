@@ -7,6 +7,35 @@ This file tracks planned updates to the LGH Profit Calculator.
 === New TO BE COMPLETED =================================
 
 
+
+========== Only Activities Above ==========
+LGH.92 Added Obj1 link field with best-effort price fetch into Sale Price (falls back to manual entry if blocked or missing).
+LGH.91 change "Kalkylator försäljning LGH" to "Kalkylator Försäljning LGH" (completed)
+LGH.89  Change vertical height for space between "Kalkylator försäljning LGH", and the buttons row between the,
+ "Försäljningspris (kr)" reduce rows with -2
+
+ LGH.90 Change the panel name "Kalkylator försäljning LGH" to be the same font and size as the "Försäljningspris (kr)"
+
+
+LGH.88 All buttons shall have a mouse over effect use web standard, STD bUTTON MOUSE over names, but as short as reasonable possible
+
+LGH.87 Change Refresh button to be the same style as the other buttons but with a reload sign
+LGH.86 Change Remove the favicon button Colportals.png
+
+========== No action Below on speciic rows =====
+LGH.86 The S13_INDEX.html file shall have a button same style as in the index.html file. It should link to the index.HTML
+
+LGH.84 Change "Kalkylator försäljning LGH" and INCREASE +2 fontsize
+
+LGH.85  change vertical height for space between "Capital Contribution, from BRF (SEK)" and "Total Deductions (SEK)" reduce with -2
+
+LGH.86 The S13_code.html file with a text "S13 Passcode", the passcode is S13_index.html and then the S13_index.html is provided
+LGH.87 If the passcode is incorrect than S13_passcode.html re-direct to the index.HTML
+
+LGH.85  change vertical height for space between "Capital Contribution, from BRF (SEK)" and "Total Deductions (SEK)" reduce with -4
+
+LGH.84 Change "Kalkylator försäljning LGH" and reduce -4 fontsize
+
 LGH.72b change "Kalkylator försäljning LGH" reduce -1 fontsize take away bold
 LGH.80 I would like to create a secret button before the refresh button.
 - 1) It shall have the same size and stile as the other buttons but be black with black borderschange
@@ -14,12 +43,6 @@ LGH.80 I would like to create a secret button before the refresh button.
 - 3) Fil shall open as a open.blank file
 LGH.81 Create the S13_code.html file with a text "S13 Passcode"
 LGH.82 Create the S13_index.html file with a text "S13 Index default values"
-
-
-
-========== Only Activities Above ==========
-
-========== No action Below on speciic rows =====
 
 LGH.72 change "Kalkylator vid försäljning av LGH" to "Kalkylator försäljning LGH" and reduce -1 fontsize
 
