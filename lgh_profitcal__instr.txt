@@ -1,0 +1,85 @@
+lgh_profitcal: instructions
+
+Purpose
+- Calculate profit after selling a Swedish apartment, with clear inputs and computed outputs.
+
+Inputs (default/test values)
+- Forsaljningspris: 4 350 000
+- Lan: 1 950 000
+- Inkopspris: 380 000
+- Maklararvode: 65 000
+- Styling: 0
+- Fotografering: 0
+- Renoveringskostnader: 200 000
+- Ovriga avdragsgilla kostnader: 0
+- Kapitaltillskott: 10 000
+- Skattesats (%): 22
+
+Calculations
+- Anskaffningskostnad / Totalt avdrag (calc1) = Inkopspris + Maklararvode + Styling + Fotografering + Renoveringskostnader + Ovriga avdragsgilla kostnader + Kapitaltillskott = 645 000 + 10 000 = 655 000 kr
+- Vinst fore skatt (calc2) = Forsaljningspris - calc1 = 4 350 000 - 655 000 = 3 695 000 kr
+- Skatt (calc3) = calc2 * Skattesats = 3 695 000 * 22% = 812 900 kr
+- Nettoresultat efter skatt (calc4) = calc2 - calc3 = 3 695 000 - 812 900 = 2 882 100 kr
+- Vinst (calc5) = calc4 - Lan = 2 882 100 - 1 950 000 = 932 100 kr
+
+UI layout hints
+- Title: "Resultat vid forsäljning av LGH" and "Berakningsdata" section.
+- Inputs: labeled number fields; accept plain numbers; format as SEK (kr) on display.
+- Outputs: show computed fields (calc1..calc5) with currency formatting and the chosen tax rate as percent.
+
+Behavior
+- Recompute live on input change.
+- Clamp empty/invalid inputs to 0; clamp tax to 0-100.
+- Keep calculations pure client-side (HTML + JS, no backend).
+- Make the UI as compact as possible so it works comfortably on mobile.
+
+Notes to verify
+- Confirm exact formula for Vinst fore skatt: the provided example implies Forsaljningspris - calc1 = 3 705 000, but stated example is 3 695 000; clarify whether Kapitaltillskott or other deductions are included.
+- Confirm whether Kapitaltillskott should be added to deductions or treated separately.
+
+=== PROPOSED BUILD STEPS & WEB DESIGN ===
+
+Web Parts & Layout
+- Structure: Single index.html with inline CSS/JS; no build tools needed.
+- Layout: Two stacked cards on mobile (single column); optionally two-column on desktop.
+  * Card 1: "Berakningsdata" (Inputs) – labeled number fields grouped by section.
+  * Card 2: "Resultat" (Outputs) – read-only rows for each calculation.
+- Responsiveness: 14–16px fonts, touch-friendly controls, 8–12px padding/margins for compactness.
+
+Input Fields
+- Forsaljningspris, Lan, Inkopspris, Maklararvode, Styling, Fotografering, Renoveringskostnader, Ovriga avdragsgilla, Kapitaltillskott (all SEK).
+- Skattesats (percent, 0–100).
+- Pre-fill with test values provided in spec.
+- Sanitize to non-negative on input; clamp tax to 0–100.
+- Group related items (e.g., all anskaffningskostnader together).
+
+Output Display
+- calc1: Anskaffningskostnad / Totalt avdrag
+- calc2: Vinst fore skatt
+- calc3: Skatt
+- calc4: Nettoresultat efter skatt
+- calc5: Vinst (final profit)
+- Show SEK formatting (e.g., "4 350 000 kr"); percent for tax.
+
+Behavior
+- Live recalculation on input change (no debounce needed for simple math).
+- Invalid/empty → 0; invalid percent → clamp to 0–100.
+- Client-side only (no backend).
+
+Formatting
+- Currency: Intl.NumberFormat('sv-SE', { style: 'currency', currency: 'SEK', maximumFractionDigits: 0 })
+- Percent: simple % symbol appended.
+- Keep colors minimal (light background, clear borders).
+
+Publish
+- Commit index.html to main branch.
+- Enable GitHub Pages (Settings → Pages → Build from main branch, /root).
+- Share public link.
+
+=== CONFIRMED ANSWERS ===
+
+1. Vinst fore skatt formula: Forsaljningspris - calc1 (✓ Kapitaltillskott included in calc1)
+2. Kapitaltillskott role: Added to Anskaffningskostnad (calc1 total) ✓
+3. Language: Bilingual (Swedish + English) ✓
+4. Currency precision: Whole kronor only (no decimals) ✓
+5. GitHub Pages: Auto-setup via workflow (not manual) ✓

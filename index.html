@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LGH Profit Calculator / LGH Vinstbereknare</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8px;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 16px;
+            padding: 12px 0;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        .header .subtitle {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #667eea;
+            color: white;
+            padding: 12px 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .card-body {
+            padding: 12px 16px;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .input-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        .input-label {
+            font-size: 12px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .input-field {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 12px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .output-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .output-row:last-child {
+            border-bottom: none;
+        }
+
+        .output-label {
+            font-size: 12px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .output-value {
+            text-align: right;
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            margin: 0 2px;
+            border: none;
+            background: white;
+            color: #667eea;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .lang-btn:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 480px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .input-label {
+                font-size: 11px;
+            }
+
+            .input-field {
+                font-size: 13px;
+            }
+
+            .output-row {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+
+            .output-value {
+                text-align: left;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="language-toggle">
+    <button class="lang-btn active" data-lang="sv">SV</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+</div>
+
+<div class="container">
+    <div class="header">
+        <h1 id="title">Vinstbereknare för LGH</h1>
+        <div class="subtitle" id="subtitle">Beräkna din vinst vid försäljning</div>
+    </div>
+
+    <!-- Input Card -->
+    <div class="card">
+        <div class="card-header" id="input-header">Beräkningsdata</div>
+        <div class="card-body">
+            <!-- Sale Price Section -->
+            <div class="section-title" id="sec-sale">Försäljning</div>
+            <div class="input-group">
+                <label class="input-label" id="label-price">Försäljningspris (kr)</label>
+                <input type="number" id="forsaljningspris" class="input-field" value="4350000" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-loan">Lån (kr)</label>
+                <input type="number" id="lan" class="input-field" value="1950000" min="0">
+            </div>
+
+            <!-- Acquisition Costs Section -->
+            <div class="section-title" id="sec-costs">Anskaffningskostnader</div>
+            <div class="input-group">
+                <label class="input-label" id="label-purchase">Inköpspris (kr)</label>
+                <input type="number" id="inkopspris" class="input-field" value="380000" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-broker">Mäklararvode (kr)</label>
+                <input type="number" id="maklararvode" class="input-field" value="65000" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-styling">Styling (kr)</label>
+                <input type="number" id="styling" class="input-field" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-photo">Fotografering (kr)</label>
+                <input type="number" id="fotografering" class="input-field" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-reno">Renoveringskostnader (kr)</label>
+                <input type="number" id="renoveringskostnader" class="input-field" value="200000" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-other">Övriga avdragsgilla (kr)</label>
+                <input type="number" id="ovriga" class="input-field" value="0" min="0">
+            </div>
+            <div class="input-group">
+                <label class="input-label" id="label-capital">Kapitaltillskott (kr)</label>
+                <input type="number" id="kapitaltillskott" class="input-field" value="10000" min="0">
+            </div>
+
+            <!-- Tax Section -->
+            <div class="section-title" id="sec-tax">Skatt</div>
+            <div class="input-group">
+                <label class="input-label" id="label-taxrate">Skattesats (%)</label>
+                <input type="number" id="skattesats" class="input-field" value="22" min="0" max="100">
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Card -->
+    <div class="card">
+        <div class="card-header" id="result-header">Resultat</div>
+        <div class="card-body">
+            <div class="output-row">
+                <div class="output-label" id="label-calc1">Totalt avdrag (kr)</div>
+                <div class="output-value" id="result-calc1">–</div>
+            </div>
+            <div class="output-row">
+                <div class="output-label" id="label-calc2">Vinst före skatt (kr)</div>
+                <div class="output-value" id="result-calc2">–</div>
+            </div>
+            <div class="output-row">
+                <div class="output-label" id="label-calc3">Skatt (kr)</div>
+                <div class="output-value" id="result-calc3">–</div>
+            </div>
+            <div class="output-row">
+                <div class="output-label" id="label-calc4">Nettoresultat efter skatt (kr)</div>
+                <div class="output-value" id="result-calc4">–</div>
+            </div>
+            <div class="output-row" style="border-top: 2px solid #667eea; padding-top: 12px; margin-top: 8px; font-weight: 700;">
+                <div class="output-label" id="label-calc5">Vinst efter lån (kr)</div>
+                <div class="output-value" id="result-calc5">–</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; color: white; font-size: 11px; margin-top: 16px; opacity: 0.8;">
+        <p id="footer">© 2026 LGH Vinstbereknare | Beräknad lokalt</p>
+    </div>
+</div>
+
+<script>
+    // Language strings
+    const translations = {
+        sv: {
+            title: 'Vinstbereknare för LGH',
+            subtitle: 'Beräkna din vinst vid försäljning',
+            inputHeader: 'Beräkningsdata',
+            resultHeader: 'Resultat',
+            secSale: 'Försäljning',
+            secCosts: 'Anskaffningskostnader',
+            secTax: 'Skatt',
+            labelPrice: 'Försäljningspris (kr)',
+            labelLoan: 'Lån (kr)',
+            labelPurchase: 'Inköpspris (kr)',
+            labelBroker: 'Mäklararvode (kr)',
+            labelStyling: 'Styling (kr)',
+            labelPhoto: 'Fotografering (kr)',
+            labelReno: 'Renoveringskostnader (kr)',
+            labelOther: 'Övriga avdragsgilla (kr)',
+            labelCapital: 'Kapitaltillskott (kr)',
+            labelTaxrate: 'Skattesats (%)',
+            labelCalc1: 'Totalt avdrag (kr)',
+            labelCalc2: 'Vinst före skatt (kr)',
+            labelCalc3: 'Skatt (kr)',
+            labelCalc4: 'Nettoresultat efter skatt (kr)',
+            labelCalc5: 'Vinst efter lån (kr)',
+            footer: '© 2026 LGH Vinstbereknare | Beräknad lokalt'
+        },
+        en: {
+            title: 'Apartment Profit Calculator',
+            subtitle: 'Calculate your profit on sale',
+            inputHeader: 'Calculation Data',
+            resultHeader: 'Results',
+            secSale: 'Sale',
+            secCosts: 'Acquisition Costs',
+            secTax: 'Tax',
+            labelPrice: 'Sale Price (SEK)',
+            labelLoan: 'Loan (SEK)',
+            labelPurchase: 'Purchase Price (SEK)',
+            labelBroker: 'Broker Fee (SEK)',
+            labelStyling: 'Styling (SEK)',
+            labelPhoto: 'Photography (SEK)',
+            labelReno: 'Renovation Costs (SEK)',
+            labelOther: 'Other Deductible Costs (SEK)',
+            labelCapital: 'Capital Contribution (SEK)',
+            labelTaxrate: 'Tax Rate (%)',
+            labelCalc1: 'Total Deductions (SEK)',
+            labelCalc2: 'Profit Before Tax (SEK)',
+            labelCalc3: 'Tax (SEK)',
+            labelCalc4: 'Net Result After Tax (SEK)',
+            labelCalc5: 'Profit After Loan (SEK)',
+            footer: '© 2026 Apartment Profit Calculator | Calculated locally'
+        }
+    };
+
+    let currentLang = 'sv';
+
+    // Format currency (whole kronor)
+    function formatSEK(value) {
+        return new Intl.NumberFormat('sv-SE', {
+            style: 'currency',
+            currency: 'SEK',
+            maximumFractionDigits: 0
+        }).format(value);
+    }
+
+    // Get input values
+    function getInputs() {
+        return {
+            forsaljningspris: parseFloat(document.getElementById('forsaljningspris').value) || 0,
+            lan: parseFloat(document.getElementById('lan').value) || 0,
+            inkopspris: parseFloat(document.getElementById('inkopspris').value) || 0,
+            maklararvode: parseFloat(document.getElementById('maklararvode').value) || 0,
+            styling: parseFloat(document.getElementById('styling').value) || 0,
+            fotografering: parseFloat(document.getElementById('fotografering').value) || 0,
+            renoveringskostnader: parseFloat(document.getElementById('renoveringskostnader').value) || 0,
+            ovriga: parseFloat(document.getElementById('ovriga').value) || 0,
+            kapitaltillskott: parseFloat(document.getElementById('kapitaltillskott').value) || 0,
+            skattesats: Math.max(0, Math.min(100, parseFloat(document.getElementById('skattesats').value) || 0)) / 100
+        };
+    }
+
+    // Calculate all values
+    function calculate() {
+        const inputs = getInputs();
+
+        // calc1: Totalt avdrag = Sum of all acquisition costs + Kapitaltillskott
+        const calc1 = inputs.inkopspris + inputs.maklararvode + inputs.styling + 
+                      inputs.fotografering + inputs.renoveringskostnader + inputs.ovriga + 
+                      inputs.kapitaltillskott;
+
+        // calc2: Vinst före skatt = Försäljningspris - calc1
+        const calc2 = inputs.forsaljningspris - calc1;
+
+        // calc3: Skatt = calc2 * skattesats
+        const calc3 = calc2 * inputs.skattesats;
+
+        // calc4: Nettoresultat efter skatt = calc2 - calc3
+        const calc4 = calc2 - calc3;
+
+        // calc5: Vinst efter lån = calc4 - Lån
+        const calc5 = calc4 - inputs.lan;
+
+        // Update UI
+        document.getElementById('result-calc1').textContent = formatSEK(calc1);
+        document.getElementById('result-calc2').textContent = formatSEK(calc2);
+        document.getElementById('result-calc3').textContent = formatSEK(calc3);
+        document.getElementById('result-calc4').textContent = formatSEK(calc4);
+        document.getElementById('result-calc5').textContent = formatSEK(calc5);
+    }
+
+    // Update language
+    function setLanguage(lang) {
+        currentLang = lang;
+        const t = translations[lang];
+
+        document.getElementById('title').textContent = t.title;
+        document.getElementById('subtitle').textContent = t.subtitle;
+        document.getElementById('input-header').textContent = t.inputHeader;
+        document.getElementById('result-header').textContent = t.resultHeader;
+        document.getElementById('sec-sale').textContent = t.secSale;
+        document.getElementById('sec-costs').textContent = t.secCosts;
+        document.getElementById('sec-tax').textContent = t.secTax;
+        document.getElementById('label-price').textContent = t.labelPrice;
+        document.getElementById('label-loan').textContent = t.labelLoan;
+        document.getElementById('label-purchase').textContent = t.labelPurchase;
+        document.getElementById('label-broker').textContent = t.labelBroker;
+        document.getElementById('label-styling').textContent = t.labelStyling;
+        document.getElementById('label-photo').textContent = t.labelPhoto;
+        document.getElementById('label-reno').textContent = t.labelReno;
+        document.getElementById('label-other').textContent = t.labelOther;
+        document.getElementById('label-capital').textContent = t.labelCapital;
+        document.getElementById('label-taxrate').textContent = t.labelTaxrate;
+        document.getElementById('label-calc1').textContent = t.labelCalc1;
+        document.getElementById('label-calc2').textContent = t.labelCalc2;
+        document.getElementById('label-calc3').textContent = t.labelCalc3;
+        document.getElementById('label-calc4').textContent = t.labelCalc4;
+        document.getElementById('label-calc5').textContent = t.labelCalc5;
+        document.getElementById('footer').textContent = t.footer;
+
+        // Update button states
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+        // Recalculate to ensure formatting is correct
+        calculate();
+    }
+
+    // Event listeners
+    document.querySelectorAll('.input-field').forEach(input => {
+        input.addEventListener('input', calculate);
+    });
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            setLanguage(btn.getAttribute('data-lang'));
+        });
+    });
+
+    // Initial calculation
+    calculate();
+</script>
+
+</body>
+</html>
