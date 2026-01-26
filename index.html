@@ -57,7 +57,7 @@
         }
 
         .header h1 {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             margin: 0;
         }
@@ -351,9 +351,10 @@
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
             <div class="input-group full" style="margin-bottom: 8px;">
-                <label class="input-label" id="label-obj1">Försäljningsobjekt</label>
+                <label class="input-label" id="label-obj1">Köp Obj</label>
                 <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
-                    <input type="text" id="obj1-url" class="input-field" placeholder="https://..." inputmode="url" aria-label="Objektlänk" style="flex: 1; min-width: 200px;">
+                    <input type="text" id="obj1-url" class="input-field" placeholder="https://..." inputmode="url" aria-label="Objektlänk" style="flex: 1 1 200px; max-width: 260px;">
+                    <button type="button" class="lang-btn" id="obj1-fetch-btn" data-tooltip="Hämta pris">GURL</button>
                     <button type="button" class="lang-btn" id="obj1-prev-btn" data-tooltip="Föregående">&lt;&lt;</button>
                     <button type="button" class="lang-btn" id="obj1-open-btn" data-tooltip="Öppna">&gt;</button>
                     <button type="button" class="lang-btn" id="obj1-next-btn" data-tooltip="Nästa">&gt;&gt;</button>
@@ -466,7 +467,7 @@
             labelCalc3: 'Skatt (kr & 22%)',
             labelCalc4: 'Nettoresultat efter skatt (kr)',
             labelCalc5: 'Vinst efter avdrag för lån (kr)',
-            obj1Label: 'Försäljningsobjekt',
+            obj1Label: 'Köp Obj',
             obj1Fetch: 'Hämta pris',
             obj1Prev: 'Föregående',
             obj1Open: 'Öppna',
@@ -565,14 +566,14 @@
     const objStatus = {
         sv: {
             fetching: 'Hämtar pris...',
-            notFound: 'Hittade inget pris. Ange manuellt.',
-            error: 'Kunde inte hämta. Ange manuellt.',
+            notFound: 'Not Loaded',
+            error: 'Not Loaded',
             set: (v) => `Pris hämtat: ${formatNumber(v)} kr`
         },
         en: {
             fetching: 'Fetching price...',
-            notFound: 'No price found. Enter manually.',
-            error: 'Could not fetch. Enter manually.',
+            notFound: 'Not Loaded',
+            error: 'Not Loaded',
             set: (v) => `Price fetched: ${formatNumber(v)} SEK`
         }
     };
@@ -635,6 +636,12 @@
         const refreshBtn = document.getElementById('refresh-btn');
         if (refreshBtn) {
             refreshBtn.setAttribute('data-tooltip', lang === 'sv' ? 'Uppdatera' : 'Refresh');
+        }
+
+        const fetchBtn = document.getElementById('obj1-fetch-btn');
+        if (fetchBtn) {
+            fetchBtn.textContent = 'GURL';
+            fetchBtn.setAttribute('data-tooltip', t.obj1Fetch);
         }
         
         // Update Sales Objects tooltips
@@ -700,11 +707,8 @@
             const saved = localStorage.getItem('lghObjectsMemory');
             if (saved) {
                 objectsMemory = JSON.parse(saved);
-                if (objectsMemory.length === 0) {
-                    objectsMemory = [{ url: '', savedPrice: 0 }];
-                }
             } else {
-                objectsMemory = [{ url: '', savedPrice: 0 }];
+                objectsMemory = [];
             }
             currentObjectIndex = Math.max(0, parseInt(localStorage.getItem('lghCurrentObjectIndex')) || 0);
             if (currentObjectIndex >= objectsMemory.length) {
@@ -712,7 +716,7 @@
             }
         } catch (e) {
             console.error('Failed to load objects memory:', e);
-            objectsMemory = [{ url: '', savedPrice: 0 }];
+            objectsMemory = [];
             currentObjectIndex = 0;
         }
     }
@@ -728,7 +732,10 @@
 
     function updateObjectsUI() {
         if (objectsMemory.length === 0) {
-            objectsMemory = [{ url: '', savedPrice: 0 }];
+            objUrlInput.value = '';
+            objCounterEl.textContent = '0/0';
+            objStatusEl.textContent = '';
+            return;
         }
         const current = objectsMemory[currentObjectIndex] || { url: '', savedPrice: 0 };
         objUrlInput.value = current.url || '';
@@ -750,8 +757,24 @@
     function addOrUpdateObject(url) {
         if (!url) return;
         const normalizedUrl = normalizeUrl(url.trim());
-        const current = objectsMemory[currentObjectIndex];
-        current.url = normalizedUrl;
+        
+        // If empty, create first object
+        if (objectsMemory.length === 0) {
+            objectsMemory.push({ url: normalizedUrl, savedPrice: 0 });
+            currentObjectIndex = 0;
+        } else {
+            const current = objectsMemory[currentObjectIndex];
+            // If current object is empty, update it
+            if (!current.url || current.url === '') {
+                current.url = normalizedUrl;
+            } else {
+                // Current object already has a URL - create new object
+                const newObject = { url: normalizedUrl, savedPrice: 0 };
+                objectsMemory.push(newObject);
+                currentObjectIndex = objectsMemory.length - 1; // Move to new object
+            }
+        }
+        
         saveObjectsMemory();
         updateObjectsUI();
         setObjStatus('notFound'); // Clear status
@@ -808,6 +831,7 @@
                     saveData();
                 }
                 setObjStatus('set', price);
+                objUrlInput.value = ''; // Clear URL after successful fetch
             } else {
                 setObjStatus('notFound');
             }
@@ -820,8 +844,8 @@
     // Delete current object
     function deleteCurrentObject() {
         if (objectsMemory.length <= 1) {
-            // Keep at least one empty object
-            objectsMemory[0] = { url: '', savedPrice: 0 };
+            // Delete last object - show 0/0
+            objectsMemory = [];
             currentObjectIndex = 0;
         } else {
             objectsMemory.splice(currentObjectIndex, 1);
@@ -836,7 +860,7 @@
     // Delete all objects
     function deleteAllObjects() {
         if (confirm(currentLang === 'sv' ? 'Radera alla objekt?' : 'Delete all objects?')) {
-            objectsMemory = [{ url: '', savedPrice: 0 }];
+            objectsMemory = [];
             currentObjectIndex = 0;
             saveObjectsMemory();
             updateObjectsUI();
@@ -844,6 +868,7 @@
     }
 
     // Event listeners for buttons
+    document.getElementById('obj1-fetch-btn').addEventListener('click', scrapeCurrentObject);
     document.getElementById('obj1-prev-btn').addEventListener('click', goToPrevious);
     document.getElementById('obj1-next-btn').addEventListener('click', goToNext);
     document.getElementById('obj1-open-btn').addEventListener('click', openCurrentObject);
@@ -854,6 +879,7 @@
     // Update tooltips on language change
     function updateObjectsTooltips() {
         const t = translations[currentLang];
+        document.getElementById('obj1-fetch-btn').setAttribute('data-tooltip', t.obj1Fetch);
         document.getElementById('obj1-prev-btn').setAttribute('data-tooltip', t.obj1Prev);
         document.getElementById('obj1-open-btn').setAttribute('data-tooltip', t.obj1Open);
         document.getElementById('obj1-next-btn').setAttribute('data-tooltip', t.obj1Next);

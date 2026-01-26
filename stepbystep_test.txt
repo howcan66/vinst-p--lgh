@@ -1,0 +1,509 @@
+LGH Profit Calculator - Step-by-Step Testing Guide
+====================================================
+Test Date: 2026-01-26 PM
+
+Test again according to AI recommendation:
+
+Suggested path:
+
+A) Retest the Sales Objects flow Steps: from your checklist
+
+7, =
+===================================================
+STEP 7: Test URL Memory Save
+====================================================
+Action: 
+1. Enter any URL in Köp Obj field (e.g., https://example.com/1)
+2. Press Enter key
+
+Expected: 
+- Counter stays "1/1"
+- No error messages
+
+Result: [pass] Pass  [] Fail
+Notes: Need also some improvement
+LGH.108 The counter is not working stands 1/1, even after presseing button "D" or "DD" when it is reset it should be 0/0
+
+LGH.107 The textform for pasting in brooker URL shall reset after GURL is pressed
+a) There should be a top pander row with navigation buttons.
+b) the botten fram there should be the loaded url
+c) the Navigation buttons are the "<<" , ">" , ">>" "refresh" , "X" button to close the open.blank html session
+
+
+8, =
+
+====================================================
+STEP 8: Test Navigation - Next
+====================================================
+Action: 
+1. Enter a second URL (e.g., https://example.com/2)
+2. Press Enter
+3. Click >> button
+
+Expected: 
+- After Enter: Counter changes to "1/2"
+- After >>: Counter changes to "2/2"
+- URL field shows second URL
+
+Result: [Pass] Pass  Fail []
+Notes: Counter does not work________
+
+
+
+
+9, =
+
+====================================================
+STEP 9: Test Navigation - Previous
+====================================================
+Action: 
+- Click << button
+
+Expected: 
+- Counter changes to "1/2"
+- URL field shows first URL
+
+Result: [Pass] Pass  [Faill
+Notes: _________________________________________________
+
+
+
+12, =
+
+====================================================
+STEP 12: Test Delete Current
+====================================================
+Action: 
+1. Ensure you're on object "1/2"
+2. Click D1 button
+
+Expected: 
+- Counter changes to "1/1"
+- Remaining URL is shown
+
+Resul t: [ ] Pass  [Fail]
+Notes: have delete all and it seem to work but the counters goes down;
+from 2/2 to 1/2 to 1/1. when the last is deleted it shouldbe 0/0_____________________________________
+
+
+
+
+
+13, =
+
+====================================================
+STEP 13: Test Delete All;
+====================================================
+Action: 
+1. Add 2-3 URLs to memory (enter URL, press Enter, repeat)
+2. Click DD button
+3. Click OK in confirmation dialog
+
+Expected: 
+- Confirmation dialog appears (Swedish or English)
+- Counter resets to "1/1"
+- URL field is empty
+
+Result: [ ] Pass  [Fail]
+Notes: _________________________________________________
+
+
+17, =
+
+
+====================================================
+STEP 17: Test localStorage Persistence
+====================================================
+Action: 
+1. Add 2-3 URLs to memory
+2. Note the current counter (e.g., "2/3")
+3. Press F5 to refresh the page
+
+Expected: 
+- All URLs still in memory
+- Counter shows same position
+- Current URL displayed
+
+Result: [ ] Pass  [Fail]
+Notes: Deleting the las one should be 0/0 but is 1/1
+
+
+
+B) add multiple URLs, navigate << >>, delete D1/DD, refresh page to confirm persistence, and verify counter updates.
+
+If all pass locally, publish to GitHub Pages. 
+If anything fails, tell me which step and what happened,
+and I’ll patch immediately.
+
+Result: [pass] Pass  [  ] Fail
+====================================================================
+
+
+Test Date: 2026-01-26
+Changes Tested: LGH.100, LGH.100a, LGH.101, LGH.103, LGH.104, LGH.105
+
+====================================================
+STEP 1: Open the Application
+====================================================
+Action: 
+- Run: Start-Process c:\Git\vinst-p--lgh\index.html
+- OR: Double-click index.html in File Explorer
+
+Expected: 
+- Browser opens with the calculator
+
+Result: [Pass] Pass  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 2: Verify Title Size
+====================================================
+Action: 
+- Look at top of page - "Kalkylator Försäljning LGH"
+
+Expected: 
+- Title appears readable and slightly prominent (15px)
+
+Result: [Pass] Pass  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 3: Verify Label Change
+====================================================
+Action: 
+- Look at first input row label (above URL field)
+
+Expected: 
+- Says "Köp Obj" (not "Försäljningsobjekt" or "Obj1 länk")
+
+Result: [pass] Pass  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 4: Verify Button Layout
+====================================================
+Action: 
+- Look at row with URL input field
+
+Expected: 
+- See in this order: URL field, GURL, <<, >, >>, :), D1, DD, 1/1
+- All elements on one row (or wrap neatly if narrow window)
+
+Result: [Pass] Pass  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 5: Test GURL Button Text
+====================================================
+Action: 
+- Look at the fetch button (first button after URL field)
+
+Expected: 
+- Button shows "GURL" (not "Hämta Pris" or "Fetch Price")
+
+Result: [ ] Pass  [Fail] Fail
+Notes: "GURL" Mouseover, SV "Ladda URL", Engelska EN ger "Get URL"_________________________________
+
+
+====================================================
+STEP 6: Test GURL Button Functionality
+====================================================
+Action: 
+1. Paste a URL in the Köp Obj field (e.g., Swedish property listing)
+2. Click GURL button
+
+Expected: 
+- Status message appears below URL field
+- May show "Hämtar pris..." or error (CORS may block)
+- If successful, "Försäljningspris (kr)" field updates
+
+Result: [Pass] Pass  [ ] Fail
+Notes: Need Improvements:
+Early Proposal - No action - Do not Try to Implement Only analyse:
+LGH.106 The ">" Button shall load the url in an open.blank html file (to be created),
+a) There should be a top pander row with navigation buttons.
+b) the botten fram there should be the loaded url
+c) the Navigation buttons are the "<<" , ">" , ">>" "refresh" , "X" button to close the open.blank html session_____________________________________
+
+
+====================================================
+STEP 7: Test URL Memory Save
+====================================================
+Action: 
+1. Enter any URL in Köp Obj field (e.g., https://example.com/1)
+2. Press Enter key
+
+Expected: 
+- Counter stays "1/1"
+- No error messages
+
+Result: [ ] Pass  [Fail] Fail
+Notes: Need also some improvement
+LGH.108 The counter is not working stands 1/1, even after presseing button "D" or "DD" when it is reset it should be 0/0
+
+LGH.107 The textform for pasting in brooker URL shall reset after GURL is pressed
+a) There should be a top pander row with navigation buttons.
+b) the botten fram there should be the loaded url
+c) the Navigation buttons are the "<<" , ">" , ">>" "refresh" , "X" button to close the open.blank html session
+
+
+====================================================
+STEP 8: Test Navigation - Next
+====================================================
+Action: 
+1. Enter a second URL (e.g., https://example.com/2)
+2. Press Enter
+3. Click >> button
+
+Expected: 
+- After Enter: Counter changes to "1/2"
+- After >>: Counter changes to "2/2"
+- URL field shows second URL
+
+Result: [ ] Pass  [Fail
+Notes: Counter does not work________
+
+
+====================================================
+STEP 9: Test Navigation - Previous
+====================================================
+Action: 
+- Click << button
+
+Expected: 
+- Counter changes to "1/2"
+- URL field shows first URL
+
+Result: [ ] Pass  [Faill
+Notes: _________________________________________________
+
+
+====================================================
+STEP 10: Test Open URL
+====================================================
+Action: 
+- Click > button
+
+Expected: 
+- New browser tab/window opens
+- Attempts to load the URL
+
+Result: [pass] [}
+Notes: Need to be improved see: LGH.106 
+
+
+====================================================
+STEP 11: Test Scrape Button
+====================================================
+Action: 
+- Click :) button
+
+Expected: 
+- Same behavior as GURL button
+- Shows status message
+
+Result: [Pass] Pass  [ ] Fail
+Notes: We have not found a page that is opened for it_______________________________________
+
+
+====================================================
+STEP 12: Test Delete Current
+====================================================
+Action: 
+1. Ensure you're on object "1/2"
+2. Click D1 button
+
+Expected: 
+- Counter changes to "1/1"
+- Remaining URL is shown
+
+Result: [ ] Pass  [Fail]
+Notes: _________________________________________________
+
+
+====================================================
+STEP 13: Test Delete All
+====================================================
+Action: 
+1. Add 2-3 URLs to memory (enter URL, press Enter, repeat)
+2. Click DD button
+3. Click OK in confirmation dialog
+
+Expected: 
+- Confirmation dialog appears (Swedish or English)
+- Counter resets to "1/1"
+- URL field is empty
+
+Result: [ ] Pass  [Fail]
+Notes: _________________________________________________
+
+
+====================================================
+STEP 14: Test Language Toggle - Switch to EN
+====================================================
+Action: 
+- Click EN button (top right)
+
+Expected: 
+- Title changes to "Apartment Sales Profit Calculator"
+- "Köp Obj" label changes to "Sales Objects"
+- GURL button STAYS "GURL" (doesn't change)
+- Other labels change to English
+
+Result: [Pass]  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 15: Test Language Toggle - Switch back to SV
+====================================================
+Action: 
+- Click SV button
+
+Expected: 
+- Title changes back to "Kalkylator Försäljning LGH"
+- "Sales Objects" changes back to "Köp Obj"
+- GURL button STAYS "GURL"
+
+Result: [Pass]  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 16: Test Tooltips (Hover)
+====================================================
+Action: 
+- Hover mouse over each button
+
+Expected Tooltips (Swedish mode):
+- GURL: "Hämta pris"
+- <<: "Föregående"
+- >: "Öppna"
+- >>: "Nästa"
+- :): "Skrapa pris"
+- D1: "Radera aktuell"
+- DD: "Radera alla"
+
+Result: [Pass]  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+STEP 17: Test localStorage Persistence
+====================================================
+Action: 
+1. Add 2-3 URLs to memory
+2. Note the current counter (e.g., "2/3")
+3. Press F5 to refresh the page
+
+Expected: 
+- All URLs still in memory
+- Counter shows same position
+- Current URL displayed
+
+Result: [ ] Pass  [Fail]
+Notes: _________________________________________________
+
+
+====================================================
+STEP 18: Test Mobile Responsive (Optional)
+====================================================
+Action: 
+1. Press F12 to open DevTools
+2. Click device toolbar icon (or Ctrl+Shift+M)
+3. Select "iPhone 12" or similar mobile device
+
+Expected: 
+- URL field + buttons wrap neatly
+- Title readable at 15px
+- No horizontal scrolling
+- All buttons clickable
+
+Result: [ ] Pass  [ ] Fail
+Notes: Wait until publish to GitHub_________________________________________________
+
+
+====================================================
+STEP 19: Test Calculator Functionality
+====================================================
+Action: 
+1. Scroll down to input fields
+2. Change "Försäljningspris (kr)" to a different value
+
+Expected: 
+- Results section updates automatically
+- No errors in browser console (F12)
+
+Result: [Pass]  [ ] Fail
+Notes: ____________________________________No changes to console while working locally_____________
+
+
+====================================================
+STEP 20: Final Visual Check
+====================================================
+Action: 
+- Scroll through entire page
+
+Expected: 
+- No layout breaks
+- No overlapping elements
+- All text readable
+- Consistent button styling
+
+Result: [Pass]  [ ] Fail
+Notes: _________________________________________________
+
+
+====================================================
+TEST SUMMARY
+====================================================
+
+Total Steps: 20 (You have to count)
+Passed: ____
+Failed: ____
+Skipped: ____
+
+Overall Result: [ ] Pass  [Fail]
+
+Critical Issues Found: - Let's analyse together
+_______________________________________________________
+_______________________________________________________
+_______________________________________________________
+
+Non-Critical Issues Found:  - Let's analyse together
+_______________________________________________________
+_______________________________________________________
+_______________________________________________________
+
+Tested By: Me Myself & I________________
+Date: ________________2026-01-26__________
+Browser: Crome___________
+OS: Windows 11____
+
+====================================================
+QUICK CHECKLIST (for rapid verification)
+====================================================
+[Yes] Title is 15px and readable
+[Yes] "Köp Obj" label visible
+[Yes ] All buttons on one row
+[yes] GURL button shows "GURL"
+[Yes] GURL button fetches price
+[No] << >> navigation works
+[Yes > opens URL in new tab
+[No] :) scrapes price
+[No] D1 deletes current
+[No] DD deletes all (with confirmation)
+[Yes] SV/EN toggle works
+[Yes] GURL stays "GURL" in both languages
+[ yes] Tooltips appear on hover
+[Maybe] URLs persist after refresh
+[Wait un til test on GitHub] Mobile responsive layout works
+[Yes] Calculator still calculates correctly
+
+====================================================
+END OF TEST DOCUMENT
+====================================================
