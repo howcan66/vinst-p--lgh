@@ -10,6 +10,20 @@ This file tracks planned updates to the LGH Profit Calculator.
 
 === New TO BE COMPLETED ===
 
+LGH.20 Change Font on Apartment Sale Profit Calculator in SWE so it works on a mobile phone - one rows
+
+LGH.21 Anskaffnings kostnader can be on one rows
+
+LGH.22 Make textform height smaller. This will be used mostly on the phone. Ask me if you do not understand
+
+LGH.23 Space, height between Skattesats (%) & Totalt avdrag (kr) need to be shorter, ask if you do not understansd
+
+LGH.24 Space, height between S Totalt avdrag (kr) and Vinst före skatt (kr) and Skatt (kr) and Nettoresultat efter skatt (kr) rows need to be shorter, ask if you do not understansd
+
+
+========== Redo Above ==========
+
+========== No action Below on speciic rows =====
 LGH.12 Make textform height smaller - as suitable for mobile application
 LGH.14 Take away  Beräkningsdata
 LGH.13 Make space between  Vinstkalkylator vid försäljning av LGH & Försäljning smal shorter
@@ -17,11 +31,6 @@ LGH.15 Change "Vinstkalkylator vid försäljning av LGH" to "Vinstkalkylator vid
 LGH.17 Change "FÖRSÄLJNING" to "Försäljning"
 LGH.17 Change "ANSKAFFNINGSKOSTNADER" to "Anskaffningskostnader"
 LGH.18 Change Hur kan vi få översättnings knappen EN att fungera. Nu ändrar den bara på titeln...
-
-
-========== Redo Above ==========
-
-========== No action Below on speciic rows =====
 LGH.1 All Content to the Left & Top Alignment - Ask question if it is not clear
 LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels - Ask Question if it is not clear
 LGH.8 Lägg Vinstkalkylator vid försäljning av LGH i en top label ram tillsammans SV & EN Buttons
