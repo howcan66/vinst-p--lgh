@@ -365,6 +365,11 @@
                 </div>
                 <div class="status-text" id="obj1-status"></div>
             </div>
+            <!-- Buyer Purchase Price Section -->
+            <div class="input-group">
+                <label class="input-label" id="label-buyer-purchase">Inköpspris (kr)</label>
+                <input type="text" id="inkopspris_kopare" class="input-field number-field" value="" inputmode="numeric">
+            </div>
             <!-- Sale Price Section -->
             <div class="input-group">
                 <label class="input-label" id="label-price">Försäljningspris (kr)</label>
@@ -452,6 +457,7 @@
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
             refreshLink: 'Uppdatera sidan',
+            labelBuyerPurchase: 'Inköpspris (kr)',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
             labelPurchase: 'Inköpspris (kr)',
@@ -481,6 +487,7 @@
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
             refreshLink: 'Refresh page',
+            labelBuyerPurchase: 'Purchase Price (SEK)',
             labelPrice: 'Sale Price (SEK)',
             labelLoan: 'Loan (SEK)',
             labelPurchase: 'Purchase Price (SEK)',
@@ -582,6 +589,7 @@
     function getInputs() {
         return {
             forsaljningspris: parseNumber(document.getElementById('forsaljningspris').value),
+            inkopspris_kopare: parseNumber(document.getElementById('inkopspris_kopare').value),
             lan: parseNumber(document.getElementById('lan').value),
             inkopspris: parseNumber(document.getElementById('inkopspris').value),
             maklararvode: parseNumber(document.getElementById('maklararvode').value),
@@ -651,6 +659,7 @@
             fetchObjBtn.setAttribute('data-tooltip', t.obj1Fetch);
         }
         document.getElementById('label-price').textContent = t.labelPrice;
+        document.getElementById('label-buyer-purchase').textContent = t.labelBuyerPurchase;
         document.getElementById('label-loan').textContent = t.labelLoan;
         document.getElementById('label-purchase').textContent = t.labelPurchase;
         document.getElementById('label-broker').textContent = t.labelBroker;
@@ -806,6 +815,18 @@
         window.open(normalizeUrl(url), '_blank');
     }
 
+    // GURL button: Save URL to memory without fetching
+    function saveUrlToMemory() {
+        const rawUrl = objUrlInput.value.trim();
+        if (!rawUrl) {
+            setObjStatus('notFound');
+            return;
+        }
+        addOrUpdateObject(rawUrl);
+        objUrlInput.value = ''; // Clear URL after saving
+        setObjStatus(''); // Clear status
+    }
+
     // Scrape/fetch price from current URL
     async function scrapeCurrentObject() {
         const rawUrl = objUrlInput.value.trim();
@@ -821,9 +842,9 @@
             const html = await res.text();
             const price = extractPriceFromHtml(html);
             if (price && price > 0) {
-                const priceInput = document.getElementById('forsaljningspris');
-                if (priceInput) {
-                    priceInput.value = formatNumber(price);
+                const buyerPriceInput = document.getElementById('inkopspris_kopare');
+                if (buyerPriceInput) {
+                    buyerPriceInput.value = formatNumber(price);
                     // Save to current object
                     objectsMemory[currentObjectIndex].savedPrice = price;
                     saveObjectsMemory();
@@ -831,7 +852,6 @@
                     saveData();
                 }
                 setObjStatus('set', price);
-                objUrlInput.value = ''; // Clear URL after successful fetch
             } else {
                 setObjStatus('notFound');
             }
@@ -868,7 +888,7 @@
     }
 
     // Event listeners for buttons
-    document.getElementById('obj1-fetch-btn').addEventListener('click', scrapeCurrentObject);
+    document.getElementById('obj1-fetch-btn').addEventListener('click', saveUrlToMemory);
     document.getElementById('obj1-prev-btn').addEventListener('click', goToPrevious);
     document.getElementById('obj1-next-btn').addEventListener('click', goToNext);
     document.getElementById('obj1-open-btn').addEventListener('click', openCurrentObject);
@@ -886,18 +906,6 @@
         document.getElementById('obj1-scrape-btn').setAttribute('data-tooltip', t.obj1Scrape);
         document.getElementById('obj1-delete-btn').setAttribute('data-tooltip', t.obj1DeleteCurrent);
         document.getElementById('obj1-delete-all-btn').setAttribute('data-tooltip', t.obj1DeleteAll);
-    }
-
-    // URL input blur event
-    if (objUrlInput) {
-        objUrlInput.addEventListener('blur', () => {
-            addOrUpdateObject(objUrlInput.value);
-        });
-        objUrlInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                addOrUpdateObject(objUrlInput.value);
-            }
-        });
     }
 
     // Print button
@@ -969,6 +977,7 @@
     function saveData() {
         const data = {
             forsaljningspris: document.getElementById('forsaljningspris').value,
+            inkopspris_kopare: document.getElementById('inkopspris_kopare').value,
             lan: document.getElementById('lan').value,
             inkopspris: document.getElementById('inkopspris').value,
             maklararvode: document.getElementById('maklararvode').value,
@@ -996,6 +1005,7 @@
             if (saved) {
                 const data = JSON.parse(saved);
                 document.getElementById('forsaljningspris').value = data.forsaljningspris || 4350000;
+                document.getElementById('inkopspris_kopare').value = data.inkopspris_kopare || '';
                 document.getElementById('lan').value = data.lan || 1950000;
                 document.getElementById('inkopspris').value = data.inkopspris || 380000;
                 document.getElementById('maklararvode').value = data.maklararvode || 65000;
@@ -1016,6 +1026,9 @@
 
     // Load saved data on page load
     loadData();
+
+    // Initialize Sales Objects UI
+    updateObjectsUI();
 
     // Ensure UI reflects current language on initial load
     setLanguage(currentLang);

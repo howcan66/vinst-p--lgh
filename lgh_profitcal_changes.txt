@@ -2,21 +2,109 @@ lgh_profitcal_changes.txt - Upcoming Changes & Improvements
 
 This file tracks planned updates to the LGH Profit Calculator.
 
+LGH.115 textform url load and the navigation buttons from "GURL" does not work on github
+LGH.116 textform url load and the navigation buttons from "GURL" should reset the textform to empty, the text.form deault value is empty
 
+LGH.117 textform url load must be shorter, the index file must be on the same row ans the navigation buttons,
+Ask me questions if this is a problem.
+
+Sales Objects
+LGH.118 Label "Sales Objects" shall be changed "Sales Objects" react by EN Button
+LGH.119 Label "Köp Obj" shall be changed "Köp Objekt"  react by SV Button
+
+
+LGH.120 Label Mouseover effect over textform loadurl, show part of a specific URL, "https//hemnet...",
+there should be no Mouseover effect - URL form shall be reset...
+
+
+LGH.121 Button GURL load same url twice or counter counts load twices. Secure that load is done correctly
+
+
+LGH.122 The navigation button "S13_passcode" shall have no Mouseover functionality at all
+
+
+ pm2 test below
+LGH.123 GURL button upload the brooker url 2 times accordin to the counter - please check & correct
+
+
+Ask me questions if this is a problem.
 
 === New TO BE COMPLETED =================================
 
+LGH.106 The ">" Button shall load the url in an open.blank html file (to be created),
+a) There should be a top pander row with navigation buttons.
+b) the botten fram there should be the loaded url
+c) the Navigation buttons are the "<<" , ">" , ">>" "refresh" , "X" button to close the open.blank html session
+
+
+
+
+LGH.111 Create Hidden navigation button like the one for S13 Passcode button - It shall be hidden no Mouseover; 
+
+
+a)Pressing once (1 odd), will hide;
+b) Köp Obj - name
+c) textform for url load and the navigation buttons from "GURL" to "DD" and the index counter
+d) Pressing once again (2 even), will show;
+e) textform for url load and the navigation buttons from "GURL" to "DD" and the index counter
+
+
+
+LGH.121 Include "Inköpspris (kr)" in email export (SV/EN), no calculation changes
+
+
 ====================== ONGOING Below ==========================================
-None
+
+
+
+
+
 
 ====================== ONGOING Above ===========================================
 
 ========== COMPLETED BELOW ==========
 
+LGH.112 If there is no url loaded or if load fail by "GURL" then the message should not be "Hittade inget pris. 
+Ange manuellt." change to "Not Loaded"
+
+
+LGH.110 Create setup a new SalesvPrice Buyer (kr), Textform same as Sale Price (SEK)
+
+LGH.119 Add Textform "Inköpspris (kr)" a copy of "Försäljningspris (kr)" no calculation yet, place it above Försäljningspris (kr)
+
+LGH.120 the navigation button scraper ":)" shall add successful purchase prize amount there Textform "Inköpspris (kr)"
+
+
+LGH.104 Change "Hämta pris" button to "GURL"
+LGH.116 Pressing navigation button "GURL" then the scrape actity shall not be done,
+Ergo the message should only be if GURL Fail then the message shall be "Not Loaded"
+
+LGH.100 Align all navigation buttons on the same row as the textform for loading up sales brooker URL "hämta pris",
+navigation buttons: "<<" , ">" , ">>" , ":)" , "D1" & "DD"
+
+LGH.101 Align all navigation buttons: from the right hand side:
+a) The navigation buttons  at the "Kalkylator Försäljning LGH" row should align with the ones on the textform load url.
+b)Meaning that the last navigation button is horisontally on each rows:
+c)"Clear" button is horizontally above the "Radera" alla
+d) the index file 1/1 need to be moved to after the textform loadurl
+LGH.102 Please analyse and ask quesitons!
+
+
+ on the same row as the textform for loading up sales brooker URL "hämta pris",
+navigation buttons: "<<" , ">" , ">>" , ":)" , "D1" & "DD"
+
+LGH.100a "Hämta Pris" load button is missing. (COMPLETED)
+- Shortened URL input field to fit controls and added a visible "Hämta Pris" / "Fetch Price" button tied to price scraping.
+LGH.101 Change name "Obj1 länk" to "Köp Obj". (COMPLETED)
+LGH.103 Change the panel name "Kalkylator försäljning LGH" font size +1. (COMPLETED)
+- Increased title font size from 14px to 15px.
+LGH.104 Change "Hämta pris" button to "GURL". (COMPLETED)
+- Changed fetch button text to 'GURL' (language-independent).
+LGH.105 Reduce size of the textform GURL - Ask me what size! (COMPLETED)
+- GURL button uses same .lang-btn class as navigation buttons, ensuring consistent sizing with <<, >, >>, :), D1, DD buttons.
+
 LGH.94 Investigate carefully LGH.94. Analysis result should match development and prepere a stepwise developlment to be included in improvement.txt files
 LGH.96 - No develoment only analysis
-LGH.100 Align all navigation buttons on the same row as the textform for loading up sales brooker URL "hämta pris". (COMPLETED)
-- All navigation buttons (<<, >, >>, :), D1, DD) and counter are placed on the same row as the URL field with responsive flex wrapping.
 LGH.95 Change name Obj1 to Sales Objects. (COMPLETED)
 - Renamed label from "Obj1 länk" to "Försäljningsobjekt" / "Sales Objects"
 - Implemented multi-object URL memory system with localStorage persistence
