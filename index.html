@@ -211,6 +211,20 @@
             z-index: 1000;
         }
 
+        .refresh-link {
+            background: transparent;
+            border: none;
+            color: #4da3ff;
+            text-decoration: underline;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .refresh-link:hover {
+            box-shadow: none;
+            color: #7bb9ff;
+        }
+
         .icon-btn {
             padding: 6px 8px;
             margin: 0 2px;
@@ -520,7 +534,17 @@
         document.getElementById('title').textContent = t.title;
         document.getElementById('input-header').textContent = t.inputHeader;
         document.getElementById('result-header').textContent = t.resultHeader;
-        document.getElementById('refresh-btn').textContent = t.refreshLink;
+
+        const refreshBtn = document.getElementById('refresh-btn');
+        if (lang === 'en') {
+            refreshBtn.textContent = t.refreshLink;
+            refreshBtn.classList.add('refresh-link');
+            refreshBtn.setAttribute('data-tooltip', t.refreshLink);
+        } else {
+            refreshBtn.textContent = '🔄';
+            refreshBtn.classList.remove('refresh-link');
+            refreshBtn.setAttribute('data-tooltip', 'Uppdatera');
+        }
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-loan').textContent = t.labelLoan;
         document.getElementById('label-purchase').textContent = t.labelPurchase;
