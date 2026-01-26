@@ -4,11 +4,67 @@ This file tracks planned updates to the LGH Profit Calculator.
 
 
 
+=== New TO BE COMPLETED =================================
 
 
+LGH.72 change "Kalkylator vid försäljning av LGH" to "Kalkylator försäljning LGH" and reduce -1 fontsize
+
+LGH.73 change vertical height for space between "Kalkylator försäljning LGH" and "Refresh page" reduce with -1
+
+LGH.74 change vertical height for space between "Refresh page" and "Försäljningspris (kr)" reduce with -1
+
+LGH.75 change vertical height for space between "Kapitaltillskott, from BRF (kr)" and "Totalt avdrag (kr)" reduce with -1
+
+LGH.77 change "coolportals@hotmail.com | © 2026 Vinstkalkylator | Local Time 26.01.26 10:05" when Language is SV it should be "coolportals@hotmail.com | © 2026 Vinstkalkylator | Lokal Tid 26.01.26 10:05"
+
+LGH.78 change "coolportals@hotmail.com | © 2026 Vinstkalkylator | Local Time 26.01.26 10:05" when Language is EN it should be "coolportals@hotmail.com | © 2026 Vinstkalkylator | Local Time 26.01.26 10:05"
+
+LGH.79 Ask me questions about buttons:
+1) Make a Coolportals.png button, replacing the current Coolportals.png image. Same size and button style but housing the image of the Coolportals.png
+- Button should be same style as button for EN and SV and placed after the EN Button
+- Ask me if there are consideration s to be taken?
+
+2) Make a Refresh_Button, replacing the Refresh page link. 
+- Button should be same style as button for EN and SV and placed before the SV Button
+- Ask me if there are consideration s to be taken?
 
 
-=== New TO BE COMPLETED ===
+========== Only Activities Above ==========
+
+========== No action Below on speciic rows =====
+LGH.71 change "coolportals@hotmail.com | © 2026 Vinstkalkylator | Local Time 26.01.26 06:29" reduce -1 fontsize
+LGH.61 change "Skatt (kr)" to "Skatt ( Skr & 22% ) Vinst efter avdrag för lån (Skr)
+LGH.62 text "Uppdatera sidan" to font bold
+LGH.62 change text "Kapitaltillskott (kr)" to "Kapitaltillskott, from BRF (kr)"
+
+
+LGH.55 change "Vinst efter avdrag för lån (Skr)" to "Vinst efter avdrag för lån (kr)"
+LGH.54 Add mailto funxtionality on the CoolPortals.PNG. mailto coolportals@hotmail.com
+LGH.56 change "Vinst efter lån (kr)" to "Vinst efter avdrag för lån (Skr)
+LGH.57 The "Refresh page" set it to the applied same font and size as compared to the rest of the Content
+LGH.60 Title "Kalkylator vid försäljning av LGH" transladted to English does not sound right EN is set to "Apartment Sale Profit Calculator in SWE", I would like it to be "Apartment Sales Profit Calculator"
+
+LGH.43 Change "Vinstkalkylator vid försäljning av LGH in SWE" to "Kalkylator vid försäljning av LGH"
+LGH.46 Align the "Refresh page" to the Left and use the appropriate font as compared to the rest of the Content
+
+LGH50 For coolportals@hotmail.com | © 2026 LGH Vinstberäknare | Local Time 26.01.26 05:16, change " © 2026 LGH Vinstberäknare |" to  © 2026 Kalkylator LGH |
+
+LGH.34 Evaluate if the icon; CoolPortals.PNG can be used and propose placement - Ask quest
+Stop! Do not adress items below!
+LGH.41 SV Buttons is Missing
+LGH.42 Language conversion using SV and EN Buttons does not work
+LGH.47 Change "LGH Vinstberäknare" to "Vinstkalkylator"
+
+LGH.32 SV Buttons is Missing
+LGH.31 Language conversion using SV and EN Buttons does not work
+
+
+LGH.33 Align bottom row to the centre coolportals@hotmail.com © 2026 LGH Vinstbereknare | ändra "Beräknad lokalt" Local Time", change "LGH Vinstbereknare" to "LGH Vinstberäknare"
+LGH.34 Evaluate if the icon; CoolPortals.PNG can be used and propose placement
+LGH.37 Remove Försäljning
+LGH.35 Remove Anskaffningskostnader
+LGH.36 Add a "Refresh page " text with a link to refresh page, place it under the title Vinstkalkylator vid försäljning av LGH in SWE and Försäljningspris (kr)
+
 LGH.25 time stamp and clock shall be aligned to the right, before © 2026 LGH Vinstbereknare...
 
 LGH.26 © 2026 LGH Vinstbereknare | Beräknad lokalt, change "LGH Vinstbereknare" to "LGH Vinstberäknare"
@@ -17,12 +73,6 @@ LGH.28 time stamp and clock shall be aligned to the right, before © 2026 LGH Vi
 LGH.29 Remove Skatt between Kapitaltillskott (kr) and Skattesats (%)
 LGH.30 Swedish Buttons is now missing. Please Add it backend
  LGH.31 Language conversion using SV and EN Buttons does not work
-
-
-
-========== Redo Above ==========
-
-========== No action Below on speciic rows =====
 LGH.20 Change Font on Apartment Sale Profit Calculator in SWE so it works on a mobile phone - one rows
 
 LGH.21 Anskaffnings kostnader can be on one rows
@@ -52,12 +102,14 @@ LGH.6 Lägg till en datum YY.MM.DD och timestamp i botten till vänster
 LGH.7 Ändra så att alla Beräknings och resultat data blir bold och samma storlek som textform datat
 LGH.11 Tabort Beräkna din vinst vid försäljning
 LGH.9 Ändra färg till svart. ALl text vitt. text form vit bakgrund svart text
-
+Stop - Do not review or act upon items above
 
 ========== No action Above on speciic rows =====
 
 
 === TO BE COMPLETED === As suggested by AI ===
+
+LGH.100 Items suggestion by AI
 
 1. Design/UI Tweaks
    - Color adjustments?

@@ -36,7 +36,7 @@
         }
 
         .header h1 {
-            font-size: 16px;
+            font-size: 15px;
             margin: 0;
         }
 
@@ -161,6 +161,29 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
+        .icon-btn {
+            padding: 6px 8px;
+            margin: 0 2px;
+            border: 1px solid #fff;
+            background: #000;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-btn img {
+            height: 20px;
+            width: 20px;
+            border-radius: 4px;
+        }
+
         @media (max-width: 480px) {
             .input-group {
                 grid-template-columns: 1fr;
@@ -194,18 +217,16 @@
 <div class="container">
     <div class="header">
         <div style="display: flex; align-items: center; gap: 8px;">
-            <a href="mailto:coolportals@hotmail.com" aria-label="Email CoolPortals">
-                <img src="CoolPortals.PNG" alt="CoolPortals logo" style="height: 20px; width: 20px; border-radius: 4px;">
+            <h1 id="title">Kalkylator försäljning LGH</h1>
+        </div>
+        <div style="display: flex; align-items: center; gap: 4px;">
+            <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page">Refresh</button>
+            <button class="lang-btn active" data-lang="sv" aria-label="Swedish language">SV</button>
+            <button class="lang-btn" data-lang="en" aria-label="English language">EN</button>
+            <a href="mailto:coolportals@hotmail.com" class="icon-btn" aria-label="Email CoolPortals">
+                <img src="CoolPortals.PNG" alt="CoolPortals logo">
             </a>
-            <h1 id="title">Kalkylator vid försäljning av LGH</h1>
         </div>
-        <div>
-            <button class="lang-btn active" data-lang="sv">SV</button>
-            <button class="lang-btn" data-lang="en">EN</button>
-        </div>
-    </div>
-    <div style="text-align: left; margin: 6px 0 8px 16px;">
-        <a href="javascript:location.reload()" style="color: white; font-size: 14px; text-decoration: underline; font-family: inherit; font-weight: 700;" id="refresh-link">Refresh page</a>
     </div>
 
     <!-- Input Card -->
@@ -247,7 +268,7 @@
                 <label class="input-label" id="label-other">Övriga avdragsgilla (kr)</label>
                 <input type="number" id="ovriga" class="input-field" value="0" min="0">
             </div>
-            <div class="input-group">
+            <div class="input-group" style="margin-bottom: 4px;">
                 <label class="input-label" id="label-capital">Kapitaltillskott, from BRF (kr)</label>
                 <input type="number" id="kapitaltillskott" class="input-field" value="10000" min="0">
             </div>
@@ -287,7 +308,7 @@
     </div>
 
     <div style="color: white; font-size: 10px; margin-top: 16px; opacity: 0.8; text-align: center;">
-        <p><a href="mailto:coolportals@hotmail.com" style="color: white; text-decoration: none;">coolportals@hotmail.com</a> | © 2026 Vinstkalkylator | Local Time <span id="footer-left"></span></p>
+        <p><a href="mailto:coolportals@hotmail.com" style="color: white; text-decoration: none;">coolportals@hotmail.com</a> | © 2026 Vinstkalkylator | <span id="footer-left"></span></p>
     </div>
 </div>
 
@@ -295,7 +316,7 @@
     // Language strings
     const translations = {
         sv: {
-            title: 'Kalkylator vid försäljning av LGH',
+            title: 'Kalkylator försäljning LGH',
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
             refreshLink: 'Uppdatera sidan',
@@ -402,7 +423,7 @@
         document.getElementById('title').textContent = t.title;
         document.getElementById('input-header').textContent = t.inputHeader;
         document.getElementById('result-header').textContent = t.resultHeader;
-        document.getElementById('refresh-link').textContent = t.refreshLink;
+        document.getElementById('refresh-btn').textContent = t.refreshLink;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-loan').textContent = t.labelLoan;
         document.getElementById('label-purchase').textContent = t.labelPurchase;
@@ -424,6 +445,9 @@
             btn.classList.remove('active');
         });
         document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+        // Update timestamp to reflect language change
+        updateTimestamp();
 
         // Recalculate to ensure formatting is correct
         calculate();
@@ -449,7 +473,8 @@
         const hh = String(now.getHours()).padStart(2, '0');
         const min = String(now.getMinutes()).padStart(2, '0');
         const timestamp = `${yy}.${mm}.${dd} ${hh}:${min}`;
-        document.getElementById('footer-left').textContent = timestamp;
+        const timeLabel = currentLang === 'sv' ? 'Lokal Tid' : 'Local Time';
+        document.getElementById('footer-left').textContent = timeLabel + ' ' + timestamp;
     }
 
     // Initial calculation and timestamp
