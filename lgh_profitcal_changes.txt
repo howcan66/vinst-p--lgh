@@ -10,23 +10,24 @@ This file tracks planned updates to the LGH Profit Calculator.
 
 
 LGH.94 Investigate carefully LGH.94. Analysis result should match development and prepere a stepwise developlment to be included in improvement.txt files
-LGH.95 Change name Obj1 to Sales Objects.
-1) The text form accepts url and by a push button object button ">" adds the value to a memory_url1 memory for every object that the person loads
-a) If succesful a memory_url1 can be shown by pressing the ">" button opening a new winddow with the sales url = memory_url1.
-b) There are five buttos are added, same standard as before,  
-d) "<<" button (go back)
-e) ">" button in the middle to load the brooker url in a new webb page or tab...
-f) ">>" button will move to the next url in memory_urln
-g) ":)" scrape button will try to get the salesPrice - If it does not work - and a msgs add sales price manually
-h) "D1" Delete current objectn with memory_data.n, return the object.n-1
-i) "DD" Delete all object in object.n and memory_data.n
 LGH.96 - No develoment only analysis
 
 ONGOING Above 
 =========================================================================
 
 
-========== Only Activities Above ==========
+========== COMPLETED BELOW ==========
+LGH.95 Change name Obj1 to Sales Objects. (COMPLETED)
+- Renamed label from "Obj1 länk" to "Försäljningsobjekt" / "Sales Objects"
+- Implemented multi-object URL memory system with localStorage persistence
+- Added navigation buttons: << (previous), > (open), >> (next)
+- Added action buttons: :) (scrape/fetch price), D1 (delete current), DD (delete all)
+- Added object counter display showing current/total objects (e.g. "2/5")
+- Each object stores URL and savedPrice
+- Full bilingual support (Swedish/English) with dynamic tooltips
+- Press Enter or blur on URL input to save to memory
+
+========== Only Activities Below ==========
 LGH.93 The Button EN change the refresh BUtton to a rerfresh or reloaad http link. This is not correct,
 Secure that Reresh button is aleasy used and not dependent on what language
 
