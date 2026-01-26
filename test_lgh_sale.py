@@ -98,6 +98,27 @@ class TestLGHSale(unittest.TestCase):
         example = create_example_sale()
         self.assertIsInstance(example, LGHSale)
         self.assertIsInstance(example.to_txt(), str)
+    
+    def test_broker_fee_none(self):
+        """Test that broker_fee_percent=None is handled correctly."""
+        sale_no_fee = LGHSale(
+            address="Test",
+            area_sqm=50.0,
+            rooms=2,
+            floor=1,
+            purchase_price=1_000_000,
+            purchase_date=date(2022, 1, 1),
+            sale_price=1_100_000,
+            sale_date=date(2024, 1, 1),
+            broker_fee_percent=None
+        )
+        # Should not raise an error
+        net_profit = sale_no_fee.calculate_net_profit()
+        self.assertEqual(net_profit, 100_000)  # No broker fee deducted
+        
+        # TXT generation should also work
+        txt = sale_no_fee.to_txt()
+        self.assertIn("0.0%", txt)
 
 
 if __name__ == "__main__":

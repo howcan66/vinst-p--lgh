@@ -39,7 +39,8 @@ class LGHSale:
     def calculate_net_profit(self) -> float:
         """Calculate net profit after deducting costs."""
         gross_profit = self.calculate_profit()
-        broker_fee = self.sale_price * (self.broker_fee_percent / 100)
+        broker_fee_percent = self.broker_fee_percent or 0.0
+        broker_fee = self.sale_price * (broker_fee_percent / 100)
         renovation = self.renovation_costs or 0.0
         return gross_profit - broker_fee - renovation
     
@@ -93,8 +94,9 @@ class LGHSale:
         
         # Costs
         lines.append("KOSTNADER:")
-        broker_fee = self.sale_price * (self.broker_fee_percent / 100)
-        lines.append(f"  Mäklarprovision ({self.broker_fee_percent}%): {broker_fee:,.0f} SEK")
+        broker_fee_percent = self.broker_fee_percent or 0.0
+        broker_fee = self.sale_price * (broker_fee_percent / 100)
+        lines.append(f"  Mäklarprovision ({broker_fee_percent}%): {broker_fee:,.0f} SEK")
         if self.renovation_costs:
             lines.append(f"  Renoveringskostnader: {self.renovation_costs:,.0f} SEK")
         lines.append("")
