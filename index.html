@@ -172,6 +172,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+                    position: relative;
         }
 
         .lang-btn.active {
@@ -181,6 +182,33 @@
 
         .lang-btn:hover {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                .lang-btn[data-tooltip]:hover::before {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    margin-bottom: 5px;
+                    padding: 4px 8px;
+                    background: #333;
+                    color: #fff;
+                    font-size: 11px;
+                    border-radius: 4px;
+                    white-space: nowrap;
+                    z-index: 1000;
+                }
+
+                .lang-btn[data-tooltip]:hover::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    border: 4px solid transparent;
+                    border-top-color: #333;
+                    z-index: 1000;
+                }
         }
 
         .icon-btn {
@@ -279,13 +307,13 @@
             <h1 id="title">Kalkylator försäljning LGH</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 4px;">
-            <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access" title="Secret">S13</a>
-            <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page" title="Refresh">🔄</button>
-            <button class="lang-btn active" data-lang="sv" aria-label="Swedish language" title="Swedish">SV</button>
-            <button class="lang-btn" data-lang="en" aria-label="English language" title="English">EN</button>
-            <button class="lang-btn" id="print-btn" aria-label="Print calculations" title="Print">🖨️</button>
-            <button class="lang-btn" id="email-btn" aria-label="Email results" title="Email">✉️</button>
-            <button class="lang-btn" id="clear-btn" aria-label="Clear saved data" title="Clear">🗑️</button>
+            <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access" data-tooltip="Secret">S13</a>
+            <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page" data-tooltip="Refresh">🔄</button>
+            <button class="lang-btn active" data-lang="sv" aria-label="Swedish language" data-tooltip="Swedish">SV</button>
+            <button class="lang-btn" data-lang="en" aria-label="English language" data-tooltip="English">EN</button>
+            <button class="lang-btn" id="print-btn" aria-label="Print calculations" data-tooltip="Print">🖨️</button>
+            <button class="lang-btn" id="email-btn" aria-label="Email results" data-tooltip="Email">✉️</button>
+            <button class="lang-btn" id="clear-btn" aria-label="Clear saved data" data-tooltip="Clear">🗑️</button>
         </div>
     </div>
 
