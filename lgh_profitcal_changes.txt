@@ -9,7 +9,20 @@ This file tracks planned updates to the LGH Profit Calculator.
 
 
 === New TO BE COMPLETED ===
+LGH.25 time stamp and clock shall be aligned to the right, before © 2026 LGH Vinstbereknare...
 
+LGH.26 © 2026 LGH Vinstbereknare | Beräknad lokalt, change "LGH Vinstbereknare" to "LGH Vinstberäknare"
+LGH.27 Add a mailto:coolportals@hotmail.com and generate mailto dialog for mailto:coolportals@hotmail.com, set it up before ->  © 2026 LGH Vinstbereknare | Beräknad lokalt, change "LGH Vinstbereknare" to "LGH Vinstberäknare"
+LGH.28 time stamp and clock shall be aligned to the right, before © 2026 LGH Vinstbereknare...
+LGH.29 Remove Skatt between Kapitaltillskott (kr) and Skattesats (%)
+LGH.30 Swedish Buttons is now missing. Please Add it backend
+ LGH.31 Language conversion using SV and EN Buttons does not work
+
+
+
+========== Redo Above ==========
+
+========== No action Below on speciic rows =====
 LGH.20 Change Font on Apartment Sale Profit Calculator in SWE so it works on a mobile phone - one rows
 
 LGH.21 Anskaffnings kostnader can be on one rows
@@ -20,10 +33,6 @@ LGH.23 Space, height between Skattesats (%) & Totalt avdrag (kr) need to be shor
 
 LGH.24 Space, height between S Totalt avdrag (kr) and Vinst före skatt (kr) and Skatt (kr) and Nettoresultat efter skatt (kr) rows need to be shorter, ask if you do not understansd
 
-
-========== Redo Above ==========
-
-========== No action Below on speciic rows =====
 LGH.12 Make textform height smaller - as suitable for mobile application
 LGH.14 Take away  Beräkningsdata
 LGH.13 Make space between  Vinstkalkylator vid försäljning av LGH & Försäljning smal shorter

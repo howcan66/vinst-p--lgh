@@ -244,8 +244,6 @@
                 <input type="number" id="kapitaltillskott" class="input-field" value="10000" min="0">
             </div>
 
-            <!-- Tax Section -->
-            <div class="section-title" id="sec-tax">Skatt</div>
             <div class="input-group">
                 <label class="input-label" id="label-taxrate">Skattesats (%)</label>
                 <input type="number" id="skattesats" class="input-field" value="22" min="0" max="100">
@@ -280,9 +278,9 @@
         </div>
     </div>
 
-    <div style="text-align: left; color: white; font-size: 11px; margin-top: 16px; opacity: 0.8; display: flex; justify-content: space-between;">
+    <div style="color: white; font-size: 11px; margin-top: 16px; opacity: 0.8; display: flex; justify-content: space-between; align-items: center;">
+        <p><a href="mailto:coolportals@hotmail.com" style="color: white; text-decoration: none;">coolportals@hotmail.com</a> | © 2026 LGH Vinstberäknare | Beräknad lokalt</p>
         <p id="footer-left"></p>
-        <p id="footer">© 2026 LGH Vinstbereknare | Beräknad lokalt</p>
     </div>
 </div>
 
@@ -291,12 +289,10 @@
     const translations = {
         sv: {
             title: 'Vinstkalkylator vid försäljning av LGH in SWE',
-            subtitle: '',
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
             secSale: 'Försäljning',
             secCosts: 'Anskaffningskostnader',
-            secTax: 'Skatt',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
             labelPurchase: 'Inköpspris (kr)',
@@ -311,17 +307,14 @@
             labelCalc2: 'Vinst före skatt (kr)',
             labelCalc3: 'Skatt (kr)',
             labelCalc4: 'Nettoresultat efter skatt (kr)',
-            labelCalc5: 'Vinst efter lån (kr)',
-            footer: '© 2026 LGH Vinstbereknare | Beräknad lokalt'
+            labelCalc5: 'Vinst efter lån (kr)'
         },
         en: {
             title: 'Apartment Sale Profit Calculator in SWE',
-            subtitle: '',
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
             secSale: 'Sale',
             secCosts: 'Acquisition Costs',
-            secTax: 'Tax',
             labelPrice: 'Sale Price (SEK)',
             labelLoan: 'Loan (SEK)',
             labelPurchase: 'Purchase Price (SEK)',
@@ -336,8 +329,7 @@
             labelCalc2: 'Profit Before Tax (SEK)',
             labelCalc3: 'Tax (SEK)',
             labelCalc4: 'Net Result After Tax (SEK)',
-            labelCalc5: 'Profit After Loan (SEK)',
-            footer: '© 2026 Apartment Profit Calculator | Calculated locally'
+            labelCalc5: 'Profit After Loan (SEK)'
         }
     };
 
@@ -403,12 +395,10 @@
         const t = translations[lang];
 
         document.getElementById('title').textContent = t.title;
-        document.getElementById('subtitle').textContent = t.subtitle;
         document.getElementById('input-header').textContent = t.inputHeader;
         document.getElementById('result-header').textContent = t.resultHeader;
         document.getElementById('sec-sale').textContent = t.secSale;
-        document.getElementById('sec-costs').innerHTML = t.secCosts;
-        document.getElementById('sec-tax').textContent = t.secTax;
+        document.getElementById('sec-costs').textContent = t.secCosts;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-loan').textContent = t.labelLoan;
         document.getElementById('label-purchase').textContent = t.labelPurchase;
@@ -424,7 +414,6 @@
         document.getElementById('label-calc3').textContent = t.labelCalc3;
         document.getElementById('label-calc4').textContent = t.labelCalc4;
         document.getElementById('label-calc5').textContent = t.labelCalc5;
-        document.getElementById('footer').textContent = t.footer;
 
         // Update button states
         document.querySelectorAll('.lang-btn').forEach(btn => {
