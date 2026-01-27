@@ -294,6 +294,48 @@
             color: #000;
         }
 
+        /* Sales Objects visibility toggle (LGH.111) */
+        #sales-objects-toggle {
+            background: #000;
+            border: 1px solid #000;
+            color: #000;
+            padding: 6px 12px;
+        }
+
+        /* Hide Sales Objects section when toggled */
+        .sales-objects-hidden #label-obj1,
+        .sales-objects-hidden #obj1-url,
+        .sales-objects-hidden #obj1-fetch-btn,
+        .sales-objects-hidden #obj1-prev-btn,
+        .sales-objects-hidden #obj1-open-btn,
+        .sales-objects-hidden #obj1-next-btn,
+        .sales-objects-hidden #obj1-scrape-btn,
+        .sales-objects-hidden #obj1-delete-btn,
+        .sales-objects-hidden #obj1-delete-all-btn,
+        .sales-objects-hidden #obj1-counter,
+        .sales-objects-hidden #label-buyer-purchase,
+        .sales-objects-hidden #inkopspris_kopare {
+            display: none !important;
+        }
+
+        /* Print: respect toggle state */
+        @media print {
+            .sales-objects-hidden #label-obj1,
+            .sales-objects-hidden #obj1-url,
+            .sales-objects-hidden #obj1-fetch-btn,
+            .sales-objects-hidden #obj1-prev-btn,
+            .sales-objects-hidden #obj1-open-btn,
+            .sales-objects-hidden #obj1-next-btn,
+            .sales-objects-hidden #obj1-scrape-btn,
+            .sales-objects-hidden #obj1-delete-btn,
+            .sales-objects-hidden #obj1-delete-all-btn,
+            .sales-objects-hidden #obj1-counter,
+            .sales-objects-hidden #label-buyer-purchase,
+            .sales-objects-hidden #inkopspris_kopare {
+                display: none !important;
+            }
+        }
+
         @media (max-width: 480px) {
             .input-group {
                 grid-template-columns: 1fr;
@@ -331,6 +373,7 @@
             <h1 id="title">Kalkylator Försäljning LGH</h1>
         </div>
         <div style="display: flex; align-items: center; gap: 4px;">
+            <button type="button" class="lang-btn secret-btn" id="sales-objects-toggle" aria-label="Toggle Sales Objects"></button>
             <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access">S13</a>
             <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page" data-tooltip="Refresh">🔄</button>
             <button class="lang-btn active" data-lang="sv" aria-label="Swedish language" data-tooltip="Swedish">SV</button>
@@ -916,6 +959,39 @@
     document.getElementById('obj1-scrape-btn').addEventListener('click', scrapeCurrentObject);
     document.getElementById('obj1-delete-btn').addEventListener('click', deleteCurrentObject);
     document.getElementById('obj1-delete-all-btn').addEventListener('click', deleteAllObjects);
+
+    // ===== LGH.111: Sales Objects Toggle Button =====
+    const toggleBtn = document.getElementById('sales-objects-toggle');
+    const cardBody = document.querySelector('.card-body'); // Target the card containing Sales Objects section
+
+    // Load initial toggle state (default: hidden on first visit)
+    let salesObjectsToggleState = parseInt(localStorage.getItem('lghSalesObjectsToggle') || '1'); // 1=hidden, 2=shown, cycles
+
+    // Apply initial state on page load
+    function applySalesObjectsToggleState() {
+        if (salesObjectsToggleState === 1 || salesObjectsToggleState % 2 === 1) {
+            // Odd = HIDDEN
+            cardBody.classList.add('sales-objects-hidden');
+        } else {
+            // Even = SHOWN
+            cardBody.classList.remove('sales-objects-hidden');
+        }
+    }
+
+    // Toggle Sales Objects section
+    function toggleSalesObjects() {
+        salesObjectsToggleState += 1; // Increment: 1→2→3(reset to 1)→2→...
+        if (salesObjectsToggleState > 2) {
+            salesObjectsToggleState = 1; // Cycle: after 2, go back to 1 (or continue: 3,4,5... and check odd/even)
+        }
+        localStorage.setItem('lghSalesObjectsToggle', salesObjectsToggleState.toString());
+        applySalesObjectsToggleState();
+    }
+
+    toggleBtn.addEventListener('click', toggleSalesObjects);
+
+    // Apply initial state on load
+    applySalesObjectsToggleState();
 
     // Update tooltips on language change
     function updateObjectsTooltips() {
