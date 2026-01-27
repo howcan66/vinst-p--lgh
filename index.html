@@ -458,7 +458,7 @@
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
             <!-- Object Information Section -->
-            <div style="border-bottom: 2px solid #667eea; padding-top: 8px; padding-bottom: 8px; margin-bottom: 8px;">
+            <div style="padding-top: 8px; padding-bottom: 8px; margin-bottom: 8px;">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="obj-info-header">
                     <span id="label-obj-info">GENERAL INFORMATION</span>
                     <span id="obj-info-state" style="color: #667eea; font-size: 12px;"> - Visible</span>
@@ -511,10 +511,17 @@
                 <input type="text" id="inkopspris_kopare" class="input-field number-field" value="" inputmode="numeric">
             </div>
             <!-- Sale Price Section -->
-            <div style="border-top: 2px solid #667eea; padding-top: 8px; margin-top: 8px;">
-                <div class="input-group">
-                    <label class="input-label" id="label-price">Försäljningspris (kr)</label>
-                    <input type="text" id="forsaljningspris" class="input-field number-field" value="4350000" inputmode="numeric">
+            <div style="padding-top: 8px; margin-top: 8px;">
+                <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="sales-price-header">
+                    <span id="label-sales-price-info">FÖRSÄLJNINGSPRIS INFORMATION</span>
+                    <span id="sales-price-state" style="color: #667eea; font-size: 12px;"> - Visible</span>
+                    <div style="flex: 1; border-bottom: 1px solid #999;"></div>
+                </div>
+                <div id="sales-price-container">
+                    <div class="input-group">
+                        <label class="input-label" id="label-price">Försäljningspris (kr)</label>
+                        <input type="text" id="forsaljningspris" class="input-field number-field" value="4350000" inputmode="numeric">
+                    </div>
                 </div>
             </div>
             <div class="input-group">
@@ -1395,6 +1402,32 @@
         obj1Visible = !obj1Visible;
         localStorage.setItem('obj1Visible', obj1Visible);
         updateObj1State();
+    });
+
+    // Toggle Sales Price Information section visibility
+    let salesPriceVisible = localStorage.getItem('salesPriceVisible') !== 'false'; // Default to true/visible
+    
+    function updateSalesPriceState() {
+        const container = document.getElementById('sales-price-container');
+        const stateLabel = document.getElementById('sales-price-state');
+        
+        if (salesPriceVisible) {
+            container.style.display = 'block';
+            stateLabel.textContent = ' - Visible';
+        } else {
+            container.style.display = 'none';
+            stateLabel.textContent = ' - Hidden';
+        }
+    }
+    
+    // Initialize state on page load
+    updateSalesPriceState();
+    
+    // Add click handler to header
+    document.getElementById('sales-price-header').addEventListener('click', function() {
+        salesPriceVisible = !salesPriceVisible;
+        localStorage.setItem('salesPriceVisible', salesPriceVisible);
+        updateSalesPriceState();
     });
 
     // Add event listeners for object information fields
