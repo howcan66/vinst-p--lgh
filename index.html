@@ -1064,28 +1064,44 @@
     if (emailBtn) {
         emailBtn.addEventListener('click', () => {
             const inputs = getInputs();
+            
+            // Helper function to pad labels for alignment
+            const pad = (label, value) => {
+                const maxLen = 25;
+                const padding = ' '.repeat(Math.max(0, maxLen - label.length));
+                return `${label}:${padding}${value}`;
+            };
+            
             const body = [
-                'LGH Vinstkalkylator',
+                '═══════════════════════════════════════',
+                '    LGH VINSTKALKYLATOR - RESULTAT',
+                '═══════════════════════════════════════',
                 '',
-                `Försäljningspris: ${formatSEK(inputs.forsaljningspris)}`,
-                `Lån: ${formatSEK(inputs.lan)}`,
-                `Inköpspris: ${formatSEK(inputs.inkopspris)}`,
-                `Mäklararvode: ${formatSEK(inputs.maklararvode)}`,
-                `Styling: ${formatSEK(inputs.styling)}`,
-                `Fotografering: ${formatSEK(inputs.fotografering)}`,
-                `Renoveringskostnader: ${formatSEK(inputs.renoveringskostnader)}`,
-                `Övriga avdragsgilla: ${formatSEK(inputs.ovriga)}`,
-                `Kapitaltillskott: ${formatSEK(inputs.kapitaltillskott)}`,
+                '─── BERÄKNINGSDATA ───',
                 '',
-                `Totalt avdrag: ${document.getElementById('result-calc1').textContent}`,
-                `Vinst före skatt: ${document.getElementById('result-calc2').textContent}`,
-                `Skatt: ${document.getElementById('result-calc3').textContent}`,
-                `Nettoresultat: ${document.getElementById('result-calc4').textContent}`,
-                `Vinst efter lån: ${document.getElementById('result-calc5').textContent}`,
-                `Slutlikvid: ${document.getElementById('result-slutlikvid').textContent}`,
+                pad('Försäljningspris', formatSEK(inputs.forsaljningspris) + ' kr'),
+                pad('Lån', formatSEK(inputs.lan) + ' kr'),
+                pad('Inköpspris', formatSEK(inputs.inkopspris) + ' kr'),
+                pad('Mäklararvode', formatSEK(inputs.maklararvode) + ' kr'),
+                pad('Styling', formatSEK(inputs.styling) + ' kr'),
+                pad('Fotografering', formatSEK(inputs.fotografering) + ' kr'),
+                pad('Renoveringskostnader', formatSEK(inputs.renoveringskostnader) + ' kr'),
+                pad('Övriga avdragsgilla', formatSEK(inputs.ovriga) + ' kr'),
+                pad('Kapitaltillskott', formatSEK(inputs.kapitaltillskott) + ' kr'),
                 '',
+                '─── RESULTAT ───',
+                '',
+                pad('Totalt avdrag', document.getElementById('result-calc1').textContent),
+                pad('Vinst före skatt', document.getElementById('result-calc2').textContent),
+                pad('Skatt', document.getElementById('result-calc3').textContent),
+                pad('Nettoresultat', document.getElementById('result-calc4').textContent),
+                pad('Vinst efter lån', document.getElementById('result-calc5').textContent),
+                pad('Slutlikvid', document.getElementById('result-slutlikvid').textContent),
+                '',
+                '═══════════════════════════════════════',
                 'Beräknat med LGH Vinstkalkylator',
-                'https://howcan66.github.io/vinst-p--lgh/'
+                'https://howcan66.github.io/vinst-p--lgh/',
+                '═══════════════════════════════════════'
             ].join('\n');
 
             const subject = 'LGH Vinstkalkylator Resultat';
