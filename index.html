@@ -459,25 +459,28 @@
         <div class="card-body">
             <!-- Object Information Section -->
             <div style="border-top: 2px solid #667eea; border-bottom: 2px solid #667eea; padding-top: 8px; padding-bottom: 8px; margin-bottom: 8px;">
-                <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px;">
+                <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="obj-info-header">
                     <span id="label-obj-info">GENERAL INFORMATION</span>
+                    <span id="obj-info-state" style="color: #667eea; font-size: 12px;"> - Visible</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
                 </div>
-                <div class="input-group">
-                    <label class="input-label" id="label-name">Namn</label>
-                    <input type="text" id="obj-name" class="input-field" placeholder="" inputmode="text">
-                </div>
-                <div class="input-group">
-                    <label class="input-label" id="label-contact">Kontakt</label>
-                    <input type="text" id="obj-contact" class="input-field" placeholder="" inputmode="tel">
-                </div>
-                <div class="input-group">
-                    <label class="input-label" id="label-description">Fastighetsbeskrivning</label>
-                    <input type="text" id="obj-description" class="input-field" placeholder="" inputmode="text">
-                </div>
-                <div class="input-group">
-                    <label class="input-label" id="label-notes">Anteckningar</label>
-                    <input type="text" id="obj-notes" class="input-field" placeholder="" inputmode="text">
+                <div id="obj-info-container">
+                    <div class="input-group">
+                        <label class="input-label" id="label-name">Namn</label>
+                        <input type="text" id="obj-name" class="input-field" placeholder="" inputmode="text">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-contact">Kontakt</label>
+                        <input type="text" id="obj-contact" class="input-field" placeholder="" inputmode="tel">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-description">Fastighetsbeskrivning</label>
+                        <input type="text" id="obj-description" class="input-field" placeholder="" inputmode="text">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-notes">Anteckningar</label>
+                        <input type="text" id="obj-notes" class="input-field" placeholder="" inputmode="text">
+                    </div>
                 </div>
             </div>
 
@@ -1334,6 +1337,32 @@
         
         // Auto-save on change
         input.addEventListener('change', saveData);
+    });
+
+    // Toggle ALLMÄN INFORMATION section visibility
+    let objInfoVisible = localStorage.getItem('objInfoVisible') !== 'false'; // Default to true/visible
+    
+    function updateObjInfoState() {
+        const container = document.getElementById('obj-info-container');
+        const stateLabel = document.getElementById('obj-info-state');
+        
+        if (objInfoVisible) {
+            container.style.display = 'block';
+            stateLabel.textContent = ' - Visible';
+        } else {
+            container.style.display = 'none';
+            stateLabel.textContent = ' - Hidden';
+        }
+    }
+    
+    // Initialize state on page load
+    updateObjInfoState();
+    
+    // Add click handler to header
+    document.getElementById('obj-info-header').addEventListener('click', function() {
+        objInfoVisible = !objInfoVisible;
+        localStorage.setItem('objInfoVisible', objInfoVisible);
+        updateObjInfoState();
     });
 
     // Add event listeners for object information fields
