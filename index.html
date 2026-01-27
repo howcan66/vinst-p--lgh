@@ -472,6 +472,10 @@
                     <label class="input-label" id="label-description">Fastighetsbeskrivning</label>
                     <input type="text" id="obj-description" class="input-field" placeholder="" inputmode="text">
                 </div>
+                <div class="input-group">
+                    <label class="input-label" id="label-notes">Anteckningar</label>
+                    <input type="text" id="obj-notes" class="input-field" placeholder="" inputmode="text">
+                </div>
             </div>
 
             <div class="input-group full" style="margin-bottom: 8px;">
@@ -589,6 +593,7 @@
             labelName: 'Namn',
             labelContact: 'Kontakt',
             labelDescription: 'Fastighetsbeskrivning',
+            labelNotes: 'Anteckningar',
             labelBuyerPurchase: 'Inköpspris (kr)',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
@@ -617,7 +622,7 @@
             obj1DeleteAll: 'Radera alla'
         },
         en: {
-            title: 'Apartment Sales Profit Calculator',
+            title: 'Apt. Sales Profit Calculator',
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
             refreshLink: 'Refresh page',
@@ -625,6 +630,7 @@
             labelName: 'Name',
             labelContact: 'Contact',
             labelDescription: 'Property Description',
+            labelNotes: 'Notes',
             labelBuyerPurchase: 'Purchase Price (SEK)',
             labelPrice: 'Sales Price SEK',
             labelLoan: 'Loan Amount (SEK)',
@@ -740,6 +746,7 @@
             objName: document.getElementById('obj-name').value,
             objContact: document.getElementById('obj-contact').value,
             objDescription: document.getElementById('obj-description').value,
+            objNotes: document.getElementById('obj-notes').value,
             forsaljningspris: parseNumber(document.getElementById('forsaljningspris').value),
             inkopspris_kopare: parseNumber(document.getElementById('inkopspris_kopare').value),
             lan: parseNumber(document.getElementById('lan').value),
@@ -818,6 +825,7 @@
         document.getElementById('label-name').textContent = t.labelName;
         document.getElementById('label-contact').textContent = t.labelContact;
         document.getElementById('label-description').textContent = t.labelDescription;
+        document.getElementById('label-notes').textContent = t.labelNotes;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-buyer-purchase').textContent = t.labelBuyerPurchase;
         document.getElementById('label-loan').textContent = t.labelLoan;
@@ -1149,6 +1157,7 @@
                 pad('Namn', inputs.objName || '(ej angiven)'),
                 pad('Kontakt', inputs.objContact || '(ej angiven)'),
                 pad('Fastighetsbeskrivning', inputs.objDescription || '(ej angiven)'),
+                pad('Anteckningar', inputs.objNotes || '(ej angiven)'),
                 '',
                 '─── BERÄKNINGSDATA ───',
                 '',
@@ -1214,6 +1223,7 @@
             objName: document.getElementById('obj-name').value,
             objContact: document.getElementById('obj-contact').value,
             objDescription: document.getElementById('obj-description').value,
+            objNotes: document.getElementById('obj-notes').value,
             forsaljningspris: document.getElementById('forsaljningspris').value,
             inkopspris_kopare: document.getElementById('inkopspris_kopare').value,
             lan: document.getElementById('lan').value,
@@ -1248,6 +1258,7 @@
                 document.getElementById('obj-name').value = data.objName || '';
                 document.getElementById('obj-contact').value = data.objContact || '';
                 document.getElementById('obj-description').value = data.objDescription || '';
+                document.getElementById('obj-notes').value = data.objNotes || '';
                 document.getElementById('forsaljningspris').value = data.forsaljningspris || 4350000;
                 document.getElementById('inkopspris_kopare').value = data.inkopspris_kopare || '';
                 document.getElementById('lan').value = data.lan || 1950000;
@@ -1327,6 +1338,8 @@
     document.getElementById('obj-contact').addEventListener('change', saveData);
     document.getElementById('obj-description').addEventListener('blur', saveData);
     document.getElementById('obj-description').addEventListener('change', saveData);
+    document.getElementById('obj-notes').addEventListener('blur', saveData);
+    document.getElementById('obj-notes').addEventListener('change', saveData);
 </script>
 
 </body>
