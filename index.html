@@ -154,6 +154,37 @@
             text-align: left;
         }
 
+        .output-label[data-tooltip]:hover::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            background: #333;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: normal;
+            white-space: nowrap;
+            z-index: 1000;
+            bottom: 130%;
+            left: 0;
+        }
+
+        .output-label[data-tooltip]:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 120%;
+            left: 10px;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            border-top-color: #333;
+            z-index: 1000;
+        }
+
+        .output-label {
+            position: relative;
+        }
+
         .output-value {
             text-align: right;
             font-size: 14px;
@@ -482,6 +513,10 @@
                 <div class="output-label" id="label-calc5">Vinst efter avdrag för lån (kr)</div>
                 <div class="output-value" id="result-calc5">–</div>
             </div>
+            <div class="output-row">
+                <div class="output-label" id="label-slutlikvid" data-tooltip="Försäljningspris - Mäklararvode - Lån">Slutlikvid (kr)</div>
+                <div class="output-value" id="result-slutlikvid">–</div>
+            </div>
         </div>
     </div>
 
@@ -514,6 +549,8 @@
             labelCalc3: 'Skatt (kr & 22%)',
             labelCalc4: 'Nettoresultat efter skatt (kr)',
             labelCalc5: 'Vinst efter avdrag för lån (kr)',
+            labelSlutikvid: 'Slutlikvid (kr)',
+            tooltipSlutikvid: 'Försäljningspris - Mäklararvode - Lån',
             obj1Label: 'Köp Objekt',
             obj1Fetch: 'Ladda URL',
             obj1Prev: 'Föregående',
@@ -544,6 +581,8 @@
             labelCalc3: 'Tax (SEK & 22%)',
             labelCalc4: 'Net Result After Tax (SEK)',
             labelCalc5: 'Profit After Loan Deduction (SEK)',
+            labelSlutikvid: 'Total Final Payment (SEK)',
+            tooltipSlutikvid: 'Sale Price - Broker Fee - Loan',
             obj1Label: 'Sales Objects',
             obj1Fetch: 'Load URL',
             obj1Prev: 'Previous',
@@ -673,12 +712,16 @@
         // calc5: Vinst efter lån = calc4 - Lån
         const calc5 = calc4 - inputs.lan;
 
+        // slutlikvid: Total Final Payment = Försäljningspris - Mäklararvode - Lån
+        const slutlikvid = inputs.forsaljningspris - inputs.maklararvode - inputs.lan;
+
         // Update UI
         document.getElementById('result-calc1').textContent = formatSEK(calc1);
         document.getElementById('result-calc2').textContent = formatSEK(calc2);
         document.getElementById('result-calc3').textContent = formatSEK(calc3);
         document.getElementById('result-calc4').textContent = formatSEK(calc4);
         document.getElementById('result-calc5').textContent = formatSEK(calc5);
+        document.getElementById('result-slutlikvid').textContent = formatSEK(slutlikvid);
     }
 
     // Update language
@@ -724,6 +767,8 @@
         document.getElementById('label-calc3').textContent = t.labelCalc3;
         document.getElementById('label-calc4').textContent = t.labelCalc4;
         document.getElementById('label-calc5').textContent = t.labelCalc5;
+        document.getElementById('label-slutlikvid').textContent = t.labelSlutikvid;
+        document.getElementById('label-slutlikvid').setAttribute('data-tooltip', t.tooltipSlutikvid);
 
         // Update button states
         document.querySelectorAll('.lang-btn').forEach(btn => {
