@@ -457,6 +457,23 @@
     <div class="card">
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
+            <!-- Object Information Section -->
+            <div style="border-bottom: 2px solid #667eea; padding-bottom: 8px; margin-bottom: 8px;">
+                <div style="color: #999; font-size: 12px; margin-bottom: 6px;">─── <span id="label-obj-info">OBJEKT INFORMATION</span> ───</div>
+                <div class="input-group">
+                    <label class="input-label" id="label-name">Namn</label>
+                    <input type="text" id="obj-name" class="input-field" placeholder="" inputmode="text">
+                </div>
+                <div class="input-group">
+                    <label class="input-label" id="label-contact">Kontakt</label>
+                    <input type="text" id="obj-contact" class="input-field" placeholder="" inputmode="tel">
+                </div>
+                <div class="input-group">
+                    <label class="input-label" id="label-description">Fastighetsbeskrivning</label>
+                    <input type="text" id="obj-description" class="input-field" placeholder="" inputmode="text">
+                </div>
+            </div>
+
             <div class="input-group full" style="margin-bottom: 8px;">
                 <label class="input-label" id="label-obj1">Köp Objekt</label>
                 <div style="display: flex; gap: 2px; align-items: center; flex-wrap: wrap;">
@@ -568,6 +585,10 @@
             inputHeader: 'Beräkningsdata',
             resultHeader: 'Resultat',
             refreshLink: 'Uppdatera sidan',
+            labelObjInfo: 'OBJEKT INFORMATION',
+            labelName: 'Namn',
+            labelContact: 'Kontakt',
+            labelDescription: 'Fastighetsbeskrivning',
             labelBuyerPurchase: 'Inköpspris (kr)',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
@@ -600,6 +621,10 @@
             inputHeader: 'Calculation Data',
             resultHeader: 'Results',
             refreshLink: 'Refresh page',
+            labelObjInfo: 'PROPERTY INFORMATION',
+            labelName: 'Name',
+            labelContact: 'Contact',
+            labelDescription: 'Property Description',
             labelBuyerPurchase: 'Purchase Price (SEK)',
             labelPrice: 'Sales Price SEK',
             labelLoan: 'Loan Amount (SEK)',
@@ -712,6 +737,9 @@
     // Get input values
     function getInputs() {
         return {
+            objName: document.getElementById('obj-name').value,
+            objContact: document.getElementById('obj-contact').value,
+            objDescription: document.getElementById('obj-description').value,
             forsaljningspris: parseNumber(document.getElementById('forsaljningspris').value),
             inkopspris_kopare: parseNumber(document.getElementById('inkopspris_kopare').value),
             lan: parseNumber(document.getElementById('lan').value),
@@ -786,6 +814,10 @@
         if (fetchObjBtn) {
             fetchObjBtn.setAttribute('data-tooltip', t.obj1Fetch);
         }
+        document.getElementById('label-obj-info').textContent = t.labelObjInfo;
+        document.getElementById('label-name').textContent = t.labelName;
+        document.getElementById('label-contact').textContent = t.labelContact;
+        document.getElementById('label-description').textContent = t.labelDescription;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-buyer-purchase').textContent = t.labelBuyerPurchase;
         document.getElementById('label-loan').textContent = t.labelLoan;
@@ -1112,6 +1144,12 @@
                 '    LGH VINSTKALKYLATOR - RESULTAT',
                 '═══════════════════════════════════════',
                 '',
+                '─── OBJEKT INFORMATION ───',
+                '',
+                pad('Namn', inputs.objName || '(ej angiven)'),
+                pad('Kontakt', inputs.objContact || '(ej angiven)'),
+                pad('Fastighetsbeskrivning', inputs.objDescription || '(ej angiven)'),
+                '',
                 '─── BERÄKNINGSDATA ───',
                 '',
                 pad('Försäljningspris', formatSEK(inputs.forsaljningspris) + ' kr'),
@@ -1176,6 +1214,13 @@
             forsaljningspris: document.getElementById('forsaljningspris').value,
             inkopspris_kopare: document.getElementById('inkopspris_kopare').value,
             lan: document.getElementById('lan').value,
+        const data = {
+            objName: document.getElementById('obj-name').value,
+            objContact: document.getElementById('obj-contact').value,
+            objDescription: document.getElementById('obj-description').value,
+            forsaljningspris: document.getElementById('forsaljningspris').value,
+            inkopspris_kopare: document.getElementById('inkopspris_kopare').value,
+            lan: document.getElementById('lan').value,
             inkopspris: document.getElementById('inkopspris').value,
             maklararvode: document.getElementById('maklararvode').value,
             renoveringskostnader: document.getElementById('renoveringskostnader').value,
@@ -1201,6 +1246,9 @@
             const saved = localStorage.getItem('lghCalculatorData');
             if (saved) {
                 const data = JSON.parse(saved);
+                document.getElementById('obj-name').value = data.objName || '';
+                document.getElementById('obj-contact').value = data.objContact || '';
+                document.getElementById('obj-description').value = data.objDescription || '';
                 document.getElementById('forsaljningspris').value = data.forsaljningspris || 4350000;
                 document.getElementById('inkopspris_kopare').value = data.inkopspris_kopare || '';
                 document.getElementById('lan').value = data.lan || 1950000;
@@ -1268,6 +1316,14 @@
         // Auto-save on change
         input.addEventListener('change', saveData);
     });
+
+    // Add event listeners for object information fields
+    document.getElementById('obj-name').addEventListener('blur', saveData);
+    document.getElementById('obj-name').addEventListener('change', saveData);
+    document.getElementById('obj-contact').addEventListener('blur', saveData);
+    document.getElementById('obj-contact').addEventListener('change', saveData);
+    document.getElementById('obj-description').addEventListener('blur', saveData);
+    document.getElementById('obj-description').addEventListener('change', saveData);
 </script>
 
 </body>
