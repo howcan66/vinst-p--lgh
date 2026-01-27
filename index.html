@@ -1211,10 +1211,6 @@
     // localStorage - Save data
     function saveData() {
         const data = {
-            forsaljningspris: document.getElementById('forsaljningspris').value,
-            inkopspris_kopare: document.getElementById('inkopspris_kopare').value,
-            lan: document.getElementById('lan').value,
-        const data = {
             objName: document.getElementById('obj-name').value,
             objContact: document.getElementById('obj-contact').value,
             objDescription: document.getElementById('obj-description').value,
@@ -1223,7 +1219,10 @@
             lan: document.getElementById('lan').value,
             inkopspris: document.getElementById('inkopspris').value,
             maklararvode: document.getElementById('maklararvode').value,
+            styling: document.getElementById('styling').value,
+            fotografering: document.getElementById('fotografering').value,
             renoveringskostnader: document.getElementById('renoveringskostnader').value,
+            ovriga: document.getElementById('ovriga').value,
             kapitaltillskott: document.getElementById('kapitaltillskott').value,
             skattesats: document.getElementById('skattesats').value,
             obj1Url: document.getElementById('obj1-url') ? document.getElementById('obj1-url').value : '',
@@ -1254,7 +1253,10 @@
                 document.getElementById('lan').value = data.lan || 1950000;
                 document.getElementById('inkopspris').value = data.inkopspris || 380000;
                 document.getElementById('maklararvode').value = data.maklararvode || 65000;
+                document.getElementById('styling').value = data.styling || 0;
+                document.getElementById('fotografering').value = data.fotografering || 0;
                 document.getElementById('renoveringskostnader').value = data.renoveringskostnader || 200000;
+                document.getElementById('ovriga').value = data.ovriga || 0;
                 document.getElementById('kapitaltillskott').value = data.kapitaltillskott || 10000;
                 document.getElementById('skattesats').value = data.skattesats || 22;
                 if (data.language && data.language !== currentLang) {
