@@ -522,7 +522,7 @@
                 </div>
             </div>
             <!-- Sale Price Section -->
-            <div style="padding-top: 8px; margin-top: 8px;">
+            <div id="sales-price-section" style="padding-top: 8px; margin-top: 8px;">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="sales-price-header">
                     <span id="label-sales-price-info">SÄLJ</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
@@ -1407,7 +1407,7 @@
         const stateLabel = document.getElementById('obj1-state');
         const header = document.getElementById('obj1-header');
         const wrapper = header.closest('.input-group');
-        const saljSection = document.getElementById('sales-price-header')?.parentElement;
+        const saljSection = document.getElementById('sales-price-section');
         
         console.log('updateObj1State called, obj1Visible:', obj1Visible);
         
