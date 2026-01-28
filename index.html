@@ -1423,6 +1423,9 @@
             wrapper.style.marginTop = '0 !important';
             wrapper.style.paddingTop = '0 !important';
             header.style.display = 'flex !important';
+            header.style.marginBottom = '6px';
+            header.style.paddingTop = '8px';
+            header.style.paddingBottom = '8px';
             container.style.visibility = 'visible';
             container.style.display = 'block !important';
             container.style.height = 'auto !important';
@@ -1443,8 +1446,11 @@
             wrapper.style.marginBottom = '0 !important';
             wrapper.style.marginTop = '0 !important';
             wrapper.style.paddingTop = '0 !important';
-            // Keep header visible for clicking
+            // Keep header visible for clicking but reduce spacing
             header.style.display = 'flex !important';
+            header.style.marginBottom = '0';
+            header.style.paddingTop = '0';
+            header.style.paddingBottom = '0';
             // Hide only the content container
             container.style.visibility = 'hidden';
             container.style.display = 'none !important';
