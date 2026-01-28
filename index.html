@@ -485,6 +485,13 @@
                         <label class="input-label" id="label-notes">Anteckningar</label>
                         <input type="text" id="obj-notes" class="input-field" placeholder="" inputmode="text">
                     </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-info-url">URL / Länk</label>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <button type="button" class="lang-btn" id="info-url-load-btn" data-tooltip="Ladda URL" style="flex: 0 0 auto;">⬇</button>
+                            <input type="text" id="obj-info-url" class="input-field" placeholder="https://..." inputmode="url" style="flex: 1;">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -622,6 +629,7 @@
             labelContact: 'Kontakt',
             labelDescription: 'Fastighetsbeskrivning',
             labelNotes: 'Anteckningar',
+            labelInfoUrl: 'URL / Länk',
             labelSalesPriceInfo: 'SÄLJ',
             labelBuyerPurchase: 'Inköpspris (kr)',
             labelPrice: 'Försäljningspris (kr)',
@@ -660,6 +668,7 @@
             labelContact: 'Contact',
             labelDescription: 'Property Description',
             labelNotes: 'Notes',
+            labelInfoUrl: 'URL / Link',
             labelSalesPriceInfo: 'SELL',
             labelBuyerPurchase: 'Purchase Price (SEK)',
             labelPrice: 'Sales Price SEK',
@@ -857,6 +866,7 @@
         document.getElementById('label-contact').textContent = t.labelContact;
         document.getElementById('label-description').textContent = t.labelDescription;
         document.getElementById('label-notes').textContent = t.labelNotes;
+        document.getElementById('label-info-url').textContent = t.labelInfoUrl;
         document.getElementById('label-price').textContent = t.labelPrice;
         document.getElementById('label-buyer-purchase').textContent = t.labelBuyerPurchase;
         document.getElementById('label-loan').textContent = t.labelLoan;
@@ -1435,8 +1445,13 @@
             const left = (screen.width - width) / 2;
             const top = (screen.height - height) / 2;
             try {
-                const passwordWindow = window.open('kop_password.html', 'KopAccess', `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no`);
-                console.log('Password window opened');
+                // Determine the correct path for kop_password.html
+                const passwordUrl = window.location.pathname.includes('/vinst-p--lgh/') 
+                    ? '/vinst-p--lgh/kop_password.html' 
+                    : './kop_password.html';
+                
+                const passwordWindow = window.open(passwordUrl, 'KopAccess', `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no`);
+                console.log('Password window opened with URL:', passwordUrl);
                 // Check periodically if password was entered
                 const checkInterval = setInterval(function() {
                     const flagValue = localStorage.getItem('kopPasswordValid');
@@ -1527,6 +1542,20 @@
     document.getElementById('obj-description').addEventListener('change', saveData);
     document.getElementById('obj-notes').addEventListener('blur', saveData);
     document.getElementById('obj-notes').addEventListener('change', saveData);
+    document.getElementById('obj-info-url').addEventListener('blur', saveData);
+    document.getElementById('obj-info-url').addEventListener('change', saveData);
+
+    // General Information URL load button
+    document.getElementById('info-url-load-btn').addEventListener('click', function() {
+        const urlInput = document.getElementById('obj-info-url');
+        const url = urlInput.value.trim();
+        
+        if (url) {
+            // Open URL in new window
+            const normalizedUrl = /^https?:\/\//i.test(url) ? url : 'https://' + url;
+            window.open(normalizedUrl, '_blank');
+        }
+    });
 </script>
 
 </body>
