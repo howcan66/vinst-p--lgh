@@ -372,6 +372,10 @@
         }
 
         /* Hide Sales Objects section when toggled */
+        #obj1-container[data-hidden="true"] {
+            display: none !important;
+        }
+        
         .sales-objects-hidden #label-obj1,
         .sales-objects-hidden #obj1-url,
         .sales-objects-hidden #obj1-fetch-btn,
@@ -460,9 +464,9 @@
             <!-- Object Information Section -->
             <div style="padding-top: 8px; padding-bottom: 8px; margin-bottom: 8px;">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="obj-info-header">
-                    <span id="label-obj-info">GENERAL INFORMATION</span>
-                    <span id="obj-info-state" style="color: #667eea; font-size: 12px;"> - Visible</span>
+                    <span id="label-obj-info">ALLMÄNT</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
+                    <span id="obj-info-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
                 </div>
                 <div id="obj-info-container">
                     <div class="input-group">
@@ -485,10 +489,10 @@
             </div>
 
             <div class="input-group full" style="margin-bottom: 8px;">
-                <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="obj1-header">
-                    <span id="label-obj1">Köp Objekt Information</span>
-                    <span id="obj1-state" style="color: #667eea; font-size: 12px;"> - Visible</span>
+                <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 8px 0;" id="obj1-header">
+                    <span id="label-obj1">KÖP</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
+                    <span id="obj1-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
                 </div>
                 <div id="obj1-container">
                     <div style="display: flex; gap: 2px; align-items: center; flex-wrap: wrap;">
@@ -503,60 +507,59 @@
                         <span id="obj1-counter" style="color: #fff; font-size: 12px; margin-left: 4px;">1/1</span>
                     </div>
                     <div class="status-text" id="obj1-status"></div>
+                    <!-- Buyer Purchase Price Section -->
+                    <div class="input-group">
+                        <label class="input-label" id="label-buyer-purchase">Inköpspris (kr)</label>
+                        <input type="text" id="inkopspris_kopare" class="input-field number-field" value="" inputmode="numeric">
+                    </div>
                 </div>
-            </div>
-            <!-- Buyer Purchase Price Section -->
-            <div class="input-group">
-                <label class="input-label" id="label-buyer-purchase">Inköpspris (kr)</label>
-                <input type="text" id="inkopspris_kopare" class="input-field number-field" value="" inputmode="numeric">
             </div>
             <!-- Sale Price Section -->
             <div style="padding-top: 8px; margin-top: 8px;">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="sales-price-header">
-                    <span id="label-sales-price-info">FÖRSÄLJNINGSPRIS INFORMATION</span>
-                    <span id="sales-price-state" style="color: #667eea; font-size: 12px;"> - Visible</span>
+                    <span id="label-sales-price-info">SÄLJ</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
+                    <span id="sales-price-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
                 </div>
                 <div id="sales-price-container">
                     <div class="input-group">
                         <label class="input-label" id="label-price">Försäljningspris (kr)</label>
                         <input type="text" id="forsaljningspris" class="input-field number-field" value="4350000" inputmode="numeric">
                     </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-loan">Lån (kr)</label>
+                        <input type="text" id="lan" class="input-field number-field" value="1950000" inputmode="numeric">
+                    </div>
+                    <!-- Acquisition Costs Section -->
+                    <div class="input-group">
+                        <label class="input-label" id="label-purchase">Inköpspris (kr)</label>
+                        <input type="text" id="inkopspris" class="input-field number-field" value="380000" inputmode="numeric">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-broker">Mäklararvode (kr)</label>
+                        <input type="text" id="maklararvode" class="input-field number-field" value="65000" inputmode="numeric">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-styling">Styling (kr)</label>
+                        <input type="text" id="styling" class="input-field number-field" value="0" inputmode="numeric">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-photo">Fotografering (kr)</label>
+                        <input type="text" id="fotografering" class="input-field number-field" value="0" inputmode="numeric">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-reno">Renoveringskostnader (kr)</label>
+                        <input type="text" id="renoveringskostnader" class="input-field number-field" value="200000" inputmode="numeric">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label" id="label-other">Övriga avdragsgilla (kr)</label>
+                        <input type="text" id="ovriga" class="input-field number-field" value="0" inputmode="numeric">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 2px;">
+                        <label class="input-label" id="label-capital">Kapitaltillskott, from BRF (kr)</label>
+                        <input type="text" id="kapitaltillskott" class="input-field number-field" value="10000" inputmode="numeric">
+                    </div>
                 </div>
-            </div>
-            <div class="input-group">
-                <label class="input-label" id="label-loan">Lån (kr)</label>
-                <input type="text" id="lan" class="input-field number-field" value="1950000" inputmode="numeric">
-            </div>
-
-            <!-- Acquisition Costs Section -->
-            <div class="input-group">
-                <label class="input-label" id="label-purchase">Inköpspris (kr)</label>
-                <input type="text" id="inkopspris" class="input-field number-field" value="380000" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label class="input-label" id="label-broker">Mäklararvode (kr)</label>
-                <input type="text" id="maklararvode" class="input-field number-field" value="65000" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label class="input-label" id="label-styling">Styling (kr)</label>
-                <input type="text" id="styling" class="input-field number-field" value="0" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label class="input-label" id="label-photo">Fotografering (kr)</label>
-                <input type="text" id="fotografering" class="input-field number-field" value="0" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label class="input-label" id="label-reno">Renoveringskostnader (kr)</label>
-                <input type="text" id="renoveringskostnader" class="input-field number-field" value="200000" inputmode="numeric">
-            </div>
-            <div class="input-group">
-                <label class="input-label" id="label-other">Övriga avdragsgilla (kr)</label>
-                <input type="text" id="ovriga" class="input-field number-field" value="0" inputmode="numeric">
-            </div>
-            <div class="input-group" style="margin-bottom: 2px;">
-                <label class="input-label" id="label-capital">Kapitaltillskott, from BRF (kr)</label>
-                <input type="text" id="kapitaltillskott" class="input-field number-field" value="10000" inputmode="numeric">
             </div>
 
             <div class="input-group" style="display: none;">
@@ -567,9 +570,13 @@
     </div>
 
     <!-- Result Card -->
-    <div class="card">
-        <div class="card-header" id="result-header">Resultat</div>
-        <div class="card-body">
+    <div class="card" style="padding: 0; margin-bottom: 8px;">
+        <div style="padding-top: 8px; padding-bottom: 8px; padding-left: 0; padding-right: 0; color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="results-header">
+            <span id="label-results-info">RESULTAT</span>
+            <div style="flex: 1; border-bottom: 1px solid #999;"></div>
+            <span id="results-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
+        </div>
+        <div class="card-body" id="results-container" style="padding: 0 0 12px 0;">
             <div class="output-row">
                 <div class="output-label" id="label-calc1">Totalt avdrag (kr)</div>
                 <div class="output-value" id="result-calc1">–</div>
@@ -608,13 +615,14 @@
         sv: {
             title: 'LGH Kalkylator mm.',
             inputHeader: 'Beräkningsdata',
-            resultHeader: 'Resultat',
+            resultHeader: 'RESULTAT',
             refreshLink: 'Uppdatera sidan',
-            labelObjInfo: 'ALLMÄN INFORMATION',
+            labelObjInfo: 'ALLMÄNT',
             labelName: 'Namn',
             labelContact: 'Kontakt',
             labelDescription: 'Fastighetsbeskrivning',
             labelNotes: 'Anteckningar',
+            labelSalesPriceInfo: 'SÄLJ',
             labelBuyerPurchase: 'Inköpspris (kr)',
             labelPrice: 'Försäljningspris (kr)',
             labelLoan: 'Lån (kr)',
@@ -633,7 +641,7 @@
             labelCalc5: 'Vinst efter avdrag (kr)',
             labelSlutikvid: 'Slutlikvid (kr)',
             tooltipSlutikvid: 'Försäljningspris - Mäklararvode - Lån',
-            obj1Label: 'Köp Objekt',
+            obj1Label: 'KÖP',
             obj1Fetch: 'Ladda URL',
             obj1Prev: 'Föregående',
             obj1Open: 'Öppna',
@@ -645,13 +653,14 @@
         en: {
             title: 'Apt. Sales Profit Calculator',
             inputHeader: 'Calculation Data',
-            resultHeader: 'Results',
+            resultHeader: 'RESULTS',
             refreshLink: 'Refresh page',
-            labelObjInfo: 'GENERAL INFORMATION',
+            labelObjInfo: 'GENERAL',
             labelName: 'Name',
             labelContact: 'Contact',
             labelDescription: 'Property Description',
             labelNotes: 'Notes',
+            labelSalesPriceInfo: 'SELL',
             labelBuyerPurchase: 'Purchase Price (SEK)',
             labelPrice: 'Sales Price SEK',
             labelLoan: 'Loan Amount (SEK)',
@@ -670,7 +679,7 @@
             labelCalc5: 'Profit After Deductions (SEK)',
             labelSlutikvid: 'Total Final Payment (SEK)',
             tooltipSlutikvid: 'Sale Price - Broker Fee - Loan',
-            obj1Label: 'Sales Objects',
+            obj1Label: 'BUY',
             obj1Fetch: 'Load URL',
             obj1Prev: 'Previous',
             obj1Open: 'Open',
@@ -822,8 +831,9 @@
 
         document.getElementById('title').textContent = t.title;
         document.getElementById('input-header').textContent = t.inputHeader;
-        document.getElementById('result-header').textContent = t.resultHeader;
+        document.getElementById('label-results-info').textContent = t.resultHeader;
         document.getElementById('label-obj1').textContent = t.obj1Label;
+        document.getElementById('label-sales-price-info').textContent = t.labelSalesPriceInfo;
 
         const refreshBtn = document.getElementById('refresh-btn');
         if (refreshBtn) {
@@ -1108,8 +1118,8 @@
     const toggleBtn = document.getElementById('sales-objects-toggle');
     const cardBody = document.querySelector('.card-body'); // Target the card containing Sales Objects section
 
-    // Load initial toggle state (default: hidden on first visit)
-    let salesObjectsToggleState = parseInt(localStorage.getItem('lghSalesObjectsToggle') || '1'); // 1=hidden, 2=shown, cycles
+    // Load initial toggle state (default: SHOWN on first visit)
+    let salesObjectsToggleState = parseInt(localStorage.getItem('lghSalesObjectsToggle') || '2'); // 2=shown, 1=hidden, cycles
 
     // Apply initial state on page load
     function applySalesObjectsToggleState() {
@@ -1361,10 +1371,10 @@
         
         if (objInfoVisible) {
             container.style.display = 'block';
-            stateLabel.textContent = ' - Visible';
+            stateLabel.textContent = 'Visible';
         } else {
             container.style.display = 'none';
-            stateLabel.textContent = ' - Hidden';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
@@ -1379,30 +1389,82 @@
     });
 
     // Toggle Köp Objekt Information section visibility
-    let obj1Visible = localStorage.getItem('obj1Visible') !== 'false'; // Default to true/visible
+    // KÖP section state management
+    let obj1Visible = localStorage.getItem('obj1Visible') === 'true' ? true : false; // Load saved state or default to hidden
     
     function updateObj1State() {
         const container = document.getElementById('obj1-container');
         const stateLabel = document.getElementById('obj1-state');
+        const header = document.getElementById('obj1-header');
+        
+        console.log('updateObj1State called, obj1Visible:', obj1Visible);
+        
+        if (!container || !stateLabel || !header) {
+            console.error('KOP elements not found');
+            return;
+        }
+        
+        // Header is ALWAYS visible
+        header.style.display = 'flex !important';
         
         if (obj1Visible) {
-            container.style.display = 'block';
-            stateLabel.textContent = ' - Visible';
+            console.log('Setting container to VISIBLE');
+            container.setAttribute('data-hidden', 'false');
+            container.style.display = 'block !important';
+            stateLabel.textContent = 'Visible';
         } else {
-            container.style.display = 'none';
-            stateLabel.textContent = ' - Hidden';
+            console.log('Setting container to HIDDEN');
+            container.setAttribute('data-hidden', 'true');
+            container.style.display = 'none !important';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
     // Initialize state on page load
     updateObj1State();
     
-    // Add click handler to header
-    document.getElementById('obj1-header').addEventListener('click', function() {
-        obj1Visible = !obj1Visible;
-        localStorage.setItem('obj1Visible', obj1Visible);
-        updateObj1State();
-    });
+    // Add click handler to header - opens password protected window
+    const obj1Header = document.getElementById('obj1-header');
+    if (obj1Header) {
+        obj1Header.addEventListener('click', function() {
+            console.log('=== KOP header clicked ===');
+            console.log('Current obj1Visible:', obj1Visible);
+            // Open small password-protected window
+            const width = 400;
+            const height = 300;
+            const left = (screen.width - width) / 2;
+            const top = (screen.height - height) / 2;
+            try {
+                const passwordWindow = window.open('kop_password.html', 'KopAccess', `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no`);
+                console.log('Password window opened');
+                // Check periodically if password was entered
+                const checkInterval = setInterval(function() {
+                    const flagValue = localStorage.getItem('kopPasswordValid');
+                    console.log('Checking... window.closed:', passwordWindow.closed, 'flag:', flagValue);
+                    
+                    if (passwordWindow.closed) {
+                        clearInterval(checkInterval);
+                        console.log('Window closed');
+                        // When password window closes, check if we should toggle
+                        if (flagValue === 'true') {
+                            console.log('Password was valid - TOGGLING KOP');
+                            obj1Visible = !obj1Visible;
+                            console.log('Set obj1Visible to:', obj1Visible);
+                            localStorage.setItem('obj1Visible', obj1Visible ? 'true' : 'false');
+                            console.log('Calling updateObj1State()');
+                            updateObj1State();
+                            console.log('Clearing flag');
+                            localStorage.removeItem('kopPasswordValid');
+                        } else {
+                            console.log('Password was NOT valid (flag was:', flagValue, ')');
+                        }
+                    }
+                }, 100);
+            } catch (e) {
+                console.error('Error opening password window:', e);
+            }
+        });
+    }
 
     // Toggle Sales Price Information section visibility
     let salesPriceVisible = localStorage.getItem('salesPriceVisible') !== 'false'; // Default to true/visible
@@ -1413,10 +1475,10 @@
         
         if (salesPriceVisible) {
             container.style.display = 'block';
-            stateLabel.textContent = ' - Visible';
+            stateLabel.textContent = 'Visible';
         } else {
             container.style.display = 'none';
-            stateLabel.textContent = ' - Hidden';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
@@ -1428,6 +1490,32 @@
         salesPriceVisible = !salesPriceVisible;
         localStorage.setItem('salesPriceVisible', salesPriceVisible);
         updateSalesPriceState();
+    });
+
+    // Toggle Results section visibility
+    let resultsVisible = localStorage.getItem('resultsVisible') !== 'false'; // Default to true/visible
+    
+    function updateResultsState() {
+        const container = document.getElementById('results-container');
+        const stateLabel = document.getElementById('results-state');
+        
+        if (resultsVisible) {
+            container.style.display = 'block';
+            stateLabel.textContent = 'Visible';
+        } else {
+            container.style.display = 'none';
+            stateLabel.textContent = 'Hidden';
+        }
+    }
+    
+    // Initialize state on page load
+    updateResultsState();
+    
+    // Add click handler to header
+    document.getElementById('results-header').addEventListener('click', function() {
+        resultsVisible = !resultsVisible;
+        localStorage.setItem('resultsVisible', resultsVisible);
+        updateResultsState();
     });
 
     // Add event listeners for object information fields

@@ -1,0 +1,88 @@
+LGH.111 LOCAL TESTING CHECKLIST
+================================
+
+TEST ENVIRONMENT:
+- File: index.html (local file:// protocol)
+- Browser: Chrome
+- LocalStorage: Enabled (for toggle state persistence)
+
+TEST CASES:
+
+1. INITIAL STATE
+   [ ] On first page load, Sales Objects section should be HIDDEN
+   [ ] Toggle button (left of S13) should be visible and blank/black
+   [ ] NO Köp Objekt label visible
+   [ ] NO URL input visible
+   [ ] NO GURL, <<, >, >> buttons visible
+   [ ] NO :), D1, DD buttons visible
+   [ ] NO counter (n/n) visible
+   [ ] NO Inköpspris (kr) label visible
+   [ ] NO Inköpspris (kr) textform visible
+
+2. FIRST TOGGLE (Press 1 = Hidden → Show)
+   [ ] Click the toggle button (blank button before S13)
+   [ ] Section should SHOW (toggle = 2, even)
+   [ ] All items should become visible:
+       - Köp Objekt label
+       - URL input
+       - GURL, <<, >, >>, :), D1, DD buttons
+       - Counter (1/1 or current count)
+       - Inköpspris (kr) label
+       - Inköpspris (kr) textform
+
+3. SECOND TOGGLE (Press 2 = Show → Hide)
+   [ ] Click the toggle button again
+   [ ] Section should HIDE (toggle = 1, odd)
+   [ ] All items should disappear again
+
+4. PERSISTENCE (Refresh Test)
+   [ ] Toggle section to SHOW (press button)
+   [ ] Refresh the page (F5 or Ctrl+R)
+   [ ] Section should REMAIN SHOWN (localStorage persists state)
+   [ ] Toggle section to HIDE
+   [ ] Refresh the page
+   [ ] Section should REMAIN HIDDEN
+
+5. CLEAR LOCALSTORAGE TEST
+   [ ] Open Browser DevTools (F12)
+   [ ] Go to Application > LocalStorage > file://
+   [ ] Find "lghSalesObjectsToggle" key
+   [ ] Verify value is "1" (hidden) or "2" (shown)
+   [ ] Delete the key
+   [ ] Refresh page
+   [ ] Section should return to HIDDEN (default on first visit)
+
+6. PRINT TEST (Optional)
+   [ ] Toggle section to HIDDEN
+   [ ] Press Print button (or Ctrl+P)
+   [ ] Print preview should NOT show Sales Objects section
+   [ ] Cancel print
+   [ ] Toggle section to SHOWN
+   [ ] Press Print button again
+   [ ] Print preview should SHOW Sales Objects section
+
+7. DATA RETENTION TEST
+   [ ] Enter a URL in the URL input (e.g., https://hemnet.se/...)
+   [ ] Press GURL to save the URL
+   [ ] Toggle section to HIDE
+   [ ] Toggle section back to SHOW
+   [ ] URL should still be there (data persisted in localStorage)
+
+EXPECTED BEHAVIOR:
+- Toggle button always visible, blank/black style, no hover tooltip
+- Clicking cycles: hidden (1) → shown (2) → hidden (1) → ...
+- State persists across page refreshes via localStorage
+- Data (URLs, prices) remain safe in localStorage when hidden
+- Print respects the toggle state
+
+PASS/FAIL:
+[ ] All tests passed - LGH.111 working correctly
+[ ] Some tests failed - List issues below
+
+ISSUES FOUND:
+(None yet - waiting for test results)
+
+---
+Tested on: 2026-01-27
+Browser: Chrome
+Result: [PENDING]

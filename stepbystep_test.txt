@@ -1,28 +1,60 @@
 ====================================================
-LGH PROFIT CALCULATOR - TEST PLAN v2
+LGH PROFIT CALCULATOR - TEST PLAN v2 (UPDATED) Ver2
 ====================================================
 Test Date: 2026-01-26
-Recent Changes: LGH.119 (Buyer field), LGH.120 (Scraper→Buyer), LGH.123 (GURL duplicate fix)
-Scope: Local + GitHub Pages + Mobile
+A1) Recent Changes: LGH.119 (Buyer field), LGH.120 (Scraper→Buyer), LGH.123 (GURL duplicate fix), Label -> “Köp Objekt”
+A2) Scope: Local + GitHub Pages + Mobile
+A1-2 ) All - Pass, Basic testing
+====================================================
+Midnight Blues testing
+====================================================
+
+Here’s where we stand:
+
+B1) Recent UI tweaks: URL field shortened to 110–160px and button
+
+B2) gap tightened to 2px to reduce overflow. This is local-only (not yet pushed).
+Other items confirmed done:
+
+
+B3) S13 button no hover/tooltip (LGH.122).
+B4) GURL dedupe and no double-count (LGH.121).
+
+B5) URL input clears after GURL (LGH.116); no tooltip/hover (LGH.120).
+
+B6) Labels switch correctly: EN → “Sales Objects”, SV → “Köp Objekt” (LGH.118/119).
+Pending tests to run after these local tweaks:
+
+B7) Layout: Verify the URL row fits without wrapping on desktop/mobile; check 2px gap feels okay.
+
+B8) GURL flow: Enter URL, hit GURL → input clears, counter increments once, dedupe works on repeat.
+
+B9) Language toggle: Confirm label switches EN/SV as expected after the shorter field change.
+Want me to commit/push the layout tweaks, then run a quick pass on those tests?
+B1-9) Pass
+
+
+
 
 ====================================================
 CRITICAL TESTS - MUST PASS BEFORE PUBLISH
 ====================================================
 
 ====================================================
-TEST 1: GURL No-Duplicate Save (LGH.123 FIX)
+TEST 1: GURL Save-Only & No Duplicates (LGH.123)
 ====================================================
-Scope: Both (Local and GitHub). Mobile: High importance.
+Scope: Both (Local/GitHub). Mobile: High.
 Action:
-1. Clear all memory (DD button if needed)
-2. Paste URL: https://example.com/test1
-3. Click GURL button ONCE
-4. Check counter
+1) Clear memory (DD if needed)
+2) Paste https://example.com/test1
+3) Click GURL once
+4) Paste same URL again, click GURL once
 
 Expected:
-- Counter shows 1/1 (NOT 2/2)
-- URL field is cleared
-- No scraping occurs
+- First save: counter 1/1, input clears, status stays blank
+- Second save: no new object; counter still 1/1 (jumps to existing)
+- No “Not Loaded” when saving a valid URL
+- Input clears after each GURL
 
 Result: [ ] Pass  [ ] Fail
 Notes: ______________________________________________
@@ -33,11 +65,10 @@ Mobile: [ ] Pass  [ ] Fail
 ====================================================
 TEST 2: Delete to Empty State (0/0)
 ====================================================
-Scope: Both. Mobile: Medium importance.
+Scope: Both. Mobile: Medium.
 Action:
-1. Add 1 URL via GURL
-2. Press D1 to delete
-3. Check counter
+1) Add 1 URL via GURL
+2) Press D1
 
 Expected:
 - Counter shows 0/0
@@ -48,7 +79,6 @@ Result: [ ] Pass  [ ] Fail
 Notes: ______________________________________________
 GitHub: [ ] Pass  [ ] Fail
 Mobile: [ ] Pass  [ ] Fail
-
 
 ====================================================
 TEST 3: Scraper → Buyer Purchase Field (LGH.120)
@@ -64,7 +94,7 @@ Expected:
 - "Försäljningspris (kr)" remains UNCHANGED
 - If CORS blocks or no price: status shows "Not Loaded"
 
-Result: [ ] Pass  [ ] Fail
+Result: [pass] Pass  [ ] Fail
 Notes: ______________________________________________
 GitHub: [ ] Pass  [ ] Fail
 Mobile: [ ] Pass  [ ] Fail
@@ -83,9 +113,9 @@ Expected:
 - Value persists after refresh
 - Language toggle updates label (SV/EN)
 
-Result: [ ] Pass  [ ] Fail
+Result: [pass]  [ ] Fail
 Notes: ______________________________________________
-GitHub: [ ] Pass  [ ] Fail
+GitHub: [Pass] Pass  [ ] Fail
 
 
 ====================================================
@@ -107,7 +137,6 @@ Notes: ______________________________________________
 GitHub: [ ] Pass  [ ] Fail
 Mobile: [ ] Pass  [ ] Fail
 
-
 ====================================================
 TEST 6: Delete All (DD) with Confirmation
 ====================================================
@@ -123,28 +152,25 @@ Expected:
 - Counter shows 0/0
 - URL field empty
 
-Result: [ ] Pass  [ ] Fail
+Result: [Pass] Pass  [ ] Fail
 Notes: ______________________________________________
-GitHub: [ ] Pass  [ ] Fail
+GitHub: [Pass] Pass  [ ] Fail
 
 
 ====================================================
-TEST 7: "Not Loaded" Status Message (LGH.112)
+TEST 7: “Not Loaded” Status on Invalid URL (LGH.112)
 ====================================================
-Scope: Both. Mobile: Medium importance.
+Scope: Both. Mobile: Medium.
 Action:
-1. Enter malformed URL (e.g., "abc123")
-2. Click GURL
-3. Check status message
+1) Enter malformed URL (e.g., abc123)
+2) Click GURL
 
 Expected:
-- Status shows "Not Loaded" (language-independent)
-- NOT "Hittade inget pris. Ange manuellt."
+- GURL rejects invalid URL; status “Not Loaded”; nothing saved
 
 Result: [ ] Pass  [ ] Fail
 Notes: ______________________________________________
 GitHub: [ ] Pass  [ ] Fail
-
 
 ====================================================
 TEST 8: Mobile Responsive Layout
@@ -164,7 +190,7 @@ Expected:
 Result: [ ] Pass  [ ] Fail
 Notes: ______________________________________________
 GitHub: [ ] Pass  [ ] Fail
-Mobile Device: ______________________________________________
+Mobile Device: ________________________
 
 
 ====================================================
@@ -183,7 +209,7 @@ Expected:
 - "Inköpspris (kr)" ↔ "Buyer Purchase (kr)" [verify exact EN text]
 - GURL button STAYS "GURL" (unchanged)
 
-Result: [ ] Pass  [ ] Fail
+Result: [Pass] Pass  [ ] Fail
 
 
 ====================================================
@@ -198,24 +224,14 @@ Expected:
 - Results fields calculate correctly
 - No dependency on "Inköpspris (kr)" yet (not in formulas)
 
-Result: [ ] Pass  [ ] Fail
+Result: [ ] Pass  [ ] Fail - Not done
 
 
 ====================================================
-REF-3: Tooltips on Hover
+REF-3: Tooltips on Hover (SV mode)
 ====================================================
-Action:
-- Hover over each Sales Objects button
-
-Expected Tooltips (SV mode):
-- GURL: "Ladda URL"
-- <<: "Föregående"
-- >: "Öppna"
-- >>: "Nästa"
-- :): "Skrapa pris"
-- D1: "Radera aktuell"
-- DD: "Radera alla"
-
+Expected:
+- GURL: "Ladda URL"; << Föregående; > Öppna; >> Nästa; :) Skrapa pris; D1 Radera aktuell; DD Radera alla
 Result: [ ] Pass  [ ] Fail
 
 
@@ -223,10 +239,11 @@ Result: [ ] Pass  [ ] Fail
 GITHUB PAGES SPECIFIC CHECKS
 ====================================================
 
-1. [ ] Hard refresh (Ctrl+F5) to clear cache before testing
-2. [ ] Test initialization: page loads with correct counter (0/0 or saved state)
+1. [Pass] Hard refresh (Ctrl+F5) to clear cache before testing
+2. [Fail] Test initialization: page loads with correct counter (0/0 or saved state)
+See previos applicable Findings
 3. [ ] localStorage works across sessions on GitHub domain
-4. [ ] CORS: Scraper may fail more often on GitHub (cross-origin restrictions)
+4. [ ] CORS: scraper may fail on some sites (expected)
 5. [ ] Mobile viewport: Test on actual device if possible
 
 
@@ -234,36 +251,35 @@ GITHUB PAGES SPECIFIC CHECKS
 TEST SUMMARY
 ====================================================
 
-Date: _________________
-Browser: _________________
-OS: _________________
+Date: 2026-01-26
+Browser: Chrome
+OS: Windows11
 
 Critical Tests (1-8):
-- Passed: ____
-- Failed: ____
+- Passed: Some
+- Failed: Some
 
 Reference Tests:
-- Passed: ____
-- Failed: ____
+- Passed: Some
+- Failed: Some
 
 GitHub-Specific:
-- Passed: ____
-- Failed: ____
+- Passed: Some
+- Failed: Some
 
 Mobile Testing:
-- Device: _________________
-- Overall: [ ] Pass  [ ] Fail
+- Device: Iphone 17 Pro Max
+- Overall: [ ] Pass  [ ] Fail - Solve reported findings
 
 Critical Issues Found:
-_______________________________________________________
-_______________________________________________________
+See findings in the file
 
 Non-Critical Issues:
-_______________________________________________________
-_______________________________________________________
+See findings in the file
 
-Ready to Publish: [ ] YES  [ ] NO
 
+Ready to Publish: [Yes - But! YES  [ ] NO
+See findings in the file - Aske me questions1
 ====================================================
 END OF TEST PLAN
 ====================================================

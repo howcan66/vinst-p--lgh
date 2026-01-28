@@ -1,57 +1,118 @@
 lgh_profitcal_changes.txt - Upcoming Changes & Improvements
-
 This file tracks planned updates to the LGH Profit Calculator.
 
-LGH.115 textform url load and the navigation buttons from "GURL" does not work on github
-LGH.116 textform url load and the navigation buttons from "GURL" should reset the textform to empty, the text.form deault value is empty
-
-LGH.117 textform url load must be shorter, the index file must be on the same row ans the navigation buttons,
 Ask me questions if this is a problem.
-
-Sales Objects
-LGH.118 Label "Sales Objects" shall be changed "Sales Objects" react by EN Button
-LGH.119 Label "Köp Obj" shall be changed "Köp Objekt"  react by SV Button
+Is this done or simeting similar?
 
 
-LGH.120 Label Mouseover effect over textform loadurl, show part of a specific URL, "https//hemnet...",
-there should be no Mouseover effect - URL form shall be reset...
+
+On hold:
+
+LGH.202: Mobile ">" button not loading new window on GitHub (needs analysis)
+LGH.201: Navigation button row alignment question
+LGH.190: Play button ">" constant mouseover effect on iPhone
+LGH.121: Include "Inköpspris (kr)" in email export (SV/EN)
+LGH.106: Create open.blank viewer for ">" button
 
 
-LGH.121 Button GURL load same url twice or counter counts load twices. Secure that load is done correctly
 
-
-LGH.122 The navigation button "S13_passcode" shall have no Mouseover functionality at all
-
-
- pm2 test below
-LGH.123 GURL button upload the brooker url 2 times accordin to the counter - please check & correct
-
-
-Ask me questions if this is a problem.
 
 === New TO BE COMPLETED =================================
 
-LGH.106 The ">" Button shall load the url in an open.blank html file (to be created),
+=>>>>>>>>>>>>>>>> LOAD URL
+Not yet LGH.106 The ">" Button shall, instead of what is done today, load the url in an open.blank html file (to be created),
 a) There should be a top pander row with navigation buttons.
 b) the botten fram there should be the loaded url
 c) the Navigation buttons are the "<<" , ">" , ">>" "refresh" , "X" button to close the open.blank html session
+d) the Navigation buttons "<<" will select the next index URL, ">" will play theslected URÖ  , ">>" "refresh" , "X" button to close the open.blank html session
+
+
+LGH.205 New Information and calculatons, 
+a) Placement under the label "Vinst efter avdrag för lån (kr)",
+b) Labelname "Total Final Payment (SEK)", Calculation,
+c) "Sale Price (SEK)" -  "Broker Fee (SEK)" - "Loan (SEK)"
+d) Moouse over effect: "Sales Price - Down Payment, Brooker Fee and loan Amount"
+
+Sale Price (SEK)
+LGH.206 change "Sale Price (SEK)" to "Sales Prices SEK"
+LGH.207 change "Loan (SEK)" to "Loan Amount (SEK)"
+LGH.208 change "Profit After Loan Deduction (SEK)" to "Profit After Deductions (SEK)"
+LGH.209 change "Profit After Loan Deduction (SEK)" to "Profit After Deductions (SEK)"
+LGH.210 change "Tax (SEK & 22%)" to "Tax 22% (SEK)"
+LGH.210 change "Övriga avdragsgilla (kr)" to "Övriga avdragsgilla kostnader (kr)"
+
+LGH.211 change "Skatt (kr & 22%)" to "Skatt 22% (kr)"
+LGH.212 change "Vinst efter avdrag för lån (kr)" to "Vinst efter avdrag (kr)"
+
+
+Slutlikvid (kr)
+LGH.213: Include "Slutlikvid (kr)" in email export (SV/EN)
+
+
+Vinst efter avdrag för lån (kr)
+Skatt (kr & 22%)
+
+
+Tax (SEK & 22%)
+Övriga avdragsgilla (kr)
+
+a) Buyers Down Payment (10%) and Estate Agent: calculation: (Sale Price (SEK)) * 0,1 + Broker fee
+Sale Price (SEK) - ( Sales Price (SEK) * 0,1 - Broker Fee (SEK)
+Total Payment, Including Down payment, Calculate,
 
 
 
+======== WAit =======================
+LGH.201 OK can the navigation button row start in horisonta line with top button row? 
+LGH.190 The play bytton ">" have a constant Mouseover,
+as Öppna while testing by mobile application on my iphone,
+It is kept after every buttom touch by the corresponding Mouseover effect.
 
-LGH.111 Create Hidden navigation button like the one for S13 Passcode button - It shall be hidden no Mouseover; 
-
-
-a)Pressing once (1 odd), will hide;
-b) Köp Obj - name
-c) textform for url load and the navigation buttons from "GURL" to "DD" and the index counter
-d) Pressing once again (2 even), will show;
-e) textform for url load and the navigation buttons from "GURL" to "DD" and the index counter
+Not yet! -LGH.121 Include "Inköpspris (kr)" in email export (SV/EN), no calculation changes
 
 
+LGH.111 Create Hidden navigation button like the one for S13 Passcode button - DESIGN SPEC FINALIZED
+========================================
+**Purpose:** Toggle button to hide/show Sales Objects section for testing purposes (owned/controlled functionality).
 
-LGH.121 Include "Inköpspris (kr)" in email export (SV/EN), no calculation changes
+**Button Behavior:**
+- Style: Like S13 button (black background, no hover/tooltip, blank label)
+- Placement: Before S13 button
+- Always visible (never hides with section)
 
+**Toggle States (cycles):**
+1) Press 1 (odd) → Section HIDDEN
+   a) Hide Köp Objekt label
+   b) Hide URL textform & GURL, <<, >, >>, :), D1, DD buttons
+   c) Hide Index counter (n/n)
+   d) Hide Inköpspris (kr) label & textform
+   e) Hide Inköpspris (kr) in print output
+
+2) Press 2 (even) → Section SHOWN¨
+   a) Show Köp Objekt label
+   b) Show URL textform & GURL, <<, >, >>, :), D1, DD buttons
+   c) Show Index counter (n/n)
+   d) Show Inköpspris (kr) label & textform
+   e) Show Inköpspris (kr) in print output
+
+3) Press 3+ (odd again) → Cycles back to HIDDEN
+
+**Design Decisions (Confirmed):**
+- Initial state: HIDDEN on first page load (testing/private mode by default)
+- Toggle state persistence: STORED in localStorage (persists across page refresh)
+- Data retention: URL/prices REMAIN in localStorage when hidden (re-appear when toggled back on)
+- Print coupling: Print state tied to toggle state (hidden on screen = hidden in print)
+- Button visibility: Toggle button ALWAYS visible (needed to re-enable hidden section)
+
+**Rationale:**
+- Site owned/controlled by user for testing purposes
+- Hidden section reduces visual clutter while preserving data
+- localStorage keeps data safe for user's own browser
+- Persistent toggle state improves UX consistency
+
+Maybe - Check for double counts: LGH.123 GURL button upload the brooker url 2 times accordin to the counter - please check & correct
+Wait LGH.115 textform url load and the navigation buttons from "GURL" does not work on github
+Maybe / Lets see!
 
 ====================== ONGOING Below ==========================================
 
@@ -63,6 +124,25 @@ LGH.121 Include "Inköpspris (kr)" in email export (SV/EN), no calculation chang
 ====================== ONGOING Above ===========================================
 
 ========== COMPLETED BELOW ==========
+
+LGH.116 textform url load and the navigation buttons from "GURL" should reset the textform to empty,
+the text.form deault value is empty
+
+LGH.118 Label "Sales Objects" shall be changed "Sales Objects" react by EN Button
+LGH.119 Label "Köp Obj" shall be changed "Köp Objekt"  react by SV Button
+
+
+LGH.120 Label Mouseover effect over textform loadurl,
+show part of a specific URL, "https//hemnet...",
+there should be no Mouseover effect - URL form shall be reset...
+
+
+LGH.122 The navigation button "S13_passcode",
+shall have no Mouseover functionality at all LGH.121 Button GURL load same url twice or counter counts load twices,
+check that load is done correctly
+
+
+ LGH.122 The navigation button "S13_passcode" shall have no Mouseover functionality at all
 
 LGH.112 If there is no url loaded or if load fail by "GURL" then the message should not be "Hittade inget pris. 
 Ange manuellt." change to "Not Loaded"
@@ -225,12 +305,9 @@ LGH.23 Space, height between Skattesats (%) & Totalt avdrag (kr) need to be shor
 
 LGH.24 Space, height between S Totalt avdrag (kr) and Vinst före skatt (kr) and Skatt (kr) and Nettoresultat efter skatt (kr) rows need to be shorter, ask if you do not understansd
 
-LGH.12 Make textform height smaller - as suitable for mobile application
 LGH.14 Take away  Beräkningsdata
-LGH.13 Make space between  Vinstkalkylator vid försäljning av LGH & Försäljning smal shorter
 LGH.15 Change "Vinstkalkylator vid försäljning av LGH" to "Vinstkalkylator vid försäljning av LGH in SWE"
-LGH.17 Change "FÖRSÄLJNING" to "Försäljning"
-LGH.17 Change "ANSKAFFNINGSKOSTNADER" to "Anskaffningskostnader"
+
 LGH.18 Change Hur kan vi få översättnings knappen EN att fungera. Nu ändrar den bara på titeln...
 LGH.1 All Content to the Left & Top Alignment - Ask question if it is not clear
 LGH.5 Flytta Nummer form så att den är närmare Beräkningsdata Labels - Ask Question if it is not clear
