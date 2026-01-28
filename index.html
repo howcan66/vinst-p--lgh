@@ -1406,6 +1406,7 @@
         const container = document.getElementById('obj1-container');
         const stateLabel = document.getElementById('obj1-state');
         const header = document.getElementById('obj1-header');
+        const wrapper = header.closest('.input-group');
         
         console.log('updateObj1State called, obj1Visible:', obj1Visible);
         
@@ -1414,22 +1415,27 @@
             return;
         }
         
-        // Header is ALWAYS visible
-        header.style.display = 'flex !important';
-        
         if (obj1Visible) {
             console.log('Setting container to VISIBLE');
+            header.style.display = 'flex !important';
+            if (wrapper) wrapper.style.marginBottom = '8px !important';
             container.style.visibility = 'visible';
             container.style.display = 'block !important';
             container.style.height = 'auto !important';
             container.style.overflow = 'visible !important';
+            container.style.margin = '0 !important';
+            container.style.padding = '0 !important';
             stateLabel.textContent = 'Visible';
         } else {
             console.log('Setting container to HIDDEN');
+            header.style.display = 'none !important';
+            if (wrapper) wrapper.style.marginBottom = '0 !important';
             container.style.visibility = 'hidden';
             container.style.display = 'none !important';
             container.style.height = '0 !important';
             container.style.overflow = 'hidden !important';
+            container.style.margin = '0 !important';
+            container.style.padding = '0 !important';
             stateLabel.textContent = 'Hidden';
         }
     }
