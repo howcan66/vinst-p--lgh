@@ -1432,6 +1432,7 @@
             stateLabel.textContent = 'Visible';
             // Restore SÄLJ section normal spacing
             if (saljSection) {
+                console.log('Setting SÄLJ spacing to 8px (KÖP visible)');
                 saljSection.style.paddingTop = '8px';
                 saljSection.style.marginTop = '8px';
             }
@@ -1451,6 +1452,7 @@
             stateLabel.textContent = 'Hidden';
             // Remove SÄLJ section top spacing when KÖP is hidden
             if (saljSection) {
+                console.log('Setting SÄLJ spacing to 0 (KÖP hidden)');
                 saljSection.style.paddingTop = '0';
                 saljSection.style.marginTop = '0';
             }
