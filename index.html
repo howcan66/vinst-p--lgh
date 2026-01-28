@@ -1425,51 +1425,31 @@
             console.log('Setting container to VISIBLE');
             wrapper.style.display = 'block !important';
             wrapper.style.marginBottom = '8px !important';
-            wrapper.style.marginTop = '0 !important';
-            wrapper.style.paddingTop = '0 !important';
             header.style.display = 'flex !important';
             header.style.marginBottom = '6px';
-            header.style.paddingTop = '8px';
-            header.style.paddingBottom = '8px';
-            container.style.visibility = 'visible';
             container.style.display = 'block !important';
-            container.style.height = 'auto !important';
-            container.style.overflow = 'visible !important';
-            container.style.margin = '0 !important';
-            container.style.padding = '0 !important';
             stateLabel.textContent = 'Visible';
             // Hide the hidden trigger
             if (hiddenTrigger) hiddenTrigger.style.display = 'none';
             // Restore SÄLJ section normal spacing
             if (saljSection) {
-                console.log('Setting SÄLJ spacing to 8px (KÖP visible)');
                 saljSection.style.paddingTop = '8px';
                 saljSection.style.marginTop = '8px';
             }
         } else {
             console.log('Setting container to HIDDEN');
-            // Hide everything including wrapper and header
-            wrapper.style.display = 'none !important';
+            // Keep header visible but hide content
+            wrapper.style.display = 'block !important';
             wrapper.style.marginBottom = '0 !important';
-            wrapper.style.marginTop = '0 !important';
-            wrapper.style.paddingTop = '0 !important';
-            header.style.display = 'none !important';
+            header.style.display = 'flex !important';
             header.style.marginBottom = '0';
-            header.style.paddingTop = '0';
-            header.style.paddingBottom = '0';
-            // Hide only the content container
-            container.style.visibility = 'hidden';
+            // Hide the content
             container.style.display = 'none !important';
-            container.style.height = '0 !important';
-            container.style.overflow = 'hidden !important';
-            container.style.margin = '0 !important';
-            container.style.padding = '0 !important';
             stateLabel.textContent = 'Hidden';
-            // Show the hidden trigger
-            if (hiddenTrigger) hiddenTrigger.style.display = 'block';
-            // Remove SÄLJ section top spacing when KÖP is hidden
+            // Hide the hidden trigger since header is visible
+            if (hiddenTrigger) hiddenTrigger.style.display = 'none';
+            // Remove SÄLJ section top spacing
             if (saljSection) {
-                console.log('Setting SÄLJ spacing to 0 (KÖP hidden)');
                 saljSection.style.paddingTop = '0';
                 saljSection.style.marginTop = '0';
             }
