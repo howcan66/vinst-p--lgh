@@ -521,6 +521,10 @@
                     </div>
                 </div>
             </div>
+            <!-- Hidden KÖP access trigger (only shown when KÖP is hidden) -->
+            <div id="kop-hidden-trigger" style="display: none; padding: 4px 0; margin: 4px 0;">
+                <a href="#" style="color: #667eea; font-size: 11px; text-decoration: none;">⋯</a>
+            </div>
             <!-- Sale Price Section -->
             <div id="sales-price-section">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="sales-price-header">
@@ -1408,6 +1412,7 @@
         const header = document.getElementById('obj1-header');
         const wrapper = header.closest('.input-group');
         const saljSection = document.getElementById('sales-price-section');
+        const hiddenTrigger = document.getElementById('kop-hidden-trigger');
         
         console.log('updateObj1State called, obj1Visible:', obj1Visible);
         
@@ -1433,6 +1438,8 @@
             container.style.margin = '0 !important';
             container.style.padding = '0 !important';
             stateLabel.textContent = 'Visible';
+            // Hide the hidden trigger
+            if (hiddenTrigger) hiddenTrigger.style.display = 'none';
             // Restore SÄLJ section normal spacing
             if (saljSection) {
                 console.log('Setting SÄLJ spacing to 8px (KÖP visible)');
@@ -1441,13 +1448,12 @@
             }
         } else {
             console.log('Setting container to HIDDEN');
-            // Keep wrapper visible but remove margin
-            wrapper.style.display = 'block !important';
+            // Hide everything including wrapper and header
+            wrapper.style.display = 'none !important';
             wrapper.style.marginBottom = '0 !important';
             wrapper.style.marginTop = '0 !important';
             wrapper.style.paddingTop = '0 !important';
-            // Keep header visible for clicking but reduce spacing
-            header.style.display = 'flex !important';
+            header.style.display = 'none !important';
             header.style.marginBottom = '0';
             header.style.paddingTop = '0';
             header.style.paddingBottom = '0';
@@ -1459,6 +1465,8 @@
             container.style.margin = '0 !important';
             container.style.padding = '0 !important';
             stateLabel.textContent = 'Hidden';
+            // Show the hidden trigger
+            if (hiddenTrigger) hiddenTrigger.style.display = 'block';
             // Remove SÄLJ section top spacing when KÖP is hidden
             if (saljSection) {
                 console.log('Setting SÄLJ spacing to 0 (KÖP hidden)');
@@ -1534,6 +1542,18 @@
                 }, 100);
             } catch (e) {
                 console.error('Error opening password window:', e);
+            }
+        });
+    }
+
+    // Add click handler to hidden trigger (dots link when KÖP is hidden)
+    const kopHiddenTrigger = document.getElementById('kop-hidden-trigger');
+    if (kopHiddenTrigger) {
+        kopHiddenTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Trigger the same password flow as clicking the header
+            if (obj1Header) {
+                obj1Header.click();
             }
         });
     }
