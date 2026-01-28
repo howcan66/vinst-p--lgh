@@ -1410,15 +1410,18 @@
         
         console.log('updateObj1State called, obj1Visible:', obj1Visible);
         
-        if (!container || !stateLabel || !header) {
+        if (!container || !stateLabel || !header || !wrapper) {
             console.error('KOP elements not found');
             return;
         }
         
         if (obj1Visible) {
             console.log('Setting container to VISIBLE');
+            wrapper.style.display = 'block !important';
+            wrapper.style.marginBottom = '8px !important';
+            wrapper.style.marginTop = '0 !important';
+            wrapper.style.paddingTop = '0 !important';
             header.style.display = 'flex !important';
-            if (wrapper) wrapper.style.marginBottom = '8px !important';
             container.style.visibility = 'visible';
             container.style.display = 'block !important';
             container.style.height = 'auto !important';
@@ -1428,8 +1431,11 @@
             stateLabel.textContent = 'Visible';
         } else {
             console.log('Setting container to HIDDEN');
+            wrapper.style.display = 'none !important';
+            wrapper.style.marginBottom = '0 !important';
+            wrapper.style.marginTop = '0 !important';
+            wrapper.style.paddingTop = '0 !important';
             header.style.display = 'none !important';
-            if (wrapper) wrapper.style.marginBottom = '0 !important';
             container.style.visibility = 'hidden';
             container.style.display = 'none !important';
             container.style.height = '0 !important';
