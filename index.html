@@ -1419,13 +1419,17 @@
         
         if (obj1Visible) {
             console.log('Setting container to VISIBLE');
-            container.setAttribute('data-hidden', 'false');
+            container.style.visibility = 'visible';
             container.style.display = 'block !important';
+            container.style.height = 'auto !important';
+            container.style.overflow = 'visible !important';
             stateLabel.textContent = 'Visible';
         } else {
             console.log('Setting container to HIDDEN');
-            container.setAttribute('data-hidden', 'true');
+            container.style.visibility = 'hidden';
             container.style.display = 'none !important';
+            container.style.height = '0 !important';
+            container.style.overflow = 'hidden !important';
             stateLabel.textContent = 'Hidden';
         }
     }
