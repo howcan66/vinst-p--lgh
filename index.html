@@ -1438,11 +1438,14 @@
             }
         } else {
             console.log('Setting container to HIDDEN');
-            wrapper.style.display = 'none !important';
+            // Keep wrapper visible but remove margin
+            wrapper.style.display = 'block !important';
             wrapper.style.marginBottom = '0 !important';
             wrapper.style.marginTop = '0 !important';
             wrapper.style.paddingTop = '0 !important';
-            header.style.display = 'none !important';
+            // Keep header visible for clicking
+            header.style.display = 'flex !important';
+            // Hide only the content container
             container.style.visibility = 'hidden';
             container.style.display = 'none !important';
             container.style.height = '0 !important';
