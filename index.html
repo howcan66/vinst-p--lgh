@@ -1381,10 +1381,10 @@
         
         if (objInfoVisible) {
             container.style.display = 'block';
-            stateLabel.textContent = 'visible';
+            stateLabel.textContent = 'Visible';
         } else {
             container.style.display = 'none';
-            stateLabel.textContent = 'hidden';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
@@ -1421,12 +1421,12 @@
             console.log('Setting container to VISIBLE');
             container.setAttribute('data-hidden', 'false');
             container.style.display = 'block !important';
-            stateLabel.textContent = 'visible';
+            stateLabel.textContent = 'Visible';
         } else {
             console.log('Setting container to HIDDEN');
             container.setAttribute('data-hidden', 'true');
             container.style.display = 'none !important';
-            stateLabel.textContent = 'hidden';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
@@ -1439,19 +1439,38 @@
         obj1Header.addEventListener('click', function() {
             console.log('=== KOP header clicked ===');
             console.log('Current obj1Visible:', obj1Visible);
+            console.log('Current pathname:', window.location.pathname);
+            
             // Open small password-protected window
             const width = 400;
             const height = 300;
             const left = (screen.width - width) / 2;
             const top = (screen.height - height) / 2;
+            
             try {
                 // Determine the correct path for kop_password.html
-                const passwordUrl = window.location.pathname.includes('/vinst-p--lgh/') 
-                    ? '/vinst-p--lgh/kop_password.html' 
-                    : './kop_password.html';
+                let passwordUrl;
+                if (window.location.hostname === 'howcan66.github.io') {
+                    // GitHub Pages
+                    passwordUrl = '/vinst-p--lgh/kop_password.html';
+                } else if (window.location.protocol === 'file:') {
+                    // Local file
+                    passwordUrl = './kop_password.html';
+                } else {
+                    // Other servers
+                    passwordUrl = './kop_password.html';
+                }
                 
+                console.log('Opening password dialog with URL:', passwordUrl);
                 const passwordWindow = window.open(passwordUrl, 'KopAccess', `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no`);
-                console.log('Password window opened with URL:', passwordUrl);
+                
+                if (!passwordWindow) {
+                    console.error('Password window blocked by browser!');
+                    alert('Password dialog could not open. Please check browser popup settings.');
+                    return;
+                }
+                
+                console.log('Password window opened successfully');
                 // Check periodically if password was entered
                 const checkInterval = setInterval(function() {
                     const flagValue = localStorage.getItem('kopPasswordValid');
@@ -1490,10 +1509,10 @@
         
         if (salesPriceVisible) {
             container.style.display = 'block';
-            stateLabel.textContent = 'visible';
+            stateLabel.textContent = 'Visible';
         } else {
             container.style.display = 'none';
-            stateLabel.textContent = 'hidden';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
@@ -1516,10 +1535,10 @@
         
         if (resultsVisible) {
             container.style.display = 'block';
-            stateLabel.textContent = 'visible';
+            stateLabel.textContent = 'Visible';
         } else {
             container.style.display = 'none';
-            stateLabel.textContent = 'hidden';
+            stateLabel.textContent = 'Hidden';
         }
     }
     
