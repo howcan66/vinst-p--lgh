@@ -659,7 +659,7 @@
             obj1DeleteAll: 'Radera alla'
         },
         en: {
-            title: 'Apt. Sales Profit Calculator',
+            title: 'Apt. Sales Calculator',
             inputHeader: 'Calculation Data',
             resultHeader: 'RESULTS',
             refreshLink: 'Refresh page',
@@ -1407,6 +1407,7 @@
         const stateLabel = document.getElementById('obj1-state');
         const header = document.getElementById('obj1-header');
         const wrapper = header.closest('.input-group');
+        const saljSection = document.getElementById('sales-price-header')?.parentElement;
         
         console.log('updateObj1State called, obj1Visible:', obj1Visible);
         
@@ -1429,6 +1430,11 @@
             container.style.margin = '0 !important';
             container.style.padding = '0 !important';
             stateLabel.textContent = 'Visible';
+            // Restore SÄLJ section normal spacing
+            if (saljSection) {
+                saljSection.style.paddingTop = '8px';
+                saljSection.style.marginTop = '8px';
+            }
         } else {
             console.log('Setting container to HIDDEN');
             wrapper.style.display = 'none !important';
@@ -1443,6 +1449,11 @@
             container.style.margin = '0 !important';
             container.style.padding = '0 !important';
             stateLabel.textContent = 'Hidden';
+            // Remove SÄLJ section top spacing when KÖP is hidden
+            if (saljSection) {
+                saljSection.style.paddingTop = '0';
+                saljSection.style.marginTop = '0';
+            }
         }
     }
     
