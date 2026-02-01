@@ -1404,37 +1404,30 @@
 
     // Toggle Köp Objekt Information section visibility
     // KÖP section state management
-    let obj1Visible = localStorage.getItem('obj1Visible') === 'true'; // Load saved state
+    let obj1Visible = localStorage.getItem('obj1Visible') === 'true'; // Load saved state, default false
+    console.log('Initial obj1Visible:', obj1Visible);
     
     function updateObj1State() {
         const wrapper = document.getElementById('obj1-wrapper');
         const hiddenTrigger = document.getElementById('kop-hidden-trigger');
-        const saljSection = document.getElementById('sales-price-section');
         
-        console.log('updateObj1State called, obj1Visible:', obj1Visible);
+        console.log('updateObj1State called - obj1Visible:', obj1Visible);
+        console.log('Wrapper found:', !!wrapper);
+        console.log('HiddenTrigger found:', !!hiddenTrigger);
         
-        if (!wrapper) {
-            console.error('KOP wrapper not found');
+        if (!wrapper || !hiddenTrigger) {
+            console.error('KOP elements not found - wrapper:', !!wrapper, 'trigger:', !!hiddenTrigger);
             return;
         }
         
         if (obj1Visible) {
-            console.log('Setting KÖP wrapper to VISIBLE');
-            wrapper.style.display = 'block !important';
-            wrapper.style.marginBottom = '8px';
-            if (hiddenTrigger) hiddenTrigger.style.display = 'none';
-            if (saljSection) {
-                saljSection.style.paddingTop = '8px';
-                saljSection.style.marginTop = '8px';
-            }
+            console.log('🔓 Setting KÖP to VISIBLE');
+            wrapper.style.display = 'block';
+            hiddenTrigger.style.display = 'none';
         } else {
-            console.log('Setting KÖP wrapper to HIDDEN');
-            wrapper.style.display = 'none !important';
-            if (hiddenTrigger) hiddenTrigger.style.display = 'block';
-            if (saljSection) {
-                saljSection.style.paddingTop = '0';
-                saljSection.style.marginTop = '0';
-            }
+            console.log('🔒 Setting KÖP to HIDDEN');
+            wrapper.style.display = 'none';
+            hiddenTrigger.style.display = 'block';
         }
     }
     
@@ -1572,7 +1565,6 @@
             });
         });
     }
-
     // Add click handler to unlock link (when KÖP is hidden)
     const kopUnlockLink = document.getElementById('kop-unlock-link');
     if (kopUnlockLink) {
@@ -1581,12 +1573,6 @@
             console.log('Unlock link clicked');
             // Trigger the password dialog
             const obj1Header = document.getElementById('obj1-header');
-            if (obj1Header) {
-                obj1Header.click();
-            }
-        });
-    }
-            // Trigger the same password flow as clicking the header
             if (obj1Header) {
                 obj1Header.click();
             }
