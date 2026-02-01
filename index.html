@@ -1459,70 +1459,19 @@
     // Initialize state on page load
     updateObj1State();
     
-    // Add click handler to header - opens password protected window
+    // Add click handler to header - toggle KÖP visibility
     const obj1Header = document.getElementById('obj1-header');
     if (obj1Header) {
         obj1Header.addEventListener('click', function() {
             console.log('=== KOP header clicked ===');
             console.log('Current obj1Visible:', obj1Visible);
-            console.log('Current pathname:', window.location.pathname);
             
-            // Open small password-protected window
-            const width = 400;
-            const height = 300;
-            const left = (screen.width - width) / 2;
-            const top = (screen.height - height) / 2;
-            
-            try {
-                // Determine the correct path for kop_password.html
-                let passwordUrl;
-                if (window.location.hostname === 'howcan66.github.io') {
-                    // GitHub Pages
-                    passwordUrl = '/vinst-p--lgh/kop_password.html';
-                } else if (window.location.protocol === 'file:') {
-                    // Local file
-                    passwordUrl = './kop_password.html';
-                } else {
-                    // Other servers
-                    passwordUrl = './kop_password.html';
-                }
-                
-                console.log('Opening password dialog with URL:', passwordUrl);
-                const passwordWindow = window.open(passwordUrl, 'KopAccess', `width=${width},height=${height},left=${left},top=${top},resizable=no,scrollbars=no`);
-                
-                if (!passwordWindow) {
-                    console.error('Password window blocked by browser!');
-                    alert('Password dialog could not open. Please check browser popup settings.');
-                    return;
-                }
-                
-                console.log('Password window opened successfully');
-                // Check periodically if password was entered
-                const checkInterval = setInterval(function() {
-                    const flagValue = localStorage.getItem('kopPasswordValid');
-                    console.log('Checking... window.closed:', passwordWindow.closed, 'flag:', flagValue);
-                    
-                    if (passwordWindow.closed) {
-                        clearInterval(checkInterval);
-                        console.log('Window closed');
-                        // When password window closes, check if we should toggle
-                        if (flagValue === 'true') {
-                            console.log('Password was valid - TOGGLING KOP');
-                            obj1Visible = !obj1Visible;
-                            console.log('Set obj1Visible to:', obj1Visible);
-                            localStorage.setItem('obj1Visible', obj1Visible ? 'true' : 'false');
-                            console.log('Calling updateObj1State()');
-                            updateObj1State();
-                            console.log('Clearing flag');
-                            localStorage.removeItem('kopPasswordValid');
-                        } else {
-                            console.log('Password was NOT valid (flag was:', flagValue, ')');
-                        }
-                    }
-                }, 100);
-            } catch (e) {
-                console.error('Error opening password window:', e);
-            }
+            // Simple toggle - no password required
+            obj1Visible = !obj1Visible;
+            console.log('Set obj1Visible to:', obj1Visible);
+            localStorage.setItem('obj1Visible', obj1Visible ? 'true' : 'false');
+            console.log('Calling updateObj1State()');
+            updateObj1State();
         });
     }
 
