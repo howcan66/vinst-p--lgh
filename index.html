@@ -495,11 +495,11 @@
                 </div>
             </div>
 
-            <div class="input-group full" style="margin-bottom: 8px;">
+            <div class="input-group full" style="margin-bottom: 8px; display: none;" id="obj1-wrapper">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 8px 0;" id="obj1-header">
                     <span id="label-obj1">KÖP</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
-                    <span id="obj1-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Hidden</span>
+                    <span id="obj1-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
                 </div>
                 <div id="obj1-container">
                     <div style="display: flex; gap: 2px; align-items: center; flex-wrap: wrap;">
@@ -521,9 +521,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Hidden KÖP access trigger (only shown when KÖP is hidden) -->
-            <div id="kop-hidden-trigger" style="display: none; padding: 4px 0; margin: 4px 0;">
-                <a href="#" style="color: #667eea; font-size: 11px; text-decoration: none;">⋯</a>
+            <!-- Unlock KÖP trigger - shown when KÖP is hidden -->
+            <div id="kop-hidden-trigger" style="padding: 4px 0; margin: 4px 0; text-align: center;">
+                <a href="#" id="kop-unlock-link" style="color: #667eea; font-size: 13px; text-decoration: none; cursor: pointer;">🔒 Unlock KÖP Section</a>
             </div>
             <!-- Sale Price Section -->
             <div id="sales-price-section">
@@ -1404,52 +1404,33 @@
 
     // Toggle Köp Objekt Information section visibility
     // KÖP section state management
-    let obj1Visible = false; // Always start hidden - clear any previous state
-    localStorage.removeItem('obj1Visible'); // Clear saved state on page load
+    let obj1Visible = localStorage.getItem('obj1Visible') === 'true'; // Load saved state
     
     function updateObj1State() {
-        const container = document.getElementById('obj1-container');
-        const stateLabel = document.getElementById('obj1-state');
-        const header = document.getElementById('obj1-header');
-        const wrapper = header.closest('.input-group');
-        const saljSection = document.getElementById('sales-price-section');
+        const wrapper = document.getElementById('obj1-wrapper');
         const hiddenTrigger = document.getElementById('kop-hidden-trigger');
+        const saljSection = document.getElementById('sales-price-section');
         
         console.log('updateObj1State called, obj1Visible:', obj1Visible);
         
-        if (!container || !stateLabel || !header || !wrapper) {
-            console.error('KOP elements not found');
+        if (!wrapper) {
+            console.error('KOP wrapper not found');
             return;
         }
         
         if (obj1Visible) {
-            console.log('Setting container to VISIBLE');
+            console.log('Setting KÖP wrapper to VISIBLE');
             wrapper.style.display = 'block !important';
-            wrapper.style.marginBottom = '8px !important';
-            header.style.display = 'flex !important';
-            header.style.marginBottom = '6px';
-            container.style.display = 'block !important';
-            stateLabel.textContent = 'Visible';
-            // Hide the hidden trigger
+            wrapper.style.marginBottom = '8px';
             if (hiddenTrigger) hiddenTrigger.style.display = 'none';
-            // Restore SÄLJ section normal spacing
             if (saljSection) {
                 saljSection.style.paddingTop = '8px';
                 saljSection.style.marginTop = '8px';
             }
         } else {
-            console.log('Setting container to HIDDEN');
-            // Keep header visible but hide content
-            wrapper.style.display = 'block !important';
-            wrapper.style.marginBottom = '0 !important';
-            header.style.display = 'flex !important';
-            header.style.marginBottom = '0';
-            // Hide the content
-            container.style.display = 'none !important';
-            stateLabel.textContent = 'Hidden';
-            // Hide the hidden trigger since header is visible
-            if (hiddenTrigger) hiddenTrigger.style.display = 'none';
-            // Remove SÄLJ section top spacing
+            console.log('Setting KÖP wrapper to HIDDEN');
+            wrapper.style.display = 'none !important';
+            if (hiddenTrigger) hiddenTrigger.style.display = 'block';
             if (saljSection) {
                 saljSection.style.paddingTop = '0';
                 saljSection.style.marginTop = '0';
@@ -1457,10 +1438,10 @@
         }
     }
     
-    // Initialize state on page load
+    // Initialize KÖP state on page load
     updateObj1State();
     
-    // Add click handler to header - opens password protected dialog
+    // Add click handler to KÖP header - opens password dialog
     const obj1Header = document.getElementById('obj1-header');
     if (obj1Header) {
         obj1Header.addEventListener('click', function(e) {
@@ -1592,11 +1573,19 @@
         });
     }
 
-    // Add click handler to hidden trigger (dots link when KÖP is hidden)
-    const kopHiddenTrigger = document.getElementById('kop-hidden-trigger');
-    if (kopHiddenTrigger) {
-        kopHiddenTrigger.addEventListener('click', function(e) {
+    // Add click handler to unlock link (when KÖP is hidden)
+    const kopUnlockLink = document.getElementById('kop-unlock-link');
+    if (kopUnlockLink) {
+        kopUnlockLink.addEventListener('click', function(e) {
             e.preventDefault();
+            console.log('Unlock link clicked');
+            // Trigger the password dialog
+            const obj1Header = document.getElementById('obj1-header');
+            if (obj1Header) {
+                obj1Header.click();
+            }
+        });
+    }
             // Trigger the same password flow as clicking the header
             if (obj1Header) {
                 obj1Header.click();
