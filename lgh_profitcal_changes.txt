@@ -44,21 +44,26 @@ LGH.210 change "Övriga avdragsgilla (kr)" to "Övriga avdragsgilla kostnader (k
 LGH.211 change "Skatt (kr & 22%)" to "Skatt 22% (kr)"
 LGH.212 change "Vinst efter avdrag för lån (kr)" to "Vinst efter avdrag (kr)"
 
-
-Slutlikvid (kr)
 LGH.213: Include "Slutlikvid (kr)" in email export (SV/EN)
 
 
-Vinst efter avdrag för lån (kr)
-Skatt (kr & 22%)
+LGH.220 Change name "Kalkylator Försäljning LGH" to "LGH Kalkylator mm."
 
 
-Tax (SEK & 22%)
-Övriga avdragsgilla (kr)
+─── OBJEKT INFORMATION ───
+
+LGH.221 Change name "─── OBJEKT INFORMATION ───" to "─── GENERAL INFORMATION ───"
 
 a) Buyers Down Payment (10%) and Estate Agent: calculation: (Sale Price (SEK)) * 0,1 + Broker fee
 Sale Price (SEK) - ( Sales Price (SEK) * 0,1 - Broker Fee (SEK)
 Total Payment, Including Down payment, Calculate,
+
+LGH.222 IF the row KÖP
+Visible
+Is presed then open.blank small window open with a password dialog,
+password is s13 or S13 all other password attempt redirect back to previos page
+
+LGH.223 IF the row KÖP and its data has no values it shall not be includeed in e-mail/print output
 
 
 
