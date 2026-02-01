@@ -1404,9 +1404,7 @@
 
     // Toggle Köp Objekt Information section visibility
     // KÖP section state management
-    // Always default to hidden - clear any previous localStorage value
-    localStorage.removeItem('obj1Visible');
-    let obj1Visible = false; // Always start hidden
+    let obj1Visible = localStorage.getItem('obj1Visible') === 'true'; // Load saved state or default to false (hidden)
     
     function updateObj1State() {
         const container = document.getElementById('obj1-container');
