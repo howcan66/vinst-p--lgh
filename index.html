@@ -1459,19 +1459,135 @@
     // Initialize state on page load
     updateObj1State();
     
-    // Add click handler to header - toggle KÖP visibility
+    // Add click handler to header - opens password protected dialog
     const obj1Header = document.getElementById('obj1-header');
     if (obj1Header) {
-        obj1Header.addEventListener('click', function() {
-            console.log('=== KOP header clicked ===');
-            console.log('Current obj1Visible:', obj1Visible);
+        obj1Header.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('=== KOP header clicked - showing password dialog ===');
             
-            // Simple toggle - no password required
-            obj1Visible = !obj1Visible;
-            console.log('Set obj1Visible to:', obj1Visible);
-            localStorage.setItem('obj1Visible', obj1Visible ? 'true' : 'false');
-            console.log('Calling updateObj1State()');
-            updateObj1State();
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            `;
+            
+            const dialog = document.createElement('div');
+            dialog.style.cssText = `
+                background: #1a1a1a;
+                border-radius: 12px;
+                padding: 30px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                max-width: 350px;
+                width: 100%;
+            `;
+            
+            dialog.innerHTML = `
+                <h2 style="color: #fff; margin-bottom: 20px; text-align: center; font-size: 18px;">KÖP Access</h2>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; color: #999; font-size: 12px; margin-bottom: 6px;">Username</label>
+                    <input type="text" id="kop-username" placeholder="Username" style="
+                        width: 100%;
+                        padding: 10px;
+                        background: #2a2a2a;
+                        border: 1px solid #444;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-size: 14px;
+                        outline: none;
+                        box-sizing: border-box;
+                    ">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; color: #999; font-size: 12px; margin-bottom: 6px;">Password</label>
+                    <input type="password" id="kop-password" placeholder="Password" style="
+                        width: 100%;
+                        padding: 10px;
+                        background: #2a2a2a;
+                        border: 1px solid #444;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-size: 14px;
+                        outline: none;
+                        box-sizing: border-box;
+                    ">
+                </div>
+                <div id="kop-error" style="color: #ff6b6b; font-size: 12px; margin-bottom: 15px; display: none; text-align: center;"></div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="kop-cancel" style="
+                        flex: 1;
+                        padding: 10px;
+                        background: #2a2a2a;
+                        border: 1px solid #444;
+                        border-radius: 6px;
+                        color: #999;
+                        font-size: 14px;
+                        cursor: pointer;
+                    ">Cancel</button>
+                    <button id="kop-submit" style="
+                        flex: 1;
+                        padding: 10px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        border: none;
+                        border-radius: 6px;
+                        color: #fff;
+                        font-size: 14px;
+                        cursor: pointer;
+                    ">Submit</button>
+                </div>
+            `;
+            
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+            
+            const usernameInput = dialog.querySelector('#kop-username');
+            const passwordInput = dialog.querySelector('#kop-password');
+            const errorDiv = dialog.querySelector('#kop-error');
+            const cancelBtn = dialog.querySelector('#kop-cancel');
+            const submitBtn = dialog.querySelector('#kop-submit');
+            
+            usernameInput.focus();
+            
+            function checkCredentials() {
+                const username = usernameInput.value.trim();
+                const password = passwordInput.value.trim();
+                
+                console.log('Checking credentials - username:', username, 'password:', password);
+                
+                if (username === 's13' && password === 's13') {
+                    console.log('Credentials valid - toggling KÖP');
+                    obj1Visible = !obj1Visible;
+                    localStorage.setItem('obj1Visible', obj1Visible ? 'true' : 'false');
+                    updateObj1State();
+                    overlay.remove();
+                } else {
+                    errorDiv.textContent = 'Invalid username or password';
+                    errorDiv.style.display = 'block';
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }
+            
+            submitBtn.addEventListener('click', checkCredentials);
+            cancelBtn.addEventListener('click', () => overlay.remove());
+            
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') checkCredentials();
+            });
+            
+            usernameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') passwordInput.focus();
+            });
         });
     }
 
