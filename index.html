@@ -612,6 +612,10 @@
                 <div class="output-label" id="label-slutlikvid" data-tooltip="Försäljningspris - Mäklararvode - Lån">Slutlikvid (kr)</div>
                 <div class="output-value" id="result-slutlikvid">–</div>
             </div>
+            <div class="output-row">
+                <div class="output-label" id="label-finans-netto">Finans Netto (kr)</div>
+                <div class="output-value" id="result-finans-netto">–</div>
+            </div>
         </div>
     </div>
 
@@ -828,6 +832,9 @@
         // slutlikvid: Total Final Payment = Försäljningspris - Mäklararvode - Lån
         const slutlikvid = inputs.forsaljningspris - inputs.maklararvode - inputs.lan;
 
+        // finans-netto: Finans Netto = Slutlikvid - Skatt PA
+        const finansNetto = slutlikvid - calc3;
+
         // Update UI
         document.getElementById('result-calc1').textContent = formatSEK(calc1);
         document.getElementById('result-calc2').textContent = formatSEK(calc2);
@@ -835,6 +842,7 @@
         document.getElementById('result-calc4').textContent = formatSEK(calc4);
         document.getElementById('result-calc5').textContent = formatSEK(calc5);
         document.getElementById('result-slutlikvid').textContent = formatSEK(slutlikvid);
+        document.getElementById('result-finans-netto').textContent = formatSEK(finansNetto);
     }
 
     // Update language
