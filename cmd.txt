@@ -1,0 +1,441 @@
+================================================================================
+LGH VINSTKALKYLATOR - COMMAND REFERENCE & INSTRUCTIONS
+================================================================================
+Date: 2026-02-02
+Version: 1.0
+Purpose: Quick reference for commands and instructions between User and AI
+
+================================================================================
+USER COMMANDS TO AI
+================================================================================
+
+PA = Please Analyse
+  → Analyse and present findings
+  → If small change: suggest to change directly
+  → If large change: suggest to add it to improvements file
+  → Do NOT implement without asking
+  Use when: Want analysis of an issue or feature without automatic changes
+  Example: "PA the KÖP password system" → AI analyzes and reports findings
+
+PA? = Please Analyse and provide options
+  → Same as PA but include multiple solution options
+  Use when: Want to see different approaches before deciding
+
+DO = Do it / Implement now
+  → Proceed with change immediately
+  → Only use after agreement on approach
+  Use when: Ready to execute previously discussed changes
+
+FIX = Quick fix / Implement immediately
+  → Used for small bugs or obvious corrections
+  → AI will implement and publish directly
+  Use when: Clear, small issue that needs fixing now
+
+PUBLISH = Commit and push to GitHub
+  → Publish all staged changes
+  Use when: Ready to make changes live
+
+UNDO = Revert last change
+  → Roll back to previous version
+  Use when: Made mistake or want to try different approach
+
+TEST = Test functionality
+  → Test specific feature on current version
+  Use when: Want to verify something works
+
+================================================================================
+GIT COMMANDS (Terminal Operations)
+================================================================================
+
+git status
+  → Check current changes, staged files, branch status
+  Use when: Before committing to see what changed
+
+git add .
+  → Stage all changed files for commit
+  Use when: Ready to commit all changes
+
+git add index.html
+  → Stage specific file only
+  Use when: Want to commit only one file
+
+git commit -m "Message"
+  → Commit staged changes with message
+  Use when: After git add, ready to save changes
+  Example: git commit -m "Add Finans Netto calculation"
+
+git push
+  → Push commits to GitHub
+  Use when: Ready to publish changes to live site
+
+git log --oneline -10
+  → Show last 10 commits
+  Use when: Want to see recent changes history
+
+git diff
+  → Show what changed in unstaged files
+  Use when: Need to see exact changes before staging
+
+git reset HEAD~1
+  → Undo last commit (keep changes)
+  Use when: Made mistake in last commit
+
+================================================================================
+FILE OPERATIONS (Terminal)
+================================================================================
+
+Get-Content "path\file.txt"
+  → Read file contents in terminal
+  Use when: Quick preview of .txt files
+
+Get-ChildItem -Path "path" -File
+  → List all files in directory
+  Use when: See what files exist in repo
+
+Copy-Item "source" "destination"
+  → Copy file or folder
+  Use when: Backup or duplicate files
+
+Rename-Item "oldname" "newname"
+  → Rename file
+  Use when: Change file names
+
+================================================================================
+HTML/CSS/JAVASCRIPT EDITING INSTRUCTIONS
+================================================================================
+
+ADD NEW ROW/SECTION
+  1. Find location in HTML (use grep to search)
+  2. Identify the structure (look at surrounding rows)
+  3. Copy similar row and modify
+  4. Update label IDs and field IDs
+  5. Add calculation in JavaScript if needed
+  6. Commit and push
+
+CHANGE LABEL TEXT
+  1. Search for current text: grep_search with old text
+  2. Note the line numbers and context
+  3. Use replace_string_in_file with 3-5 lines context before/after
+  4. Commit and push
+
+ADD TOGGLE/BUTTON
+  1. Add button in HTML header with unique ID
+  2. Add event listener in JavaScript
+  3. Link to corresponding state variable
+  4. Update CSS if needed for styling
+  5. Commit and push
+
+CHANGE CALCULATION
+  1. Find the calculation in JavaScript
+  2. Identify inputs and formula
+  3. Update formula with new calculation
+  4. Update UI element that displays result
+  5. Test with sample values
+  6. Commit and push
+
+================================================================================
+COMMON USER REQUESTS & HOW TO DESCRIBE THEM
+================================================================================
+
+1. ADD A NEW FIELD/ROW
+   User says: "Add a row after [field name] with label [text] and calculation [formula]"
+   AI will: Find location → Add HTML → Add JavaScript calculation → Publish
+
+2. CHANGE A LABEL
+   User says: "Change [old label] to [new label]"
+   AI will: Search → Replace text → Publish
+
+3. HIDE/SHOW SECTION
+   User says: "Hide [section name] by default" or "Add toggle for [section]"
+   AI will: Find section → Add state management → Add toggle button → Publish
+
+4. PASSWORD PROTECT SECTION
+   User says: "Add password to [section] with username [X] and password [Y]"
+   AI will: Create password dialog → Add state management → Publish
+
+5. FIX BUG
+   User says: "The [feature] is not working correctly because [description]"
+   AI will: Find code → Analyze issue → Fix → Test → Publish
+
+6. ADD CALCULATION
+   User says: "Add calculation: [description] = [formula]"
+   AI will: Find inputs → Add calculation → Add output display → Publish
+
+7. CHANGE STYLING
+   User says: "Make [element] [bigger/smaller/different color]"
+   AI will: Find CSS → Modify style → Test → Publish
+
+================================================================================
+FILE LOCATIONS & STRUCTURE
+================================================================================
+
+Repository Root: c:\Git\vinst-p--lgh\
+
+Key Files:
+  index.html
+    → Main calculator page (all HTML/CSS/JavaScript in one file)
+    → Contains: Header, Input card, Result card, Language support, Calculations
+    → Size: ~1670 lines
+
+  kop_password.html
+    → Password dialog for KÖP section access
+    → Separate file, opens in popup window
+
+  S13.Passcode.html
+    → Secret admin page (link in header)
+
+  CoolPortals.PNG
+    → Favicon and branding image
+
+  README.md
+    → Project documentation
+
+  *.txt files
+    → lgh_profitcal__instr.txt (original spec)
+    → lgh_profitcal_changes.txt (feature tracker)
+    → stepbystep_test.txt (test plan)
+    → web_application_launch_improvements.txt (improvement guide)
+    → cmd.txt (this file - command reference)
+
+================================================================================
+COMMON LINE NUMBER RANGES IN index.html
+================================================================================
+
+HTML Structure (Approximate):
+  1-50       Meta tags, CSS imports, styling
+  51-100     CSS styles (dark theme, layout)
+  100-200    More CSS (cards, inputs, buttons)
+  200-300    More CSS (responsive, media queries)
+  300-500    Header and navigation buttons
+  500-650    Input card (Beräkningsdata)
+  650-700    Result card (Resultat)
+  700+       JavaScript begins
+
+JavaScript Sections:
+  ~620       Translation strings (Swedish/English)
+  ~800       Calculation functions
+  ~830       Main calculate() function
+  ~1000      Language switching
+  ~1200      Print/Email functionality
+  ~1350      Sales Objects toggle
+  ~1400      KÖP section management
+  ~1500      Allmänt section management
+  ~1600      Event listeners for buttons
+
+================================================================================
+KEYBOARD SHORTCUTS IN DEVELOPMENT
+================================================================================
+
+Ctrl+F5        → Hard refresh browser (clear cache)
+F12            → Open developer console (check for errors)
+Ctrl+Shift+M   → Toggle mobile device view in browser
+Ctrl+L         → Select address bar
+Ctrl+Z         → Undo in editor
+Ctrl+Shift+Z   → Redo in editor
+
+================================================================================
+LANGUAGE SUPPORT (Bilingual)
+================================================================================
+
+Swedish (SV) - Default
+  Language code: 'sv'
+  Button: SV (top right)
+
+English (EN)
+  Language code: 'en'
+  Button: EN (top right)
+
+Translation strings stored in: translations object (line ~620)
+  translations.sv = { ... }
+  translations.en = { ... }
+
+To add new translatable text:
+  1. Add key-value pair to both translations.sv and translations.en
+  2. Add element with id="label-[key]" in HTML
+  3. Update in setLanguage() function if special handling needed
+
+================================================================================
+STATE MANAGEMENT (localStorage)
+================================================================================
+
+Data saved to browser localStorage:
+  
+  objInfoVisible        → Show/hide Allmänt section
+  resultsVisible        → Show/hide Results section
+  obj1Visible           → Show/hide KÖP section
+  salesPriceVisible     → Show/hide SÄLJ section
+  
+  salesObjects          → Array of URLs and prices
+  currentObjectIndex    → Which object is currently selected
+  
+  [input field values]  → Auto-saved when user types
+
+To test localStorage in browser console:
+  localStorage.getItem('objInfoVisible')  → Check current value
+  localStorage.setItem('key', 'value')    → Set value
+  localStorage.removeItem('key')          → Delete value
+  localStorage.clear()                    → Clear all data
+
+================================================================================
+TESTING QUICK CHECKLIST
+================================================================================
+
+After every change:
+  ☐ Hard refresh browser (Ctrl+F5)
+  ☐ Check console for errors (F12)
+  ☐ Test on mobile view (Ctrl+Shift+M)
+  ☐ Switch language (SV ↔ EN)
+  ☐ Test relevant buttons/fields
+  ☐ Verify calculations work
+  ☐ Check localStorage persistence (refresh page, values remain)
+
+Before committing:
+  ☐ All changes tested
+  ☐ No console errors
+  ☐ Responsive on mobile
+  ☐ Language toggle works
+  ☐ Related features not broken
+
+================================================================================
+COMMON QUESTIONS & ANSWERS
+================================================================================
+
+Q: How do I add a new field to the calculator?
+A: grep_search for similar field → read_file to see structure → 
+   replace_string_in_file to add new field + calculation → publish
+
+Q: How do I change a label from Swedish only to bilingual?
+A: Add to translations.sv and translations.en → Add element with id="label-[key]"
+   → Update setLanguage() function if needed
+
+Q: How do I test the app locally?
+A: Open c:\Git\vinst-p--lgh\index.html in browser (double-click or drag to browser)
+
+Q: How do I see what changed on GitHub?
+A: Visit https://github.com/howcan66/vinst-p--lgh/commits to see commit history
+
+Q: How do I undo a change I pushed?
+A: git revert [commit-hash] or git reset --hard HEAD~1 (ask AI for help)
+
+Q: What if I accidentally deleted something?
+A: git checkout HEAD -- [filename] to restore from last commit
+
+Q: How do I test on real iPhone?
+A: Use ngrok to tunnel localhost to public URL, then open on iPhone
+
+Q: Can I test password functionality locally?
+A: Yes, password dialog works same way locally as on GitHub Pages
+
+================================================================================
+PUBLISHING WORKFLOW
+================================================================================
+
+1. Make changes to index.html (or other files)
+2. Test locally (Ctrl+F5, F12, mobile view)
+3. Commit changes:
+   git add index.html
+   git commit -m "Descriptive message"
+   git push
+4. Hard refresh GitHub Pages (Ctrl+F5)
+5. Verify changes live at https://howcan66.github.io/vinst-p--lgh/
+
+Time to publish: Usually 1-3 minutes after git push
+
+================================================================================
+USEFUL GREP SEARCH PATTERNS
+================================================================================
+
+Search for text: grep_search for exact phrase
+Search for calculations: grep_search for "const " or "= inputs."
+Search for translations: grep_search for "labelXxx" or translations object
+Search for event listeners: grep_search for "addEventListener"
+Search for CSS classes: grep_search for "class="
+Search for IDs: grep_search for "id="
+
+================================================================================
+BEST PRACTICES
+================================================================================
+
+✓ DO:
+  - Keep related changes in one commit
+  - Write descriptive commit messages
+  - Test before pushing
+  - Check for console errors
+  - Test on mobile view
+  - Keep CSS organized in one place
+  - Use meaningful variable/ID names
+  - Add comments for complex logic
+
+✗ DON'T:
+  - Commit broken code
+  - Push without testing
+  - Mix unrelated changes in one commit
+  - Remove features without asking
+  - Change translations without updating both SV and EN
+  - Hardcode values (use localStorage when appropriate)
+  - Forget to update labels for new fields
+
+================================================================================
+GETTING HELP
+================================================================================
+
+If something is unclear:
+  → Ask AI with specific details
+  → Describe what you want to happen
+  → Show example/reference if possible
+  → Mention line numbers if relevant
+  → Use PA command to get analysis before deciding
+
+Example good request:
+  "Add a new row after 'Slutlikvid (kr)' called 'Finans Netto (kr)' 
+   with calculation = Slutlikvid - Skatt PA"
+
+Example PA request:
+  "PA the toggle button for Allmänt section - is it working correctly?"
+
+Example unclear request:
+  "Fix the thing"
+  "Make it better"
+  "Change something"
+
+================================================================================
+REFERENCE URLS
+================================================================================
+
+GitHub Repository:
+  https://github.com/howcan66/vinst-p--lgh
+
+Live Calculator:
+  https://howcan66.github.io/vinst-p--lgh/
+
+GitHub Commits/History:
+  https://github.com/howcan66/vinst-p--lgh/commits/main
+
+Local Testing:
+  file:///c:/Git/vinst-p--lgh/index.html
+
+================================================================================
+SUPPORT CONTACT
+================================================================================
+
+Questions or issues:
+  Email: coolportals@hotmail.com
+  GitHub Issues: https://github.com/howcan66/vinst-p--lgh/issues
+
+For AI Assistant:
+  Describe: What you want to do
+  Provide: Line numbers or search terms if relevant
+  Ask: Questions about implementation
+  Use PA: For analysis before making changes
+
+================================================================================
+END OF COMMAND REFERENCE
+================================================================================
+
+Document Version: 1.0
+Last Updated: 2026-02-02
+Maintained by: CoolPortals / AI Assistant
+
+For updates to this guide, contact: coolportals@hotmail.com
+
+================================================================================
