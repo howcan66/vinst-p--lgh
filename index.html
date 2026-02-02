@@ -448,6 +448,7 @@
         <div style="display: flex; align-items: center; gap: 4px;">
             <button type="button" class="lang-btn secret-btn" id="sales-objects-toggle" aria-label="Toggle Sales Objects"></button>
             <a href="S13.Passcode.html" target="_blank" class="lang-btn secret-btn" aria-label="Secret access">S13</a>
+            <button class="lang-btn" id="toggle-results-btn" aria-label="Toggle results" data-tooltip="Questions">❓</button>
             <button class="lang-btn" id="refresh-btn" onclick="location.reload()" aria-label="Refresh page" data-tooltip="Refresh">🔄</button>
             <button class="lang-btn active" data-lang="sv" aria-label="Swedish language" data-tooltip="Swedish">SV</button>
             <button class="lang-btn" data-lang="en" aria-label="English language" data-tooltip="English">EN</button>
@@ -585,7 +586,7 @@
         <div style="padding-top: 8px; padding-bottom: 8px; padding-left: 0; padding-right: 0; color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="results-header">
             <span id="label-results-info">RESULTAT</span>
             <div style="flex: 1; border-bottom: 1px solid #999;"></div>
-            <span id="results-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
+            <span id="results-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Hidden</span>
         </div>
         <div class="card-body" id="results-container" style="padding: 0 0 12px 0;">
             <div class="output-row">
@@ -1614,7 +1615,7 @@
     });
 
     // Toggle Results section visibility
-    let resultsVisible = localStorage.getItem('resultsVisible') !== 'false'; // Default to true/visible
+    let resultsVisible = localStorage.getItem('resultsVisible') === 'true'; // Default to false/hidden
     
     function updateResultsState() {
         const container = document.getElementById('results-container');
@@ -1634,6 +1635,13 @@
     
     // Add click handler to header
     document.getElementById('results-header').addEventListener('click', function() {
+        resultsVisible = !resultsVisible;
+        localStorage.setItem('resultsVisible', resultsVisible);
+        updateResultsState();
+    });
+
+    // Add click handler to toggle button
+    document.getElementById('toggle-results-btn').addEventListener('click', function() {
         resultsVisible = !resultsVisible;
         localStorage.setItem('resultsVisible', resultsVisible);
         updateResultsState();
