@@ -463,11 +463,11 @@
         <div class="card-header" id="input-header">Beräkningsdata</div>
         <div class="card-body">
             <!-- Object Information Section -->
-            <div style="padding-top: 8px; padding-bottom: 8px; margin-bottom: 8px;">
+            <div style="padding-top: 8px; padding-bottom: 8px; margin-bottom: 8px;" id="obj-info-wrapper">
                 <div style="color: #999; font-size: 13px; font-weight: bold; margin-bottom: 6px; display: flex; align-items: center; gap: 12px; cursor: pointer;" id="obj-info-header">
                     <span id="label-obj-info">ALLMÄNT</span>
                     <div style="flex: 1; border-bottom: 1px solid #999;"></div>
-                    <span id="obj-info-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Visible</span>
+                    <span id="obj-info-state" style="color: #667eea; font-size: 12px; min-width: 50px; text-align: right;">Hidden</span>
                 </div>
                 <div id="obj-info-container">
                     <div class="input-group">
@@ -1386,7 +1386,7 @@
     });
 
     // Toggle ALLMÄN INFORMATION section visibility
-    let objInfoVisible = localStorage.getItem('objInfoVisible') !== 'false'; // Default to true/visible
+    let objInfoVisible = localStorage.getItem('objInfoVisible') === 'true'; // Default to false/hidden
     
     function updateObjInfoState() {
         const container = document.getElementById('obj-info-container');
@@ -1640,11 +1640,14 @@
         updateResultsState();
     });
 
-    // Add click handler to toggle button
+    // Add click handler to toggle button - controls both Allmänt and Results
     document.getElementById('toggle-results-btn').addEventListener('click', function() {
         resultsVisible = !resultsVisible;
+        objInfoVisible = !objInfoVisible;
         localStorage.setItem('resultsVisible', resultsVisible);
+        localStorage.setItem('objInfoVisible', objInfoVisible);
         updateResultsState();
+        updateObjInfoState();
     });
 
     // Add event listeners for object information fields
