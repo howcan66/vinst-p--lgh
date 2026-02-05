@@ -1,0 +1,31 @@
+============================================================
+FÖRSÄLJNINGSBESKRIVNING - LÄGENHET
+============================================================
+
+FASTIGHETSINFORMATION:
+  Adress: Storgatan 15, 2tr, 123 45 Stockholm
+  Storlek: 62.5 m²
+  Antal rum: 2
+  Våning: 2
+  Månadskostnad: 3,850 SEK
+
+BESKRIVNING:
+  Charmig 2:a med balkong i söderläge. Renoverad med nya golv och fräscht kök.
+
+EKONOMISK INFORMATION:
+  Köpdatum: 2020-03-15
+  Köpeskilling: 2,500,000 SEK
+  Försäljningsdatum: 2024-11-20
+  Försäljningspris: 3,200,000 SEK
+
+KOSTNADER:
+  Mäklarprovision (2.0%): 64,000 SEK
+  Renoveringskostnader: 150,000 SEK
+
+VINSTBERÄKNING:
+  Bruttovinst: 700,000 SEK
+  Nettovinst: 486,000 SEK
+  Ägandets längd: 4.7 år
+  Årlig avkastning: 4.14%
+
+============================================================
